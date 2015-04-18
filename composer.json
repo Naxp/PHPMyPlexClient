@@ -1,0 +1,20 @@
+{
+    "name": "cheezykins/phpmyplexclient",
+    "description": "A PHP client library for accessing myPlex and Plex Media Centre metadata.",
+    "require": {
+        "cheezykins/logular": "@dev"
+    },
+	"autoload": {
+		"psr-0": {
+			"PHPMyPlex": "src/"
+		}
+	},
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Stretton",
+            "email": "cstretton@gmail.com"
+        }
+    ],
+    "minimum-stability": "stable"
+}

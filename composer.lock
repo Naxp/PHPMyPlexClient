@@ -1,0 +1,58 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "434c10fdea2c16b8dfe719ab350361d6",
+    "packages": [
+        {
+            "name": "cheezykins/logular",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Cheezykins/Logular.git",
+                "reference": "70cc84a059fe1d35fd9bd5c6234dcecb4c9bda7a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Cheezykins/Logular/zipball/70cc84a059fe1d35fd9bd5c6234dcecb4c9bda7a",
+                "reference": "70cc84a059fe1d35fd9bd5c6234dcecb4c9bda7a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Logular": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Chris Stretton",
+                    "email": "cstretton@gmail.com"
+                }
+            ],
+            "description": "An extensible and modular PHP logging framework",
+            "time": "2015-04-18 17:47:42"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "cheezykins/logular": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=5.4.0"
+    },
+    "platform-dev": []
+}
