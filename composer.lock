@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "434c10fdea2c16b8dfe719ab350361d6",
+    "hash": "5288ba67651bcd672920c47d263c2459",
     "packages": [
         {
             "name": "cheezykins/logular",
@@ -51,8 +51,6 @@
     },
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "php": ">=5.4.0"
-    },
+    "platform": [],
     "platform-dev": []
 }
