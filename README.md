@@ -18,7 +18,11 @@ printf("Server %s at %s", $myServer->name, $myServer->getURL());
 // Get all sections (Libraries) within the Plex Server
 $sections = $myServer->getSections();
 // Get all items in the Movies library.
-$section = $myServer->getSection($sections['Movies'], DirectoryViews\MovieDirectoryView::ALL);
+$library = $myServer->getSection($sections['Movies'], DirectoryViews\MovieDirectoryView::ALL);
+$movies = $library->children();
+foreach ($movies as $movie) {
+  echo $movie->title;
+}
 ```
 
 **Installation**
