@@ -25,7 +25,7 @@
 namespace PHPMyPlex\Exceptions;
 
 /**
- * Description of MyPlexDataException
+ * Used for handling issues raised when working with Plex data.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
