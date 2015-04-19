@@ -66,8 +66,8 @@ class Request
 
     public function setHeader($header, $value)
     {
-        if (substr($header, 0, 7) != 'X-Plex-') {
-            $header = 'X-Plex-' . ucfirst(preg_replace('/([A-Z])/', '-$0', $header));
+        if (\substr($header, 0, 7) != 'X-Plex-') {
+            $header = 'X-Plex-' . \ucfirst(\preg_replace('/([A-Z])/', '-$0', $header));
         }
         $this->headers[$header] = $value;
         $this->template->addHeader($header, $value);

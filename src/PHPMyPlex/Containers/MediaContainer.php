@@ -49,7 +49,7 @@ class MediaContainer
         if ($this->xml->count() > 0) {
             foreach ($this->xml->children() as $child) {
                 $name = __NAMESPACE__ . '\\' . $child->getName();
-                if (class_exists($name)) {
+                if (\class_exists($name)) {
                     $children[] = new $name($child);
                 } else {
                     throw new Exceptions\MyPlexDataException("No handler exists for container {$name}");
@@ -81,6 +81,14 @@ class MediaContainer
     public function getDetailStructJSON()
     {
         return json_encode($this->detailStruct);
+    }
+    
+    public function __get($name)
+    {
+        if (\array_key_exists($name, $this->detailStruct['attributes']))
+        {
+            return $this->detailStruct['attributes'][$name];
+        }
     }
 
     protected function parseMediaContainer(\SimpleXMLElement $node)

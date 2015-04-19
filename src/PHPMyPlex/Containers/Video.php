@@ -22,14 +22,14 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace PHPMyPlex\Exceptions;
+namespace PHPMyPlex\Containers;
 
 /**
- * Used for handling issues raised when working with Plex data.
+ * Extends the MediaContainer to allow handling of Video objects from Plex
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class MyPlexDataException extends MyPlexException
+class Video extends MediaContainer
 {
     
 }
