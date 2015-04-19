@@ -87,11 +87,17 @@ class Request
     public function send($method)
     {
         HRequest::ini($this->template);
-        $response = HRequest::{$method}($this->endPoint)->send();
+        try {
+            $response = HRequest::{$method}($this->endPoint)->send();
+        } catch (Httpful\Exception\ConnectionErrorException $e) {
+            throw new Exceptions\MyPlexDataException('Unable to connect to endPoint: ' . $e->getMessage(), 0, $e);
+        } catch (\Exception $e) {
+            throw new Exceptions\MyPlexDataException('Error in response from server: ' . $e->getMessage(), 0, $e);
+        }
         $this->errorCheck($response);
         return $response;
     }
-    
+
     private function errorCheck($response)
     {
         if ($response->hasErrors()) {
@@ -100,7 +106,7 @@ class Request
             }
 
             $error = 'Error code ' . $response->code . ' recieved from server';
-            if (isset($response->body->error)) {
+            if ($response->hasBody() && isset($response->body->error)) {
                 $error .= ': ' . (string) $response->body->error;
             }
             throw new Exceptions\MyPlexDataException($error);

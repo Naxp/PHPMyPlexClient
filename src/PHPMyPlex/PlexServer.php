@@ -24,6 +24,9 @@
  */
 namespace PHPMyPlex;
 
+use PHPMyPlex\Containers as Containers;
+use PHPMyPlex\TopDirectories as TopDirectories;
+
 /**
  * Description of PlexServer
  *
@@ -64,7 +67,6 @@ class PlexServer
         $url .= $this->address;
         $url .= ':';
         $url .= $this->port;
-        $url .= '/';
         return $url;
     }
 
@@ -73,18 +75,30 @@ class PlexServer
         return $this->name . ' - ' . $this->getUrl();
     }
 
-    public function getSections($path = 'library/sections')
+    public function loadContainer($path = '/library')
     {
         $url = $this->getUrl() . $path;
-        
+
         $request = new Request($url);
         $request->token = $this->accessToken;
-        
+
         $response = $request->send('get');
-        
-        $data = $response->body;
-        
-        //TODO: Create media container class to actually load the sections into.
-        
+
+        return new Containers\MediaContainer($response->body);
+    }
+    
+    public function loadSections($path = '/library/sections')
+    {
+        return $this->loadContainer($path);
+    }
+    
+    public function loadSection($key, $directory = '', $path = '/library/sections')
+    {
+        $url = $path . '/' . $key;
+        if ($directory != TopDirectories\TopDirectory::NONE)
+        {
+            $url .= '/' . $directory;
+        }
+        return $this->loadContainer($url);
     }
 }
