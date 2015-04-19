@@ -25,10 +25,13 @@
 namespace PHPMyPlex;
 
 use PHPMyPlex\Containers as Containers;
-use PHPMyPlex\TopDirectories as TopDirectories;
+use PHPMyPlex\DirectoryViews as DirectoryViews;
 
 /**
- * Description of PlexServer
+ * Models the plex server. Provides the basis of requesting sections and subsections within each server as well as
+ * high level server details.
+ * 
+ * TODO: Add server control options and library management 
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */

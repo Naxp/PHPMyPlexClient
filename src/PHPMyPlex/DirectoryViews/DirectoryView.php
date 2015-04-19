@@ -25,7 +25,7 @@
 namespace PHPMyPlex\DirectoryViews;
 
 /**
- * Description of TopDirectory
+ * Defines views available to all library types within Plex
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */

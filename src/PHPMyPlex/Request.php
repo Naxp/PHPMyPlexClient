@@ -27,7 +27,8 @@ namespace PHPMyPlex;
 use Httpful\Request as HRequest;
 
 /**
- * Defines a context to use in stream_context_create
+ * Provides an interface to the Httpful request library to communicate with plex.
+ * Defines custom headers that Plex requires as part of its API specification.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
@@ -37,7 +38,7 @@ class Request
     private $headers = [
         'X-Plex-Platform' => PHP_OS,
         'X-Plex-Platform-Version' => false,
-        'X-Plex-Provides' => 'player',
+        'X-Plex-Provides' => 'controller',
         'X-Plex-Product' => 'PHPMyPlex',
         'X-Plex-Version' => false,
         'X-Plex-Device' => false,

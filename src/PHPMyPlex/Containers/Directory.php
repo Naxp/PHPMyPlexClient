@@ -25,11 +25,11 @@
 namespace PHPMyPlex\Containers;
 
 /**
- * Description of Directory
+ * Extends the MediaContainer to allow handling of Directory objects from Plex
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
 class Directory extends MediaContainer
 {
-    //put your code here
+    
 }

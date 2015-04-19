@@ -27,7 +27,7 @@ namespace PHPMyPlex\Containers;
 use PHPMyPlex\Exceptions as Exceptions;
 
 /**
- * Description of MediaContainer
+ * Parses the response from plex and manages children and attributes of a Plex Media Container.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */

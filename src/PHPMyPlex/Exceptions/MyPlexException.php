@@ -25,7 +25,7 @@
 namespace PHPMyPlex\Exceptions;
 
 /**
- * Description of MyPlexException
+ * Base project exception class.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */

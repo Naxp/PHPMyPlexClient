@@ -25,7 +25,7 @@
 namespace PHPMyPlex\DirectoryViews;
 
 /**
- * Description of TVTopDirectory
+ * Extends the base views available with ones specifically for TV Shows.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */

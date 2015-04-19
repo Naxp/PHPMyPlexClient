@@ -25,7 +25,7 @@
 namespace PHPMyPlex\DirectoryViews;
 
 /**
- * Description of MovieTopDirectory
+ * Extends the base views available with ones specifically for Movies.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */

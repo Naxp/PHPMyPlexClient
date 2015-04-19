@@ -27,8 +27,11 @@ namespace PHPMyPlex;
 use PHPMyPlex\Exceptions as Exceptions;
 
 /**
- * Description of MyPlex
+ * The MyPlex class is used to provide connectivity to the MyPlex API. It handles the login and authentication tokens
+ * needed for subsequent calls. It can also provide a list of servers available within the account.
  *
+ * TODO: Add support for playlists, queues and home management provided by MyPlex.
+ * 
  * @author Chris Stretton <cstretton@gmail.com>
  */
 class MyPlex

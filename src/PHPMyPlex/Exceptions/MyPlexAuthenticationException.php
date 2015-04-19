@@ -25,7 +25,7 @@
 namespace PHPMyPlex\Exceptions;
 
 /**
- * Description of MyPlexException
+ * Used for handling errors logging in to MyPlex
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
