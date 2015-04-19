@@ -56,18 +56,10 @@ class MyPlex
     public function __construct($userName, $password, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
     {
         $request = new Request($myPlexURL);
-
         $request->clientIdentifier = uniqid('PHPMyPlex_');
-
         $request->setAuthentication($userName, $password);
 
-        try {
-            $response = $request->create('post')->send();
-        } catch (Httpful\Exception\ConnectionErrorException $e) {
-            throw new Exceptions\MyPlexDataException('Unable to connect to endPoint: ' . $e->getMessage(), 0, $e);
-        }
-
-        $this->errorCheck($response);
+        $response = $request->send('post');
 
         $data = $response->body;
 
@@ -83,21 +75,6 @@ class MyPlex
         $this->allEntitlements = (bool) $data->entitlements->attributes()['all'];
     }
 
-    public function errorCheck($response)
-    {
-        if ($response->hasErrors()) {
-            if ($response->code == 401) {
-                throw new Exceptions\MyPlexAuthenticationException((string) $response->body->error);
-            }
-
-            $error = 'Error code ' . $response->code . 'recieved from server';
-            if (isset($response->body->error)) {
-                $error .= ': ' . (string) $response->body->error;
-            }
-            throw new Exceptions\MyPlexDataException($error);
-        }
-    }
-
     public function getServers($endPoint = 'https://plex.tv/pms/servers.xml')
     {
         if (!$this->authenticationToken) {
@@ -105,20 +82,11 @@ class MyPlex
         }
 
         $request = new Request($endPoint);
-        $request->setHeader('X-Plex-Token', $this->authenticationToken);
 
-        try {
-            $response = $request->create('get')->send();
-        } catch (Httpful\Exception\ConnectionErrorException $e) {
-            throw new Exceptions\MyPlexDataException('Unable to connect to endPoint: ' . $e->getMessage(), 0, $e);
-        }
+        $response = $request->send('get');
 
-        $this->errorCheck($response);
         $data = $response->body;
         
-        var_dump($data);
-        die();
-
         $servers = [];
 
         foreach ($data->Server as $serverData) {

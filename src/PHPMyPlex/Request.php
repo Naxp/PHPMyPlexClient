@@ -50,6 +50,7 @@ class Request
     {
         $this->endPoint = $endPoint;
         $this->template = HRequest::init();
+        $this->template->expectsXml();
         foreach ($this->headers as $header => $value) {
             if ($value) {
                 $this->setHeader($header, $value);
@@ -83,9 +84,26 @@ class Request
         }
     }
 
-    public function create($method)
+    public function send($method)
     {
         HRequest::ini($this->template);
-        return HRequest::{$method}($this->endPoint);
+        $response = HRequest::{$method}($this->endPoint)->send();
+        $this->errorCheck($response);
+        return $response;
+    }
+    
+    private function errorCheck($response)
+    {
+        if ($response->hasErrors()) {
+            if ($response->code == 401) {
+                throw new Exceptions\MyPlexAuthenticationException((string) $response->body->error);
+            }
+
+            $error = 'Error code ' . $response->code . ' recieved from server';
+            if (isset($response->body->error)) {
+                $error .= ': ' . (string) $response->body->error;
+            }
+            throw new Exceptions\MyPlexDataException($error);
+        }
     }
 }

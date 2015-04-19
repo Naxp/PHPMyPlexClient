@@ -57,7 +57,7 @@ class PlexServer
         }
     }
 
-    public function getUrl($includeToken = false)
+    public function getUrl()
     {
         $url = $this->scheme;
         $url .= '://';
@@ -65,9 +65,6 @@ class PlexServer
         $url .= ':';
         $url .= $this->port;
         $url .= '/';
-        if ($includeToken) {
-            $url .= '?auth_token=' . urlencode($this->accessToken);
-        }
         return $url;
     }
 
@@ -76,8 +73,18 @@ class PlexServer
         return $this->name . ' - ' . $this->getUrl();
     }
 
-    public function getSections()
+    public function getSections($path = 'library/sections')
     {
+        $url = $this->getUrl() . $path;
+        
+        $request = new Request($url);
+        $request->token = $this->accessToken;
+        
+        $response = $request->send('get');
+        
+        $data = $response->body;
+        
+        //TODO: Create media container class to actually load the sections into.
         
     }
 }
