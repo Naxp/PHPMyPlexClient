@@ -1,4 +1,4 @@
-# PHPMyPlexClient
+# PHP MyPlex Client
 PHP client library for accessing myPlex and Plex Media Centre metadata using the MyPlex API.
 
 In it's very infant stages at the moment but I will be extending functionality as I can.
