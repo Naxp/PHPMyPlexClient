@@ -53,7 +53,7 @@ class MyPlex
     private $allEntitlements;
     private $entitlements;
 
-    public function __construct($userName, $password, $myPlexURL = 'https://my.plexapp.com/users/sign_in.xml')
+    public function __construct($userName, $password, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
     {
         $request = new Request($myPlexURL);
 
@@ -62,7 +62,7 @@ class MyPlex
         $request->setAuthentication($userName, $password);
 
         try {
-            $response = $request->create('get')->send();
+            $response = $request->create('post')->send();
         } catch (Httpful\Exception\ConnectionErrorException $e) {
             throw new Exceptions\MyPlexDataException('Unable to connect to endPoint: ' . $e->getMessage(), 0, $e);
         }
@@ -98,15 +98,14 @@ class MyPlex
         }
     }
 
-    public function getServers($endPoint = 'https://my.plexapp.com/pms/servers.xml')
+    public function getServers($endPoint = 'https://plex.tv/pms/servers.xml')
     {
         if (!$this->authenticationToken) {
             throw new Exceptions\MyPlexAuthenticationException("No authentication token exists, have you signed in to MyPlex?");
         }
 
-        $endPointUrl = $endPoint . '?auth_token=' . urlencode($this->authenticationToken);
-
-        $request = new Request($endPointUrl);
+        $request = new Request($endPoint);
+        $request->setHeader('X-Plex-Token', $this->authenticationToken);
 
         try {
             $response = $request->create('get')->send();
@@ -116,6 +115,9 @@ class MyPlex
 
         $this->errorCheck($response);
         $data = $response->body;
+        
+        var_dump($data);
+        die();
 
         $servers = [];
 
