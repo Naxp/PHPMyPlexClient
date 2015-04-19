@@ -4,29 +4,33 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5288ba67651bcd672920c47d263c2459",
+    "hash": "903ad35d4af1e286922d491649fce17f",
     "packages": [
         {
-            "name": "cheezykins/logular",
-            "version": "dev-master",
+            "name": "nategood/httpful",
+            "version": "0.2.19",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Cheezykins/Logular.git",
-                "reference": "70cc84a059fe1d35fd9bd5c6234dcecb4c9bda7a"
+                "url": "https://github.com/nategood/httpful.git",
+                "reference": "bd73f89d34d8f879c54ac46eb94b0f7be1d00820"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Cheezykins/Logular/zipball/70cc84a059fe1d35fd9bd5c6234dcecb4c9bda7a",
-                "reference": "70cc84a059fe1d35fd9bd5c6234dcecb4c9bda7a",
+                "url": "https://api.github.com/repos/nategood/httpful/zipball/bd73f89d34d8f879c54ac46eb94b0f7be1d00820",
+                "reference": "bd73f89d34d8f879c54ac46eb94b0f7be1d00820",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.0"
+                "ext-curl": "*",
+                "php": ">=5.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
             },
             "type": "library",
             "autoload": {
                 "psr-0": {
-                    "Logular": "src/"
+                    "Httpful": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -35,20 +39,28 @@
             ],
             "authors": [
                 {
-                    "name": "Chris Stretton",
-                    "email": "cstretton@gmail.com"
+                    "name": "Nate Good",
+                    "email": "me@nategood.com",
+                    "homepage": "http://nategood.com"
                 }
             ],
-            "description": "An extensible and modular PHP logging framework",
-            "time": "2015-04-18 17:47:42"
+            "description": "A Readable, Chainable, REST friendly, PHP HTTP Client",
+            "homepage": "http://github.com/nategood/httpful",
+            "keywords": [
+                "api",
+                "curl",
+                "http",
+                "requests",
+                "rest",
+                "restful"
+            ],
+            "time": "2015-03-08 15:22:23"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "cheezykins/logular": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
