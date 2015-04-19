@@ -3,7 +3,7 @@ PHP client library for accessing myPlex and Plex Media Centre metadata using the
 
 In it's very infant stages at the moment but I will be extending functionality as I can.
 
-Basic usage:
+**Basic usage**
 
 ```php
 use PHPMyPlex\MyPlex;
@@ -20,3 +20,7 @@ $sections = $myServer->getSections();
 // Get all items in the Movies library.
 $section = $myServer->getSection($sections['Movies'], DirectoryViews\MovieDirectoryView::ALL);
 ```
+
+**Installation**
+
+Install using [composer](https://getcomposer.org/), you can require cheezykins/phpmyplexclient in your composer.json and it will manage installation automatically. It uses the standard PSR-0 autoloader for classes.
