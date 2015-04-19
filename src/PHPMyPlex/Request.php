@@ -43,38 +43,34 @@ class Request
         'X-Plex-Device' => false,
         'X-Plex-Client-Identifier' => false,
     ];
-    
     private $template;
     private $endPoint;
-    
+
     public function __construct($endPoint)
     {
         $this->endPoint = $endPoint;
         $this->template = HRequest::init();
-        foreach ($this->headers as $header => $value)
-        {
-            if ($value)
-            {
+        foreach ($this->headers as $header => $value) {
+            if ($value) {
                 $this->setHeader($header, $value);
             }
         }
     }
-    
+
     public function __set($name, $value)
     {
         $this->setHeader($name, $value);
     }
-    
+
     public function setHeader($header, $value)
     {
-        if (substr($header, 0, 7) != 'X-Plex-')
-        {
+        if (substr($header, 0, 7) != 'X-Plex-') {
             $header = 'X-Plex-' . ucfirst(preg_replace('/([A-Z])/', '-$0', $header));
         }
         $this->headers[$header] = $value;
         $this->template->addHeader($header, $value);
     }
-    
+
     public function setAuthentication($userName, $password)
     {
         $this->template->authenticateWith($userName, $password);
@@ -86,11 +82,10 @@ class Request
             return $this->headers[$name];
         }
     }
-    
+
     public function create($method)
     {
         HRequest::ini($this->template);
         return HRequest::{$method}($this->endPoint);
     }
-
 }

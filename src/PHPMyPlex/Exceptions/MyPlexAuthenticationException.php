@@ -31,11 +31,11 @@ namespace PHPMyPlex\Exceptions;
  */
 class MyPlexAuthenticationException extends MyPlexException
 {
+
     public function __construct($message, $code = 0, $previous = null)
     {
 
         $message = 'Authentication failed: ' . $message;
         parent::__construct($message, $code, $previous);
-
     }
 }

@@ -31,7 +31,7 @@ namespace PHPMyPlex;
  */
 class PlexServer
 {
-    
+
     private $accessToken = false;
     private $name = false;
     private $address = false;
@@ -45,22 +45,18 @@ class PlexServer
     private $updatedAt = false;
     private $owned = false;
     private $synced = false;
-    
+
     public function __set($name, $value)
     {
-        if ($name == 'attributes')
-        {
-            foreach ($value as $attribute => $attributeValue)
-            {
+        if ($name == 'attributes') {
+            foreach ($value as $attribute => $attributeValue) {
                 $this->{$attribute} = $attributeValue;
             }
-        }
-        else if (isset($this->{$name}))
-        {
+        } else if (isset($this->{$name})) {
             $this->{$name} = $value;
         }
     }
-    
+
     public function getUrl($includeToken = false)
     {
         $url = $this->scheme;
@@ -69,18 +65,17 @@ class PlexServer
         $url .= ':';
         $url .= $this->port;
         $url .= '/';
-        if ($includeToken)
-        {
+        if ($includeToken) {
             $url .= '?auth_token=' . urlencode($this->accessToken);
         }
         return $url;
     }
-    
+
     public function __toString()
     {
         return $this->name . ' - ' . $this->getUrl();
     }
-    
+
     public function getSections()
     {
         
