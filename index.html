@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>PHP MyPlex Client by Cheezykins</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">PHP MyPlex Client</h1>
+      <h2 class="project-tagline">PHP client library for accessing myPlex and Plex Media Centre metadata</h2>
+      <a href="https://github.com/Cheezykins/PHPMyPlexClient" class="btn">View on GitHub</a>
+      <a href="https://github.com/Cheezykins/PHPMyPlexClient/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/Cheezykins/PHPMyPlexClient/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <h1>
+<a id="php-myplex-client" class="anchor" href="#php-myplex-client" aria-hidden="true"><span class="octicon octicon-link"></span></a>PHP MyPlex Client</h1>
+
+<p>PHP client library for accessing myPlex and Plex Media Centre metadata using the MyPlex API.</p>
+
+<p>In it's very infant stages at the moment but I will be extending functionality as I can.</p>
+
+<p><strong>Basic usage</strong></p>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">PHPMyPlex\MyPlex</span>;</span>
+<span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">PHPMyPlex\DirectoryViews</span> <span class="pl-k">as</span> <span class="pl-c1">DirectoryViews</span>;</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-smi">$myPlex</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">MyPlex</span>(<span class="pl-s"><span class="pl-pds">'</span>MyPlex username<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>MyPlex password<span class="pl-pds">'</span></span>);</span>
+<span class="pl-s1"><span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>Signed in as %s<span class="pl-pds">"</span></span>, <span class="pl-smi">$myPlex</span><span class="pl-k">-&gt;</span><span class="pl-smi">username</span>);</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c1">list</span>(<span class="pl-smi">$myServer</span>) <span class="pl-k">=</span> <span class="pl-smi">$myPlex</span><span class="pl-k">-&gt;</span>getServers();</span>
+<span class="pl-s1"><span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>Server %s at %s<span class="pl-pds">"</span></span>, <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span><span class="pl-smi">name</span>, <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span>getURL());</span>
+<span class="pl-s1"></span>
+<span class="pl-s1"><span class="pl-c">// Get all sections (Libraries) within the Plex Server</span></span>
+<span class="pl-s1"><span class="pl-smi">$sections</span> <span class="pl-k">=</span> <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span>getSections();</span>
+<span class="pl-s1"><span class="pl-c">// Get all items in the Movies library.</span></span>
+<span class="pl-s1"><span class="pl-smi">$library</span> <span class="pl-k">=</span> <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span>getSection(<span class="pl-smi">$sections</span>[<span class="pl-s"><span class="pl-pds">'</span>Movies<span class="pl-pds">'</span></span>], <span class="pl-c1">DirectoryViews\</span><span class="pl-c1">MovieDirectoryView</span><span class="pl-k">::</span><span class="pl-c1">ALL</span>);</span>
+<span class="pl-s1"><span class="pl-smi">$movies</span> <span class="pl-k">=</span> <span class="pl-smi">$library</span><span class="pl-k">-&gt;</span>children();</span>
+<span class="pl-s1"><span class="pl-k">foreach</span> (<span class="pl-smi">$movies</span> <span class="pl-k">as</span> <span class="pl-smi">$movie</span>) {</span>
+<span class="pl-s1">  <span class="pl-c1">echo</span> <span class="pl-smi">$movie</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>;</span>
+<span class="pl-s1">}</span></pre></div>
+
+<p><strong>Installation</strong></p>
+
+<p>Install using <a href="https://getcomposer.org/">composer</a>, you can require cheezykins/phpmyplexclient in your composer.json and it will manage installation automatically. It uses the standard PSR-0 autoloader for classes.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/Cheezykins/PHPMyPlexClient">PHP MyPlex Client</a> is maintained by <a href="https://github.com/Cheezykins">Cheezykins</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
+
