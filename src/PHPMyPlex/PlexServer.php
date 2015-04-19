@@ -48,6 +48,8 @@ class PlexServer
     private $updatedAt = false;
     private $owned = false;
     private $synced = false;
+    
+    private $sectionMappings = [];
 
     public function __set($name, $value)
     {
@@ -89,13 +91,27 @@ class PlexServer
     
     public function loadSections($path = '/library/sections')
     {
-        return $this->loadContainer($path);
+        $response = $this->loadContainer($path);
+        foreach ($response->children() as $child)
+        {
+            if ($child->hasKey()) {
+                $this->sectionMappings[$child->getDetailStruct()['attributes']['title']] = $child->getDetailStruct()['attributes']['key'];
+            }
+        }
+        return $this->sectionMappings;
     }
     
     public function loadSection($key, $directory = '', $path = '/library/sections')
     {
+        if (!\ctype_digit($key)) {
+            if (!\array_key_exists($key, $this->sectionMappings))
+            {
+                throw new Exceptions\MyPlexDataException("Provided key {$key} does not exist");
+            }
+            $key = $this->sectionMappings[$key];
+        }
         $url = $path . '/' . $key;
-        if ($directory != TopDirectories\TopDirectory::NONE)
+        if ($directory != DirectoryViews\DirectoryView::NONE)
         {
             $url .= '/' . $directory;
         }

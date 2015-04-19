@@ -22,18 +22,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace PHPMyPlex\TopDirectories;
+namespace PHPMyPlex\DirectoryViews;
 
 /**
- * Description of MovieTopDirectory
+ * Description of TVTopDirectory
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class MovieTopDirectory extends TopDirectory
+class TVDirectoryView extends DirectoryView
 {
-    const DECADE    = 'decade';
-    const DIRECTOR  = 'director';
-    const ACTOR     = 'actor';
-    const COUNTRY   = 'country';
-    const RATING    = 'rating';
+    const RECENTLY_VIEWED_SHOWS = 'recentlyViewedShows';
+   
 }

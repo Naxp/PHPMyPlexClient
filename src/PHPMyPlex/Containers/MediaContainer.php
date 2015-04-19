@@ -46,12 +46,14 @@ class MediaContainer
     public function children()
     {
         $children = [];
-        foreach ($this->xml->children() as $child) {
-            $name = __NAMESPACE__ . '\\' . $child->getName();
-            if (class_exists($name)) {
-                $children[] = new $name($child);
-            } else {
-                throw new Exceptions\MyPlexDataException("No handler exists for container {$name}");
+        if ($this->xml->count() > 0) {
+            foreach ($this->xml->children() as $child) {
+                $name = __NAMESPACE__ . '\\' . $child->getName();
+                if (class_exists($name)) {
+                    $children[] = new $name($child);
+                } else {
+                    throw new Exceptions\MyPlexDataException("No handler exists for container {$name}");
+                }
             }
         }
         return $children;
@@ -93,8 +95,10 @@ class MediaContainer
             $response['attributes'][$attributeKey] = (string) $attributeValue;
         }
 
-        foreach ($node->children() as $child) {
-            $response['children'][] = $this->parseMediaContainer($child);
+        if ($node->count() > 0) {
+            foreach ($node->children() as $child) {
+                $response['children'][] = $this->parseMediaContainer($child);
+            }
         }
 
         return $response;
