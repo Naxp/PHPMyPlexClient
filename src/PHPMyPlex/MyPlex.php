@@ -82,6 +82,7 @@ class MyPlex
         }
 
         $request = new Request($endPoint);
+        $request->token = $this->authenticationToken;
 
         $response = $request->send('get');
 
