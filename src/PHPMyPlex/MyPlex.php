@@ -90,7 +90,7 @@ class MyPlex
         $response = $request->send('get');
 
         $data = $response->body;
-        
+
         $servers = [];
 
         foreach ($data->Server as $serverData) {

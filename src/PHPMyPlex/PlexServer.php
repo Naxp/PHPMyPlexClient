@@ -51,7 +51,6 @@ class PlexServer
     private $updatedAt = false;
     private $owned = false;
     private $synced = false;
-    
     private $sectionMappings = [];
 
     public function __set($name, $value)
@@ -64,11 +63,10 @@ class PlexServer
             $this->{$name} = $value;
         }
     }
-    
+
     public function __get($name)
     {
-        if ($name != 'accessToken' && isset($this->{$name}))
-        {
+        if ($name != 'accessToken' && isset($this->{$name})) {
             return $this->{$name};
         }
     }
@@ -99,31 +97,28 @@ class PlexServer
 
         return new Containers\MediaContainer($response->body);
     }
-    
+
     public function loadSections($path = '/library/sections')
     {
         $response = $this->loadContainer($path);
-        foreach ($response->children() as $child)
-        {
+        foreach ($response->children() as $child) {
             if ($child->hasKey()) {
                 $this->sectionMappings[$child->getDetailStruct()['title']] = $child->getDetailStruct()['key'];
             }
         }
         return $this->sectionMappings;
     }
-    
+
     public function loadSection($key, $directory = '', $path = '/library/sections')
     {
         if (!\ctype_digit($key)) {
-            if (!\array_key_exists($key, $this->sectionMappings))
-            {
+            if (!\array_key_exists($key, $this->sectionMappings)) {
                 throw new Exceptions\MyPlexDataException("Provided key {$key} does not exist");
             }
             $key = $this->sectionMappings[$key];
         }
         $url = $path . '/' . $key;
-        if ($directory != DirectoryViews\DirectoryView::NONE)
-        {
+        if ($directory != DirectoryViews\DirectoryView::NONE) {
             $url .= '/' . $directory;
         }
         return $this->loadContainer($url);

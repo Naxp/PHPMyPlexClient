@@ -58,7 +58,7 @@ class MediaContainer
         }
         return $children;
     }
-    
+
     public function hasKey()
     {
         return \array_key_exists('key', $this->detailStruct);
@@ -66,8 +66,7 @@ class MediaContainer
 
     public function getKey()
     {
-        if (!$this->hasKey())
-        {
+        if (!$this->hasKey()) {
             throw new Exceptions\MyPlexDataException('Current ' . __CLASS__ . 'contains no key');
         }
 
@@ -83,11 +82,10 @@ class MediaContainer
     {
         return json_encode($this->detailStruct->getArrayCopy());
     }
-    
+
     public function __get($name)
     {
-        if (\array_key_exists($name, $this->detailStruct))
-        {
+        if (\array_key_exists($name, $this->detailStruct)) {
             return $this->detailStruct[$name];
         }
     }

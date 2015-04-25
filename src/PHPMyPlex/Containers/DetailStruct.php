@@ -39,24 +39,21 @@ class DetailStruct extends \ArrayIterator
         if ($this->offsetExists($attribute)) {
             try {
                 $d = new \DateTime();
-                $d->setTimestamp((int)$this->offsetGet($attribute));
+                $d->setTimestamp((int) $this->offsetGet($attribute));
                 return $d;
             } catch (\Exception $e) {
-                echo $e->getMessage() . PHP_EOL;
                 return false;
             }
         }
         return false;
     }
-    
+
     public function parseInt($attribute)
     {
-        if ($this->offsetExists($attribute))
-        {
+        if ($this->offsetExists($attribute)) {
             $attr = $this->offsetGet($attribute);
-            if (\ctype_digit($attr))
-            {
-                return (int)$attr;
+            if (\ctype_digit($attr)) {
+                return (int) $attr;
             }
         }
         return false;

@@ -31,11 +31,11 @@ namespace PHPMyPlex\Containers;
  */
 class Video extends MediaContainer
 {
-    
+
     public function __construct(\SimpleXMLElement $data)
     {
         parent::__construct($data);
-        
+
         $this->detailStruct['addedAtDateTime'] = $this->detailStruct->parseDateTime('addedAt');
         $this->detailStruct['updatedAtDateTime'] = $this->detailStruct->parseDateTime('updatedAt');
     }
