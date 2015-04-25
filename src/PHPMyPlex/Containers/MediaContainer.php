@@ -61,54 +61,45 @@ class MediaContainer
     
     public function hasKey()
     {
-        return isset($this->detailStruct['attributes']['key']);
+        return \array_key_exists('key', $this->detailStruct);
     }
 
     public function getKey()
     {
-        if (!isset($this->detailStruct['attributes']['key'])) {
+        if (!$this->hasKey())
+        {
             throw new Exceptions\MyPlexDataException('Current ' . __CLASS__ . 'contains no key');
         }
 
-        return $this->detailStruct['attributes']['key'];
+        return $this->detailStruct['key'];
     }
 
     public function getDetailStruct()
     {
-        return $this->detailStruct;
+        return $this->detailStruct->getArrayCopy();
     }
 
     public function getDetailStructJSON()
     {
-        return json_encode($this->detailStruct);
+        return json_encode($this->detailStruct->getArrayCopy());
     }
     
     public function __get($name)
     {
-        if (\array_key_exists($name, $this->detailStruct['attributes']))
+        if (\array_key_exists($name, $this->detailStruct))
         {
-            return $this->detailStruct['attributes'][$name];
+            return $this->detailStruct[$name];
         }
     }
 
     protected function parseMediaContainer(\SimpleXMLElement $node)
     {
-        $response = [
-            'name' => $node->getName(),
-            'attributes' => [],
-            'children' => []
-        ];
+        $response = [];
 
         foreach ($node->attributes() as $attributeKey => $attributeValue) {
-            $response['attributes'][$attributeKey] = (string) $attributeValue;
+            $response[$attributeKey] = (string) $attributeValue;
         }
 
-        if ($node->count() > 0) {
-            foreach ($node->children() as $child) {
-                $response['children'][] = $this->parseMediaContainer($child);
-            }
-        }
-
-        return $response;
+        return new DetailStruct($response);
     }
 }

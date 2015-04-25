@@ -101,10 +101,10 @@ class MyPlex
 
             $server = new PlexServer();
             $server->attributes = $attributes;
-            $servers[] = $server;
+            $servers[\strtolower($server->name)] = $server;
         }
 
-        return $servers;
+        return new PlexServerCollection($servers);
     }
 
     public function __get($name)

@@ -25,18 +25,40 @@
 namespace PHPMyPlex\Containers;
 
 /**
- * Extends the MediaContainer to allow handling of Video objects from Plex
+ * Provides an itterable array of properties within a plex container as well
+ * as helpers to help parse the strings returned by plex into their appropriate
+ * data types.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Video extends MediaContainer
+class DetailStruct extends \ArrayIterator
 {
-    
-    public function __construct(\SimpleXMLElement $data)
+
+    public function parseDateTime($attribute)
     {
-        parent::__construct($data);
-        
-        $this->detailStruct['addedAtDateTime'] = $this->detailStruct->parseDateTime('addedAt');
-        $this->detailStruct['updatedAtDateTime'] = $this->detailStruct->parseDateTime('updatedAt');
+        if ($this->offsetExists($attribute)) {
+            try {
+                $d = new \DateTime();
+                $d->setTimestamp((int)$this->offsetGet($attribute));
+                return $d;
+            } catch (\Exception $e) {
+                echo $e->getMessage() . PHP_EOL;
+                return false;
+            }
+        }
+        return false;
+    }
+    
+    public function parseInt($attribute)
+    {
+        if ($this->offsetExists($attribute))
+        {
+            $attr = $this->offsetGet($attribute);
+            if (\ctype_digit($attr))
+            {
+                return (int)$attr;
+            }
+        }
+        return false;
     }
 }

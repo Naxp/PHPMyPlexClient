@@ -64,6 +64,14 @@ class PlexServer
             $this->{$name} = $value;
         }
     }
+    
+    public function __get($name)
+    {
+        if ($name != 'accessToken' && isset($this->{$name}))
+        {
+            return $this->{$name};
+        }
+    }
 
     public function getUrl()
     {
@@ -98,7 +106,7 @@ class PlexServer
         foreach ($response->children() as $child)
         {
             if ($child->hasKey()) {
-                $this->sectionMappings[$child->getDetailStruct()['attributes']['title']] = $child->getDetailStruct()['attributes']['key'];
+                $this->sectionMappings[$child->getDetailStruct()['title']] = $child->getDetailStruct()['key'];
             }
         }
         return $this->sectionMappings;

@@ -22,21 +22,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace PHPMyPlex\Containers;
+namespace PHPMyPlex;
 
 /**
- * Extends the MediaContainer to allow handling of Video objects from Plex
+ * Provides an itterable array of servers you can call by name.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Video extends MediaContainer
+class PlexServerCollection extends \ArrayIterator
 {
-    
-    public function __construct(\SimpleXMLElement $data)
+    public function getByName($name)
     {
-        parent::__construct($data);
-        
-        $this->detailStruct['addedAtDateTime'] = $this->detailStruct->parseDateTime('addedAt');
-        $this->detailStruct['updatedAtDateTime'] = $this->detailStruct->parseDateTime('updatedAt');
+        $name = \strtolower($name);
+        if ($this->offsetExists($name))
+        {
+            return $this->offsetGet($name);
+        }
     }
 }
+
