@@ -35,7 +35,19 @@ use PHPMyPlex;
 class MediaContainer
 {
 
-    protected $detailStruct;
+    protected static $methodAliases = [
+        'loadAll' => 'load',
+        'show' => 'child',
+        'season' => 'child',
+        'episode' => 'child',
+        'movie' => 'child',
+        'shows' => 'children',
+        'seasons' => 'children',
+        'episodes' => 'children',
+        'movies' => 'children'
+    ];
+    
+    protected $details;
     protected $xml;
     protected $server;
 
@@ -51,9 +63,9 @@ class MediaContainer
     {
         $this->xml = $data;
         $this->server = $server;
-        $this->detailStruct = $this->parseMediaContainer($data);
+        $this->details = $this->parseMediaContainer($data);
     }
-
+    
     /**
      * Determines if there are any children within the current container.
      * 
@@ -118,52 +130,16 @@ class MediaContainer
      */
     public function hasKey()
     {
-        return \array_key_exists('key', $this->detailStruct);
-    }
-
-    /**
-     * Returns the key for the current container, or raises an exception if one
-     * is not set.
-     * @return string
-     * @throws Exceptions\MyPlexDataException
-     */
-    public function getKey()
-    {
-        if (!$this->hasKey()) {
-            throw new Exceptions\MyPlexDataException('Current ' . __CLASS__ . 'contains no key');
-        }
-
-        return $this->detailStruct['key'];
+        return \array_key_exists('key', $this->details);
     }
 
     /**
      * Returns the current containers details as an associative array.
      * @return array
      */
-    public function getDetailStruct()
+    public function getDetails()
     {
-        return $this->detailStruct->getArrayCopy();
-    }
-
-    /**
-     * Returns the current containers details as a JSON encoded object.
-     * @return string
-     */
-    public function getDetailStructJSON()
-    {
-        return json_encode($this->detailStruct->getArrayCopy());
-    }
-
-    /**
-     * Helper method to allow direct access of detail struct properties as members.
-     * @param string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        if (\array_key_exists($name, $this->detailStruct)) {
-            return $this->detailStruct[$name];
-        }
+        return $this->details->getArrayCopy();
     }
 
     /**
@@ -175,94 +151,50 @@ class MediaContainer
     public function load()
     {
         if ($this->hasKey()) {
-            $this->xml = $this->server->loadContainerRaw($this->getKey());
+            $this->xml = $this->server->loadContainerRaw($this->key);
             $this->parseMediaContainer($this->xml);
         }
         return $this;
     }
 
     /**
-     * Alias of load() - used to match chaining of MediaContainerCollection
+     * Allows aliasing of children(), child() and load() calls for semantic calling
+     * by users of the objects.
+     * 
+     * @param string $name
+     * @param array $arguments
+     * @return mixed
      */
-    public function loadAll()
+    public function __call($name, $arguments)
     {
-        return $this->load();
+        if (\array_key_exists($name, self::$methodAliases))
+        {
+            return \call_user_func_array([$this, self::$methodAliases[$name]], $arguments);
+        }
     }
-
-    /**
-     * Alias of child()
-     */
-    public function show($title)
-    {
-        return $this->child($title);
-    }
-
-    /**
-     * Alias of child()
-     */
-    public function season($title)
-    {
-        return $this->child($title);
-    }
-
-    /**
-     * Alias of child()
-     */
-    public function episode($title)
-    {
-        return $this->child($title);
-    }
-
-    /**
-     * Alias of child()
-     */
-    public function movie($title)
-    {
-        return $this->child($title);
-    }
-
-    /**
-     * Alias of children()
-     */
-    public function shows()
-    {
-        return $this->children();
-    }
-
-    /**
-     * Alias of children()
-     */
-    public function seasons()
-    {
-        return $this->children();
-    }
-
-    /**
-     * Alias of children()
-     */
-    public function episodes()
-    {
-        return $this->children();
-    }
-
-    /**
-     * Alias of children()
-     */
-    public function movies()
-    {
-        return $this->children();
-    }
-
+    
     /**
      * Helper method to return the current title or node name of the media container
      * @return string
      */
     public function __toString()
     {
-        if (\array_key_exists('title', $this->detailStruct)) {
-            return $this->detailStruct['title'];
+        if (\array_key_exists('title', $this->details)) {
+            return $this->details['title'];
         } else {
             return $this->xml->getName();
+        }
+    }
+    
+    /**
+     * Helper method to allow direct access of detail struct properties as members.
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if (\array_key_exists($name, $this->details)) {
+            return $this->details[$name];
         }
     }
 
@@ -270,7 +202,7 @@ class MediaContainer
      * Takes the details of the plex server and parses it into
      * the detail struct.
      * @param \SimpleXMLElement $node
-     * @return \PHPMyPlex\Containers\DetailStruct
+     * @return \PHPMyPlex\Containers\ContainerDetails
      */
     protected function parseMediaContainer(\SimpleXMLElement $node)
     {
@@ -280,6 +212,6 @@ class MediaContainer
             $data[$attributeKey] = (string) $attributeValue;
         }
 
-        return new DetailStruct($data);
+        return new ContainerDetails($data);
     }
 }

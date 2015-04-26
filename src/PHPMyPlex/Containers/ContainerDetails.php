@@ -31,7 +31,7 @@ namespace PHPMyPlex\Containers;
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class DetailStruct extends \ArrayObject
+class ContainerDetails extends \ArrayObject
 {
 
     /**

@@ -43,7 +43,7 @@ class Video extends MediaContainer
     {
         parent::__construct($data, $server);
 
-        $this->detailStruct['addedAtDateTime'] = $this->detailStruct->parseDateTime('addedAt');
-        $this->detailStruct['updatedAtDateTime'] = $this->detailStruct->parseDateTime('updatedAt');
+        $this->details['addedAtDateTime'] = $this->details->parseDateTime('addedAt');
+        $this->details['updatedAtDateTime'] = $this->details->parseDateTime('updatedAt');
     }
 }
