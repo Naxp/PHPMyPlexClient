@@ -49,3 +49,7 @@ printf("%s contains %s episodes", $show->season('Season 5')->title, $show->seaso
 **Installation**
 
 Install using [composer](https://getcomposer.org/), you can require cheezykins/phpmyplexclient in your composer.json and it will manage installation automatically. It uses the standard PSR-0 autoloader for classes.
+
+**Dependencies**
+
+Depends upon [Httpful](https://github.com/nategood/httpful) - this should be satisfied automatically if installed with composer.

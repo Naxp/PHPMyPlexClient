@@ -31,6 +31,11 @@ namespace PHPMyPlex;
  */
 class PlexServerCollection extends \ArrayObject
 {
+    /**
+     * Allows retrival of a Server by server name. Ignores case.
+     * @param string $name
+     * @return int
+     */
     public function getByName($name)
     {
         $lname = \strtolower($name);

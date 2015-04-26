@@ -52,7 +52,23 @@ class PlexServer
     private $owned = false;
     private $synced = false;
     private $sectionMappings = [];
+    private $proxy = false;
+    
+    /**
+     * Defines a myplex server. Takes an optional Proxy object for calls back to Plex.
+     * @param mixed $proxy
+     */
+    public function __construct($proxy = false)
+    {
+        $this->proxy = $proxy;
+    }
 
+    /**
+     * Helper method - allows setting of attributes of a server, pass a whole attributes array to set multiple ones
+     * 
+     * @param string $name
+     * @param mixed $value
+     */
     public function __set($name, $value)
     {
         if ($name == 'attributes') {
@@ -64,6 +80,12 @@ class PlexServer
         }
     }
 
+    /**
+     * Allows retrieval of properties from the server, blocks retrieval of the
+     * server access token.
+     * @param string $name
+     * @return mixed
+     */
     public function __get($name)
     {
         if ($name != 'accessToken' && isset($this->{$name})) {
@@ -71,6 +93,10 @@ class PlexServer
         }
     }
 
+    /**
+     * Returns the fully qualified URL for the server based on server properties.
+     * @return string
+     */
     public function getUrl()
     {
         $url = $this->scheme;
@@ -81,21 +107,36 @@ class PlexServer
         return $url;
     }
 
+    /**
+     * Helper method - returns the server name as a string and its URL.
+     * @return string
+     */
     public function __toString()
     {
         return $this->name . ' - ' . $this->getUrl();
     }
 
+    /**
+     * Loads a plex media container with data from the plex server.
+     * The optional path parameter allows you to define the container path to load.
+     * @param string $path
+     * @return \PHPMyPlex\Containers\MediaContainer
+     */
     public function loadContainer($path = '/library')
     {
         return new Containers\MediaContainer($this->loadContainerRaw($path), $this);
     }
 
+    /**
+     * Submits the request to the plex server to load a container and returns the resulting XML.
+     * @param string $path
+     * @return \SimpleXMLElement
+     */
     public function loadContainerRaw($path = '/library')
     {
         $url = $this->getUrl() . $path;
 
-        $request = new Request($url);
+        $request = new Request($url, $this->proxy);
         $request->token = $this->accessToken;
 
         $response = $request->send('get');
@@ -103,17 +144,33 @@ class PlexServer
         return $response->body;
     }
 
+    /**
+     * Gets the sections available in the plex server and returns an associative array
+     * 
+     * @param string $path
+     * @return array
+     */
     public function getSections($path = '/library/sections')
     {
         $response = $this->loadContainer($path);
         foreach ($response->children() as $child) {
             if ($child->hasKey()) {
-                $this->sectionMappings[$child->getDetailStruct()['title']] = $child->getDetailStruct()['key'];
+                $this->sectionMappings[$child->title] = $child->key;
             }
         }
         return $this->sectionMappings;
     }
 
+    /**
+     * Loads the provided section, if the section is given as a string then
+     * it attempts to resolve that string to a section using getSections.
+     * 
+     * @param string|int $key
+     * @param string $directory
+     * @param string $path
+     * @return \PHPMyPlex\Containers\MediaContainer
+     * @throws Exceptions\MyPlexDataException
+     */
     public function getSection($key, $directory = '', $path = '/library/sections')
     {
         if (!\ctype_digit($key)) {

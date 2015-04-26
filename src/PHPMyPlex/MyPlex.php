@@ -55,10 +55,23 @@ class MyPlex
     private $roles;
     private $allEntitlements;
     private $entitlements;
+    private $proxy = false;
 
-    public function __construct($userName, $password, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
+    /**
+     * Defines a connection to the MyPlex services, requires your myplex username and password
+     * 
+     * Optionally takes a Proxy object defining proxy connection details and an alternative endpoint
+     * URL for the myPlex login endpoint.
+     * 
+     * @param string $userName
+     * @param string $password
+     * @param Proxy|boolean $proxy = false
+     * @param string $myPlexURL = 'https://plex.tv/users/sign_in.xml'
+     */
+    public function __construct($userName, $password, $proxy = false, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
     {
-        $request = new Request($myPlexURL);
+        $this->proxy = $proxy;
+        $request = new Request($myPlexURL, $proxy);
         $request->clientIdentifier = uniqid('PHPMyPlex_');
         $request->setAuthentication($userName, $password);
 
@@ -78,6 +91,13 @@ class MyPlex
         $this->allEntitlements = (bool) $data->entitlements->attributes()['all'];
     }
 
+    /**
+     * Returns a collection of the myplex servers you have access to
+     * This includes both your own and shared plex servers.
+     * @param type $endPoint
+     * @return \PHPMyPlex\PlexServerCollection
+     * @throws Exceptions\MyPlexAuthenticationException
+     */
     public function getServers($endPoint = 'https://plex.tv/pms/servers.xml')
     {
         if (!$this->authenticationToken) {
@@ -99,7 +119,7 @@ class MyPlex
                 $attributes[$key] = (string) $value;
             }
 
-            $server = new PlexServer();
+            $server = new PlexServer($this->proxy);
             $server->attributes = $attributes;
             $servers[\strtolower($server->name)] = $server;
         }
@@ -107,6 +127,11 @@ class MyPlex
         return new PlexServerCollection($servers);
     }
 
+    /**
+     * Helper method to retrieve attributes of the plex server.
+     * @param string $name
+     * @return mixed
+     */
     public function __get($name)
     {
         if (isset($this->{$name})) {
@@ -114,6 +139,12 @@ class MyPlex
         }
     }
 
+    /**
+     * Parses all of the attributes returned from myplex and puts them into
+     * the appropriate member variables.
+     * @param array $attributes
+     * @return array
+     */
     protected function parseAttributes($attributes)
     {
         $return = [];
@@ -123,6 +154,10 @@ class MyPlex
         return $return;
     }
 
+    /**
+     * Gets the IDs of the servers under MyPlex.
+     * @param \SimpleXMLElement $elements
+     */
     protected function parseIDs($elements)
     {
         $return = [];

@@ -34,6 +34,11 @@ use PHPMyPlex;
 class Video extends MediaContainer
 {
 
+    /**
+     * Extends the base constructor to add parsing of added and updated times for Videos.
+     * @param \SimpleXMLElement $data
+     * @param PHPMyPlex\PlexServer $server
+     */
     public function __construct(\SimpleXMLElement $data, PHPMyPlex\PlexServer $server)
     {
         parent::__construct($data, $server);

@@ -32,6 +32,11 @@ namespace PHPMyPlex\Containers;
  */
 class MediaContainerCollection extends \ArrayObject
 {
+    /**
+     * Iterates through the collection and loads all sub-items.
+     * Returns itself for chaining.
+     * @return \PHPMyPlex\Containers\MediaContainerCollection
+     */
     public function loadAll()
     {
         foreach ($this as $obj)

@@ -34,6 +34,11 @@ namespace PHPMyPlex\Containers;
 class DetailStruct extends \ArrayObject
 {
 
+    /**
+     * Tries to parse a string into a DateTime object, returns false on failure.
+     * @param type $attribute
+     * @return \DateTime|boolean
+     */
     public function parseDateTime($attribute)
     {
         if ($this->offsetExists($attribute)) {
@@ -48,6 +53,11 @@ class DetailStruct extends \ArrayObject
         return false;
     }
 
+    /**
+     * Tries to parse a string into an int, returns false on failure.
+     * @param type $attribute
+     * @return int|boolean
+     */
     public function parseInt($attribute)
     {
         if ($this->offsetExists($attribute)) {

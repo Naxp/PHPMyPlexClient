@@ -22,15 +22,55 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
-namespace PHPMyPlex\Containers;
+namespace PHPMyPlex;
+
+use Httpful;
 
 /**
- * Extends the MediaContainer to allow handling of Directory objects from Plex
- * Sparse class to match the Plex Data Structure.
+ * Defines a proxy for sending requests to plex.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Directory extends MediaContainer
+class Proxy extends Httpful\Proxy
 {
     
+    protected $host;
+    protected $port;
+    protected $authType;
+    protected $authUsername;
+    protected $authPassword;
+    protected $proxyType;
+    
+    /**
+     * Defines proxy settings for use with Plex.
+     * 
+     * @param string $host
+     * @param int $port
+     * @param null|string $authType
+     * @param null|string $authUsername
+     * @param null|string $authPassword
+     * @param string $proxyType
+     */
+    public function __construct($host, $port = 80, $authType = null, $authUsername = null, $authPassword = null, $proxyType = self::HTTP)
+    {
+        $this->host = $host;
+        $this->port = $port;
+        $this->autType = $authType;
+        $this->authUsername = $authUsername;
+        $this->authPassword = $authPassword;
+        $this->proxyType = $proxyType;
+    }
+    
+    /**
+     * Helper method to retrieve proxy settings.
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if (isset($this->{$name}))
+        {
+            return $this->{$name};
+        }
+    }
 }
