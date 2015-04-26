@@ -19,11 +19,32 @@ printf("Server %s at %s", $myServer->name, $myServer->getURL());
 $sections = $myServer->getSections();
 // Get all items in the Movies library.
 $library = $myServer->getSection($sections['Movies'], DirectoryViews\MovieDirectoryView::ALL);
-$movies = $library->children();
+$movies = $library->movies();
 foreach ($movies as $movie) {
   echo $movie->title;
 }
+
+// Syntax is flexible and semantic.
+// Lazy loading is used where possible to reduce the web service calls required to plex
+
+$library = $myServer->getSection('TV Shows', DirectoryViews\TVDirectoryView::RECENTLY_VIEWED_SHOWS);
+
+$show = $library->show('The Big Bang Theory')->load();
+printf("%s has %s seasons available", $show->title, count($show->seasons()));
+
+$seasons = $show->seasons()->loadAll();
+foreach ($seasons as $season) {
+  $episodes = $season->episodes();
+  foreach ($episodes as $episode) {
+    printf("%s episode %s - %s", $season->title, $episode->index, $episode->title);
+  }
+}
+
+$show = $library->show('Game of Thrones')->load();
+printf("%s contains %s episodes", $show->season('Season 5')->title, $show->season('Season 5')->leafCount);
 ```
+
+
 
 **Installation**
 
