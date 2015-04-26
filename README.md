@@ -3,6 +3,8 @@ PHP client library for accessing myPlex and Plex Media Centre metadata using the
 
 In it's very infant stages at the moment but I will be extending functionality as I can.
 
+[![Code Climate](https://codeclimate.com/github/Cheezykins/PHPMyPlexClient/badges/gpa.svg)](https://codeclimate.com/github/Cheezykins/PHPMyPlexClient)
+
 **Basic usage**
 
 ```php
