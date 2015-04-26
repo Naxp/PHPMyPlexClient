@@ -24,6 +24,8 @@
  */
 namespace PHPMyPlex\Containers;
 
+use PHPMyPlex;
+
 /**
  * Extends the MediaContainer to allow handling of Video objects from Plex
  *
@@ -32,9 +34,9 @@ namespace PHPMyPlex\Containers;
 class Video extends MediaContainer
 {
 
-    public function __construct(\SimpleXMLElement $data)
+    public function __construct(\SimpleXMLElement $data, PHPMyPlex\PlexServer $server)
     {
-        parent::__construct($data);
+        parent::__construct($data, $server);
 
         $this->detailStruct['addedAtDateTime'] = $this->detailStruct->parseDateTime('addedAt');
         $this->detailStruct['updatedAtDateTime'] = $this->detailStruct->parseDateTime('updatedAt');

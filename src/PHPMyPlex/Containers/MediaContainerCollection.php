@@ -25,37 +25,19 @@
 namespace PHPMyPlex\Containers;
 
 /**
- * Provides an itterable array of properties within a plex container as well
- * as helpers to help parse the strings returned by plex into their appropriate
- * data types.
+ * Provides an itterable collection of MediaContainer objects with
+ * the ability to call load() en-mass.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class DetailStruct extends \ArrayObject
+class MediaContainerCollection extends \ArrayObject
 {
-
-    public function parseDateTime($attribute)
+    public function loadAll()
     {
-        if ($this->offsetExists($attribute)) {
-            try {
-                $d = new \DateTime();
-                $d->setTimestamp((int) $this->offsetGet($attribute));
-                return $d;
-            } catch (\Exception $e) {
-                return false;
-            }
+        foreach ($this as $obj)
+        {
+            $obj->load();
         }
-        return false;
-    }
-
-    public function parseInt($attribute)
-    {
-        if ($this->offsetExists($attribute)) {
-            $attr = $this->offsetGet($attribute);
-            if (\ctype_digit($attr)) {
-                return (int) $attr;
-            }
-        }
-        return false;
+        return $this;
     }
 }

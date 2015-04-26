@@ -25,6 +25,7 @@
 namespace PHPMyPlex\Containers;
 
 use PHPMyPlex\Exceptions as Exceptions;
+use PHPMyPlex;
 
 /**
  * Parses the response from plex and manages children and attributes of a Plex Media Container.
@@ -36,27 +37,50 @@ class MediaContainer
 
     protected $detailStruct;
     protected $xml;
+    protected $server;
 
-    public function __construct(\SimpleXMLElement $data)
+    public function __construct(\SimpleXMLElement $data, PHPMyPlex\PlexServer $server)
     {
         $this->xml = $data;
+        $this->server = $server;
         $this->detailStruct = $this->parseMediaContainer($data);
     }
 
-    public function children()
+    public function hasChildren()
+    {
+        return $this->xml->count() > 0;
+    }
+
+    public function children($title = false)
     {
         $children = [];
-        if ($this->xml->count() > 0) {
-            foreach ($this->xml->children() as $child) {
+        if ($this->hasChildren()) {
+
+            if ($title) {
+                $nodes = $this->xml->xpath('//*[translate(@title, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="' . strtolower($title) . '"]');
+            } else {
+                $nodes = $this->xml->children();
+            }
+
+            foreach ($nodes as $child) {
                 $name = __NAMESPACE__ . '\\' . $child->getName();
                 if (\class_exists($name)) {
-                    $children[] = new $name($child);
+                    $children[] = new $name($child, $this->server);
                 } else {
                     throw new Exceptions\MyPlexDataException("No handler exists for container {$name}");
                 }
             }
         }
-        return $children;
+        return new MediaContainerCollection($children);
+    }
+
+    public function child($title)
+    {
+        $children = $this->children($title);
+        if (count($children) > 0) {
+            return $children[0];
+        }
+        return false;
     }
 
     public function hasKey()
@@ -90,14 +114,80 @@ class MediaContainer
         }
     }
 
+    public function load()
+    {
+        if ($this->hasKey()) {
+            $this->xml = $this->server->loadContainerRaw($this->getKey());
+            $this->parseMediaContainer($this->xml);
+        }
+        return $this;
+    }
+
+    // Alias of load()
+    public function loadAll()
+    {
+        return $this->load();
+    }
+
+    // Aliases of MediaContainer::child()
+    public function show($title)
+    {
+        return $this->child($title);
+    }
+
+    public function season($title)
+    {
+        return $this->child($title);
+    }
+
+    public function episode($title)
+    {
+        return $this->child($title);
+    }
+
+    public function movie($title)
+    {
+        return $this->child($title);
+    }
+
+    // Aliases of MediaContainer::children()
+    public function shows()
+    {
+        return $this->children();
+    }
+
+    public function seasons()
+    {
+        return $this->children();
+    }
+
+    public function episodes()
+    {
+        return $this->children();
+    }
+
+    public function movies()
+    {
+        return $this->children();
+    }
+
+    public function __toString()
+    {
+        if (\array_key_exists('title', $this->detailStruct)) {
+            return $this->detailStruct['title'];
+        } else {
+            return $this->xml->getName();
+        }
+    }
+
     protected function parseMediaContainer(\SimpleXMLElement $node)
     {
-        $response = [];
+        $data = [];
 
         foreach ($node->attributes() as $attributeKey => $attributeValue) {
-            $response[$attributeKey] = (string) $attributeValue;
+            $data[$attributeKey] = (string) $attributeValue;
         }
 
-        return new DetailStruct($response);
+        return new DetailStruct($data);
     }
 }

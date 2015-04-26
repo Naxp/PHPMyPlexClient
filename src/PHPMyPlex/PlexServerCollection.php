@@ -29,14 +29,14 @@ namespace PHPMyPlex;
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class PlexServerCollection extends \ArrayIterator
+class PlexServerCollection extends \ArrayObject
 {
     public function getByName($name)
     {
-        $name = \strtolower($name);
-        if ($this->offsetExists($name))
+        $lname = \strtolower($name);
+        if ($this->offsetExists($lname))
         {
-            return $this->offsetGet($name);
+            return $this->offsetGet($lname);
         }
     }
 }

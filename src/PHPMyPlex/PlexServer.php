@@ -88,6 +88,11 @@ class PlexServer
 
     public function loadContainer($path = '/library')
     {
+        return new Containers\MediaContainer($this->loadContainerRaw($path), $this);
+    }
+
+    public function loadContainerRaw($path = '/library')
+    {
         $url = $this->getUrl() . $path;
 
         $request = new Request($url);
@@ -95,10 +100,10 @@ class PlexServer
 
         $response = $request->send('get');
 
-        return new Containers\MediaContainer($response->body);
+        return $response->body;
     }
 
-    public function loadSections($path = '/library/sections')
+    public function getSections($path = '/library/sections')
     {
         $response = $this->loadContainer($path);
         foreach ($response->children() as $child) {
@@ -109,9 +114,12 @@ class PlexServer
         return $this->sectionMappings;
     }
 
-    public function loadSection($key, $directory = '', $path = '/library/sections')
+    public function getSection($key, $directory = '', $path = '/library/sections')
     {
         if (!\ctype_digit($key)) {
+            if (\count($this->sectionMappings) == 0) {
+                $this->getSections($path);
+            }
             if (!\array_key_exists($key, $this->sectionMappings)) {
                 throw new Exceptions\MyPlexDataException("Provided key {$key} does not exist");
             }
