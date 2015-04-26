@@ -53,7 +53,7 @@ class PlexServer
     private $synced = false;
     private $sectionMappings = [];
     private $proxy = false;
-    
+
     /**
      * Defines a myplex server. Takes an optional Proxy object for calls back to Plex.
      * @param mixed $proxy
@@ -61,36 +61,6 @@ class PlexServer
     public function __construct($proxy = false)
     {
         $this->proxy = $proxy;
-    }
-
-    /**
-     * Helper method - allows setting of attributes of a server, pass a whole attributes array to set multiple ones
-     * 
-     * @param string $name
-     * @param mixed $value
-     */
-    public function __set($name, $value)
-    {
-        if ($name == 'attributes') {
-            foreach ($value as $attribute => $attributeValue) {
-                $this->{$attribute} = $attributeValue;
-            }
-        } else if (isset($this->{$name})) {
-            $this->{$name} = $value;
-        }
-    }
-
-    /**
-     * Allows retrieval of properties from the server, blocks retrieval of the
-     * server access token.
-     * @param string $name
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        if ($name != 'accessToken' && isset($this->{$name})) {
-            return $this->{$name};
-        }
     }
 
     /**
@@ -105,15 +75,6 @@ class PlexServer
         $url .= ':';
         $url .= $this->port;
         return $url;
-    }
-
-    /**
-     * Helper method - returns the server name as a string and its URL.
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->name . ' - ' . $this->getUrl();
     }
 
     /**
@@ -187,5 +148,44 @@ class PlexServer
             $url .= '/' . $directory;
         }
         return $this->loadContainer($url);
+    }
+
+    /**
+     * Allows retrieval of properties from the server, blocks retrieval of the
+     * server access token.
+     * @param string $name
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if ($name != 'accessToken' && isset($this->{$name})) {
+            return $this->{$name};
+        }
+    }
+
+    /**
+     * Helper method - allows setting of attributes of a server, pass a whole attributes array to set multiple ones
+     * 
+     * @param string $name
+     * @param mixed $value
+     */
+    public function __set($name, $value)
+    {
+        if ($name == 'attributes') {
+            foreach ($value as $attribute => $attributeValue) {
+                $this->{$attribute} = $attributeValue;
+            }
+        } else if (isset($this->{$name})) {
+            $this->{$name} = $value;
+        }
+    }
+
+    /**
+     * Helper method - returns the server name as a string and its URL.
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name . ' - ' . $this->getUrl();
     }
 }
