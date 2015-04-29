@@ -44,9 +44,9 @@ class MediaContainer
         'shows' => 'children',
         'seasons' => 'children',
         'episodes' => 'children',
-        'movies' => 'children'
+        'movies' => 'children',
+        'sessions' => 'children'
     ];
-    
     protected $details;
     protected $xml;
     protected $server;
@@ -64,8 +64,9 @@ class MediaContainer
         $this->xml = $data;
         $this->server = $server;
         $this->details = $this->parseMediaContainer($data);
+        $this->details['containerType'] = str_replace([__NAMESPACE__, '\\'], '', get_class($this));
     }
-    
+
     /**
      * Determines if there are any children within the current container.
      * 
@@ -79,7 +80,8 @@ class MediaContainer
     /**
      * Returns a collection of MEdiaContainers for all of the children below
      * the current container. If a title is given then the children are refined
-     * to only that title.
+     * to only that title. If a container type is given then children are refined
+     * to only that container type.
      * 
      * @param boolean|string $title = false
      * @return \PHPMyPlex\Containers\MediaContainerCollection
@@ -91,7 +93,7 @@ class MediaContainer
         if ($this->hasChildren()) {
 
             if ($title) {
-                $nodes = $this->xml->xpath('//*[translate(@title, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="' . strtolower($title) . '"]');
+                $nodes = $this->xml->xpath('//' . $title . '|//*[translate(@title, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="' . strtolower($title) . '"]');
             } else {
                 $nodes = $this->xml->children();
             }
@@ -167,12 +169,11 @@ class MediaContainer
      */
     public function __call($name, $arguments)
     {
-        if (\array_key_exists($name, self::$methodAliases))
-        {
+        if (\array_key_exists($name, self::$methodAliases)) {
             return \call_user_func_array([$this, self::$methodAliases[$name]], $arguments);
         }
     }
-    
+
     /**
      * Helper method to return the current title or node name of the media container
      * @return string
@@ -185,7 +186,7 @@ class MediaContainer
             return $this->xml->getName();
         }
     }
-    
+
     /**
      * Helper method to allow direct access of detail struct properties as members.
      * @param string $name

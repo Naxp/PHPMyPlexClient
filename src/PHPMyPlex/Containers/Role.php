@@ -24,41 +24,13 @@
  */
 namespace PHPMyPlex\Containers;
 
-use PHPMyPlex;
-
 /**
- * Extends the MediaContainer to allow handling of Video objects from Plex
+ * Extends the MediaContainer to allow handling of Role objects from Plex
+ * Sparse class to match the Plex Data Structure.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Video extends MediaContainer
+class Role extends MediaContainer
 {
 
-    /**
-     * Extends the base constructor to add parsing of added and updated times for Videos.
-     * @param \SimpleXMLElement $data
-     * @param PHPMyPlex\PlexServer $server
-     */
-    public function __construct(\SimpleXMLElement $data, PHPMyPlex\PlexServer $server)
-    {
-        parent::__construct($data, $server);
-
-            $this->details['progress'] = ($this->details->parseInt('viewOffset') / $this->details->parseInt('duration')) * 100;
-        }
-
-        $this->details['addedAtDateTime'] = $this->details->parseDateTime('addedAt');
-        $this->details['updatedAtDateTime'] = $this->details->parseDateTime('updatedAt');
-    }
-
-    /**
-     * Determines if the video is a container for a current session or just a generic video.
-     * @return boolean
-     */
-    public function isSession()
-    {
-        if ($this->child('User') || $this->child('TranscodeSession')) {
-            return true;
-        }
-        return false;
-    }
 }

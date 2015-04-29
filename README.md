@@ -44,6 +44,38 @@ foreach ($seasons as $season) {
 
 $show = $library->show('Game of Thrones')->load();
 printf("%s contains %s episodes", $show->season('Season 5')->title, $show->season('Season 5')->leafCount);
+
+// Sessions are supported too.
+
+$sessionContainer = $server->getSessions();
+
+foreach ($sessionContainer->sessions() as $session)
+{
+    if ($session->isSession())
+    {
+        if ($session->type == 'episode') {
+            printf("%s is now playing %s - %sx%'.02d - %s (%01.2f%% complete)",
+                $session->child('User')->title,
+                $session->grandparentTitle,
+                $session->parentIndex,
+                $session->index,
+                $session->title,
+                $session->child('TranscodeSession')->progress
+            );
+            // Cheezykins is now playing Angel - 1x01 - City of (61.10% complete)
+        }
+        else if ($session->type == 'movie')
+        {
+            printf("%s is now playing %s (%01.2f%% complete)" . PHP_EOL,
+                $session->child('User')->title,
+                $session->title,
+                $session->child('TranscodeSession')->progress
+            );
+            // Cheezykins is now playing Chicken Little (12.04% complete)
+        }
+
+    }
+}
 ```
 
 
