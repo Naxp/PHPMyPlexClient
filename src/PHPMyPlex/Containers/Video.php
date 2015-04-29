@@ -43,6 +43,7 @@ class Video extends MediaContainer
     {
         parent::__construct($data, $server);
 
+        if ($this->isSession() && array_key_exists('viewOffset', $this->details)) {
             $this->details['progress'] = ($this->details->parseInt('viewOffset') / $this->details->parseInt('duration')) * 100;
         }
 
