@@ -149,6 +149,16 @@ class PlexServer
         }
         return $this->loadContainer($url);
     }
+    
+    /**
+     * Alias of loadContainer(/status/sessions)
+     * @param string $path
+     * @return \PHPMyPlex\Containers\MediaContainer
+     */
+    public function getSessions($path = '/status/sessions')
+    {
+        return $this->loadContainer($path);
+    }
 
     /**
      * Allows retrieval of properties from the server, blocks retrieval of the
