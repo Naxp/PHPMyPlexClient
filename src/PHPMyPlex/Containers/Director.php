@@ -32,5 +32,5 @@ namespace PHPMyPlex\Containers;
  */
 class Director extends MediaContainer
 {
-    //put your code here
+
 }
