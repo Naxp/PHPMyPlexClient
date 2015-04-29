@@ -25,54 +25,12 @@
 namespace PHPMyPlex\Containers;
 
 /**
- * Provides an itterable collection of MediaContainer objects with
- * the ability to call load() en-mass.
+ * Extends the MediaContainer to allow handling of User objects from Plex
+ * Sparse class to match the Plex Data Structure.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class MediaContainerCollection extends \ArrayObject
+class User extends MediaContainer
 {
-
-    /**
-     * Iterates through the collection and loads all sub-items.
-     * Returns itself for chaining.
-     * @return \PHPMyPlex\Containers\MediaContainerCollection
-     */
-    public function loadAll()
-    {
-        foreach ($this as $obj) {
-            $obj->load();
-        }
-        return $this;
-    }
     
-    /**
-     * Gets all details for containers within the collection.
-     * @return array
-     */
-    public function getDetails()
-    {
-        $details = [];
-        foreach ($this as $obj) {
-            $details[] = $obj->getDetails();
-        }
-        return $details;
-    }
-
-    /**
-     * Generates a MediaContainerCollection containing all child items of items
-     * in the collection.
-     * 
-     * @return \PHPMyPlex\Containers\MediaContainerCollection
-     */
-    public function children()
-    {
-        $details = [];
-        foreach ($this as $obj) {
-            foreach ($obj->children() as $child) {
-                $details[] = $child;
-            }
-        }
-        return new self($details);
-    }
 }
