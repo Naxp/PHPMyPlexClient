@@ -29,8 +29,29 @@ use PHPMyPlex\Exceptions as Exceptions;
 /**
  * The MyPlex class is used to provide connectivity to the MyPlex API. It handles the login and authentication tokens
  * needed for subsequent calls. It can also provide a list of servers available within the account.
- *
- * TODO: Add support for playlists, queues and home management provided by MyPlex.
+ * 
+ * Magic Getters and Setters, __get() and __set() are used to access properties from the object, so a list of the key available properties is described here.
+ * 
+ * **Available properties:**
+ * 
+ * + **email** - The user's email address.
+ * + **id** - The user's ID.
+ * + **thumb** - A gravatar link to the user's avatar.
+ * + **username** - The user's username.
+ * + **title** - The user's display name.
+ * + **cloudSyncDevice** - The device the user is syncing content to.
+ * + **locale** - The user's locale. (eg. en)
+ * + **authenticationToken** - The authentication token for the user. **this is sensitive!**
+ * + **pin** - The user's PIN number encrypted. **this is sensitive!**
+ * + **restricted** - Is the users account marked as restricted. (bit. 1 for yes and 0 for no)
+ * + **home** - Is the user using PlexHome? (bit. 1 for yes and 0 for no)
+ * + **queueEmail** - A unique email address the user can use to add items to their queue.
+ * + **queueUid** - The Unique ID for the user's queue.
+ * + **maxHomeSize** - The maximum number of users in the user's PlexHome.
+ * + **subscription** - An array of details about the user's PlexPass subscription.
+ * + **roles** - An array of roles the user posesses.
+ * + **allEntitlements** - Is the user entitled to all entitlements? (boolean)
+ * + **entitlements** - An array of entitlements the user is entitled to.
  * 
  * @author Chris Stretton <cstretton@gmail.com>
  */
@@ -145,7 +166,7 @@ class MyPlex
      * @param array $attributes
      * @return array
      */
-    protected function parseAttributes($attributes)
+    private function parseAttributes($attributes)
     {
         $return = [];
         foreach ($attributes as $key => $value) {
@@ -158,7 +179,7 @@ class MyPlex
      * Gets the IDs of the servers under MyPlex.
      * @param \SimpleXMLElement $elements
      */
-    protected function parseIDs($elements)
+    private function parseIDs($elements)
     {
         $return = [];
         foreach ($elements as $element) {
