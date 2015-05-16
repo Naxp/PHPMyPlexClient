@@ -151,7 +151,6 @@ class PlexServer
      */
     public function getSection($key, $directory = '', $path = '/library/sections')
     {
-        if (!\ctype_digit($key)) {
             if (\count($this->sectionMappings) == 0) {
                 $this->getSections($path);
             }
