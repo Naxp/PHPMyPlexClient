@@ -86,11 +86,6 @@
 <span>Class</span>			</li>
 		</ul>
 		<ul>
-				<li>
-					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
-						<span>Todo</span>
-					</a>
-				</li>
 		</ul>
 		<ul>
 		</ul>
@@ -104,7 +99,25 @@
 	<p>Models the plex server. Provides the basis of requesting sections and subsections within each server as well as
 high level server details.</p>
 
-<p>TODO: Add server control options and library management</p>
+<p>Magic Getters and Setters, __get() and __set() are used to access properties from the object, so a list of the key available properties is described here.</p>
+
+<p><strong>Available properties:</strong></p>
+
+<ul>
+<li><strong>accessToken</strong> - The authentication token passed to the server for requests. <strong>this is sensitive!</strong></li>
+<li><strong>name</strong> - The friendly name of the server</li>
+<li><strong>address</strong> - The internet facing IP address of the server (eg. 212.42.87.3)</li>
+<li><strong>port</strong> - The port the server is running on (eg. 32400)</li>
+<li><strong>version</strong> - The version of Plex Media Server the server is running</li>
+<li><strong>scheme</strong> - The url scheme that the server is using (eg. http)</li>
+<li><strong>host</strong> - The hostname of the server, or IP address if unknown.</li>
+<li><strong>localAddresses</strong> - The local IP addresses of the server comma seperated, from its network interfaces (eg. 192.168.0.4)</li>
+<li><strong>machineIdentifier</strong> - The internal identifier used by MyPlex to identify the server.</li>
+<li><strong>createdAt</strong> - The date and time the server was created as a unix timestamp.</li>
+<li><strong>updatedAt</strong> - The date and time the server was last updated as a unix timestamp.</li>
+<li><strong>owned</strong> - Is the server owned by the user or shared with the user? (bit, 1 for yes and 0 for no)</li>
+<li><strong>synced</strong> - Is the server currently synced with any devices? (bit, 1 for yes and 0 for no)</li>
+</ul>
 	</div>
 
 
@@ -123,7 +136,7 @@ high level server details.</p>
 
 				<b>Author:</b>
 				Chris Stretton <a href="&#109;&#97;&#x69;l&#116;&#x6f;&#x3a;&#99;&#115;&#x74;&#x72;&#101;&#116;&#x74;o&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;m">&#99;&#115;&#x74;&#x72;&#101;&#116;&#x74;o&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;m</a><br>
-			<b>Located at</b> <a href="source-class-PHPMyPlex.PlexServer.html#30-201" title="Go to source code">PHPMyPlex/PlexServer.php</a>
+			<b>Located at</b> <a href="source-class-PHPMyPlex.PlexServer.html#30-218" title="Go to source code">PHPMyPlex/PlexServer.php</a>
 		<br>
 	</div>
 
@@ -143,7 +156,7 @@ high level server details.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-PHPMyPlex.PlexServer.html#57-64" title="Go to source code">__construct</a>( <span>mixed <var>$proxy</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-PHPMyPlex.PlexServer.html#74-81" title="Go to source code">__construct</a>( <span>mixed <var>$proxy</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Defines a myplex server. Takes an optional Proxy object for calls back to Plex.</p>
@@ -178,7 +191,7 @@ high level server details.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getUrl">#</a>
-		<code><a href="source-class-PHPMyPlex.PlexServer.html#66-78" title="Go to source code">getUrl</a>( )</code>
+		<code><a href="source-class-PHPMyPlex.PlexServer.html#83-95" title="Go to source code">getUrl</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the fully qualified URL for the server based on server properties.</p>
@@ -212,7 +225,7 @@ high level server details.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_loadContainer">#</a>
-		<code><a href="source-class-PHPMyPlex.PlexServer.html#80-89" title="Go to source code">loadContainer</a>( <span>string <var>$path</var> = <span class="php-quote">'/library'</span></span> )</code>
+		<code><a href="source-class-PHPMyPlex.PlexServer.html#97-106" title="Go to source code">loadContainer</a>( <span>string <var>$path</var> = <span class="php-quote">'/library'</span></span> )</code>
 
 		<div class="description short">
 			<p>Loads a plex media container with data from the plex server.
@@ -253,7 +266,7 @@ The optional path parameter allows you to define the container path to load.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_loadContainerRaw">#</a>
-		<code><a href="source-class-PHPMyPlex.PlexServer.html#91-106" title="Go to source code">loadContainerRaw</a>( <span>string <var>$path</var> = <span class="php-quote">'/library'</span></span> )</code>
+		<code><a href="source-class-PHPMyPlex.PlexServer.html#108-123" title="Go to source code">loadContainerRaw</a>( <span>string <var>$path</var> = <span class="php-quote">'/library'</span></span> )</code>
 
 		<div class="description short">
 			<p>Submits the request to the plex server to load a container and returns the resulting XML.</p>
@@ -292,7 +305,7 @@ The optional path parameter allows you to define the container path to load.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSections">#</a>
-		<code><a href="source-class-PHPMyPlex.PlexServer.html#108-123" title="Go to source code">getSections</a>( <span>string <var>$path</var> = <span class="php-quote">'/library/sections'</span></span> )</code>
+		<code><a href="source-class-PHPMyPlex.PlexServer.html#125-140" title="Go to source code">getSections</a>( <span>string <var>$path</var> = <span class="php-quote">'/library/sections'</span></span> )</code>
 
 		<div class="description short">
 			<p>Gets the sections available in the plex server and returns an associative array</p>
@@ -331,7 +344,7 @@ The optional path parameter allows you to define the container path to load.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSection">#</a>
-		<code><a href="source-class-PHPMyPlex.PlexServer.html#125-151" title="Go to source code">getSection</a>( <span>string|integer <var>$key</var></span>, <span>string <var>$directory</var> = <span class="php-quote">''</span></span>, <span>string <var>$path</var> = <span class="php-quote">'/library/sections'</span></span> )</code>
+		<code><a href="source-class-PHPMyPlex.PlexServer.html#142-168" title="Go to source code">getSection</a>( <span>string|integer <var>$key</var></span>, <span>string <var>$directory</var> = <span class="php-quote">''</span></span>, <span>string <var>$path</var> = <span class="php-quote">'/library/sections'</span></span> )</code>
 
 		<div class="description short">
 			<p>Loads the provided section, if the section is given as a string then
@@ -380,7 +393,7 @@ it attempts to resolve that string to a section using getSections.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSessions">#</a>
-		<code><a href="source-class-PHPMyPlex.PlexServer.html#153-161" title="Go to source code">getSessions</a>( <span>string <var>$path</var> = <span class="php-quote">'/status/sessions'</span></span> )</code>
+		<code><a href="source-class-PHPMyPlex.PlexServer.html#170-178" title="Go to source code">getSessions</a>( <span>string <var>$path</var> = <span class="php-quote">'/status/sessions'</span></span> )</code>
 
 		<div class="description short">
 			<p>Alias of loadContainer(/status/sessions)</p>
@@ -419,16 +432,14 @@ it attempts to resolve that string to a section using getSections.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___get">#</a>
-		<code><a href="source-class-PHPMyPlex.PlexServer.html#163-174" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-PHPMyPlex.PlexServer.html#180-191" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
-			<p>Allows retrieval of properties from the server, blocks retrieval of the
-server access token.</p>
+			<p>Allows retrieval of properties from the server.</p>
 		</div>
 
 		<div class="description detailed hidden">
-			<p>Allows retrieval of properties from the server, blocks retrieval of the
-server access token.</p>
+			<p>Allows retrieval of properties from the server.</p>
 
 
 				<h4>Parameters</h4>
@@ -460,7 +471,7 @@ server access token.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___set">#</a>
-		<code><a href="source-class-PHPMyPlex.PlexServer.html#176-191" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$value</var></span> )</code>
+		<code><a href="source-class-PHPMyPlex.PlexServer.html#193-208" title="Go to source code">__set</a>( <span>string <var>$name</var></span>, <span>mixed <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>Helper method - allows setting of attributes of a server, pass a whole attributes array to set multiple ones</p>
@@ -497,7 +508,7 @@ server access token.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-PHPMyPlex.PlexServer.html#193-200" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-PHPMyPlex.PlexServer.html#210-217" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			<p>Helper method - returns the server name as a string and its URL.</p>
