@@ -88,3 +88,8 @@ Dependencies
 ============
 
 Depends upon [Httpful](https://github.com/nategood/httpful) - this should be satisfied automatically if installed with composer.
+
+License
+=======
+
+This code is released under the [MIT License](http://opensource.org/licenses/MIT)

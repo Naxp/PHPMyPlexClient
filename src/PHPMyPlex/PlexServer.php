@@ -35,6 +35,7 @@ use PHPMyPlex\DirectoryViews as DirectoryViews;
  * 
  * **Available properties:**
  * 
+ * + **accessToken** - The authentication token passed to the server for requests. **this is sensitive!**
  * + **name** - The friendly name of the server
  * + **address** - The internet facing IP address of the server (eg. 212.42.87.3)
  * + **port** - The port the server is running on (eg. 32400)
@@ -177,15 +178,14 @@ class PlexServer
     }
 
     /**
-     * Allows retrieval of properties from the server, blocks retrieval of the
-     * server access token.
+     * Allows retrieval of properties from the server.
      *
      * @param string $name
      * @return mixed
      */
     public function __get($name)
     {
-        if ($name != 'accessToken' && isset($this->{$name})) {
+        if (isset($this->{$name})) {
             return $this->{$name};
         }
     }
