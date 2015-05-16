@@ -28,30 +28,46 @@
 
 <p><a href="https://codeclimate.com/github/Cheezykins/PHPMyPlexClient"><img src="https://codeclimate.com/github/Cheezykins/PHPMyPlexClient/badges/gpa.svg" alt="Code Climate"></a></p>
 
-<p><strong>Basic usage</strong></p>
+<h1>
+<a id="api-documentation" class="anchor" href="#api-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>API Documentation</h1>
+
+<p>Full <a href="/docs">API documentation</a> from ApiGen is available.</p>
+
+<h1>
+<a id="basic-usage" class="anchor" href="#basic-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic Usage</h1>
+
+<h3>
+<a id="log-in-and-retrieve-servers" class="anchor" href="#log-in-and-retrieve-servers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Log in and retrieve servers.</h3>
 
 <div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">PHPMyPlex\MyPlex</span>;</span>
 <span class="pl-s1"><span class="pl-k">use</span> <span class="pl-c1">PHPMyPlex\DirectoryViews</span> <span class="pl-k">as</span> <span class="pl-c1">DirectoryViews</span>;</span>
 <span class="pl-s1"></span>
 <span class="pl-s1"><span class="pl-smi">$myPlex</span> <span class="pl-k">=</span> <span class="pl-k">new</span> <span class="pl-c1">MyPlex</span>(<span class="pl-s"><span class="pl-pds">'</span>MyPlex username<span class="pl-pds">'</span></span>, <span class="pl-s"><span class="pl-pds">'</span>MyPlex password<span class="pl-pds">'</span></span>);</span>
-<span class="pl-s1"><span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>Signed in as %s<span class="pl-pds">"</span></span>, <span class="pl-smi">$myPlex</span><span class="pl-k">-&gt;</span><span class="pl-smi">username</span>);</span>
 <span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-c1">list</span>(<span class="pl-smi">$myServer</span>) <span class="pl-k">=</span> <span class="pl-smi">$myPlex</span><span class="pl-k">-&gt;</span>getServers();</span>
-<span class="pl-s1"><span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>Server %s at %s<span class="pl-pds">"</span></span>, <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span><span class="pl-smi">name</span>, <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span>getURL());</span>
+<span class="pl-s1"><span class="pl-smi">$myServers</span> <span class="pl-k">=</span> <span class="pl-smi">$myPlex</span><span class="pl-k">-&gt;</span>getServers();</span>
 <span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-c">// Get all sections (Libraries) within the Plex Server</span></span>
+<span class="pl-s1"><span class="pl-k">foreach</span> (<span class="pl-smi">$myServers</span> <span class="pl-k">as</span> <span class="pl-smi">$myServer</span>)</span>
+<span class="pl-s1">{</span>
+<span class="pl-s1">  <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span>getURL(); <span class="pl-c">// Get the URL for the server.</span></span>
+<span class="pl-s1">  <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span><span class="pl-smi">name</span>; <span class="pl-c">// Get the friendly name for the server.</span></span>
+<span class="pl-s1">}</span></pre></div>
+
+<h3>
+<a id="library-sections" class="anchor" href="#library-sections" aria-hidden="true"><span class="octicon octicon-link"></span></a>Library sections</h3>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-c">// Get all sections (Libraries) within the Plex Server</span></span>
 <span class="pl-s1"><span class="pl-smi">$sections</span> <span class="pl-k">=</span> <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span>getSections();</span>
 <span class="pl-s1"><span class="pl-c">// Get all items in the Movies library.</span></span>
 <span class="pl-s1"><span class="pl-smi">$library</span> <span class="pl-k">=</span> <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span>getSection(<span class="pl-smi">$sections</span>[<span class="pl-s"><span class="pl-pds">'</span>Movies<span class="pl-pds">'</span></span>], <span class="pl-c1">DirectoryViews\</span><span class="pl-c1">MovieDirectoryView</span><span class="pl-k">::</span><span class="pl-c1">ALL</span>);</span>
 <span class="pl-s1"><span class="pl-smi">$movies</span> <span class="pl-k">=</span> <span class="pl-smi">$library</span><span class="pl-k">-&gt;</span>movies();</span>
 <span class="pl-s1"><span class="pl-k">foreach</span> (<span class="pl-smi">$movies</span> <span class="pl-k">as</span> <span class="pl-smi">$movie</span>) {</span>
-<span class="pl-s1">  <span class="pl-c1">echo</span> <span class="pl-smi">$movie</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>;</span>
-<span class="pl-s1">}</span>
-<span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-c">// Syntax is flexible and semantic.</span></span>
-<span class="pl-s1"><span class="pl-c">// Lazy loading is used where possible to reduce the web service calls required to plex</span></span>
-<span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-smi">$library</span> <span class="pl-k">=</span> <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span>getSection(<span class="pl-s"><span class="pl-pds">'</span>TV Shows<span class="pl-pds">'</span></span>, <span class="pl-c1">DirectoryViews\</span><span class="pl-c1">TVDirectoryView</span><span class="pl-k">::</span><span class="pl-c1">RECENTLY_VIEWED_SHOWS</span>);</span>
+<span class="pl-s1">  <span class="pl-smi">$movie</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>; <span class="pl-c">// Get the movie title.</span></span>
+<span class="pl-s1">}</span></pre></div>
+
+<h3>
+<a id="semantic-syntax-and-lazy-loading" class="anchor" href="#semantic-syntax-and-lazy-loading" aria-hidden="true"><span class="octicon octicon-link"></span></a>Semantic syntax and Lazy Loading</h3>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$library</span> <span class="pl-k">=</span> <span class="pl-smi">$myServer</span><span class="pl-k">-&gt;</span>getSection(<span class="pl-s"><span class="pl-pds">'</span>TV Shows<span class="pl-pds">'</span></span>, <span class="pl-c1">DirectoryViews\</span><span class="pl-c1">TVDirectoryView</span><span class="pl-k">::</span><span class="pl-c1">RECENTLY_VIEWED_SHOWS</span>);</span>
 <span class="pl-s1"></span>
 <span class="pl-s1"><span class="pl-smi">$show</span> <span class="pl-k">=</span> <span class="pl-smi">$library</span><span class="pl-k">-&gt;</span>show(<span class="pl-s"><span class="pl-pds">'</span>The Big Bang Theory<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span>load();</span>
 <span class="pl-s1"><span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>%s has %s seasons available<span class="pl-pds">"</span></span>, <span class="pl-smi">$show</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>, <span class="pl-c1">count</span>(<span class="pl-smi">$show</span><span class="pl-k">-&gt;</span>seasons()));</span>
@@ -60,50 +76,43 @@
 <span class="pl-s1"><span class="pl-k">foreach</span> (<span class="pl-smi">$seasons</span> <span class="pl-k">as</span> <span class="pl-smi">$season</span>) {</span>
 <span class="pl-s1">  <span class="pl-smi">$episodes</span> <span class="pl-k">=</span> <span class="pl-smi">$season</span><span class="pl-k">-&gt;</span>episodes();</span>
 <span class="pl-s1">  <span class="pl-k">foreach</span> (<span class="pl-smi">$episodes</span> <span class="pl-k">as</span> <span class="pl-smi">$episode</span>) {</span>
-<span class="pl-s1">    <span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>%s episode %s - %s<span class="pl-pds">"</span></span>, <span class="pl-smi">$season</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>, <span class="pl-smi">$episode</span><span class="pl-k">-&gt;</span><span class="pl-smi">index</span>, <span class="pl-smi">$episode</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>);</span>
+<span class="pl-s1">    <span class="pl-smi">$season</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>; <span class="pl-c">// Season title</span></span>
+<span class="pl-s1">    <span class="pl-smi">$episode</span><span class="pl-k">-&gt;</span><span class="pl-smi">index</span>; <span class="pl-c">// episode number</span></span>
+<span class="pl-s1">    <span class="pl-smi">$episode</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>; <span class="pl-c">// episode title</span></span>
 <span class="pl-s1">  }</span>
 <span class="pl-s1">}</span>
 <span class="pl-s1"></span>
 <span class="pl-s1"><span class="pl-smi">$show</span> <span class="pl-k">=</span> <span class="pl-smi">$library</span><span class="pl-k">-&gt;</span>show(<span class="pl-s"><span class="pl-pds">'</span>Game of Thrones<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span>load();</span>
-<span class="pl-s1"><span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>%s contains %s episodes<span class="pl-pds">"</span></span>, <span class="pl-smi">$show</span><span class="pl-k">-&gt;</span>season(<span class="pl-s"><span class="pl-pds">'</span>Season 5<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">title</span>, <span class="pl-smi">$show</span><span class="pl-k">-&gt;</span>season(<span class="pl-s"><span class="pl-pds">'</span>Season 5<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">leafCount</span>);</span>
-<span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-c">// Sessions are supported too.</span></span>
-<span class="pl-s1"></span>
-<span class="pl-s1"><span class="pl-smi">$sessionContainer</span> <span class="pl-k">=</span> <span class="pl-smi">$server</span><span class="pl-k">-&gt;</span>getSessions();</span>
+<span class="pl-s1"><span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>%s contains %s episodes<span class="pl-pds">"</span></span>, <span class="pl-smi">$show</span><span class="pl-k">-&gt;</span>season(<span class="pl-s"><span class="pl-pds">'</span>Season 5<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">title</span>, <span class="pl-smi">$show</span><span class="pl-k">-&gt;</span>season(<span class="pl-s"><span class="pl-pds">'</span>Season 5<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">leafCount</span>);</span></pre></div>
+
+<h3>
+<a id="current-sessions" class="anchor" href="#current-sessions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Current sessions</h3>
+
+<div class="highlight highlight-php"><pre><span class="pl-s1"><span class="pl-smi">$sessionContainer</span> <span class="pl-k">=</span> <span class="pl-smi">$server</span><span class="pl-k">-&gt;</span>getSessions();</span>
 <span class="pl-s1"></span>
 <span class="pl-s1"><span class="pl-k">foreach</span> (<span class="pl-smi">$sessionContainer</span><span class="pl-k">-&gt;</span>sessions() <span class="pl-k">as</span> <span class="pl-smi">$session</span>)</span>
 <span class="pl-s1">{</span>
-<span class="pl-s1">    <span class="pl-k">if</span> (<span class="pl-smi">$session</span><span class="pl-k">-&gt;</span>isSession())</span>
-<span class="pl-s1">    {</span>
-<span class="pl-s1">        <span class="pl-k">if</span> (<span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>episode<span class="pl-pds">'</span></span>) {</span>
-<span class="pl-s1">            <span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>%s is now playing %s - %sx%'.02d - %s (%01.2f%% complete)<span class="pl-pds">"</span></span>,</span>
-<span class="pl-s1">                <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span>child(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">title</span>,</span>
-<span class="pl-s1">                <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">grandparentTitle</span>,</span>
-<span class="pl-s1">                <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">parentIndex</span>,</span>
-<span class="pl-s1">                <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">index</span>,</span>
-<span class="pl-s1">                <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>,</span>
-<span class="pl-s1">                <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span>child(<span class="pl-s"><span class="pl-pds">'</span>TranscodeSession<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">progress</span></span>
-<span class="pl-s1">            );</span>
-<span class="pl-s1">            <span class="pl-c">// Cheezykins is now playing Angel - 1x01 - City of (61.10% complete)</span></span>
-<span class="pl-s1">        }</span>
-<span class="pl-s1">        <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>movie<span class="pl-pds">'</span></span>)</span>
-<span class="pl-s1">        {</span>
-<span class="pl-s1">            <span class="pl-c1">printf</span>(<span class="pl-s"><span class="pl-pds">"</span>%s is now playing %s (%01.2f%% complete)<span class="pl-pds">"</span></span> <span class="pl-k">.</span> <span class="pl-c1">PHP_EOL</span>,</span>
-<span class="pl-s1">                <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span>child(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">title</span>,</span>
-<span class="pl-s1">                <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>,</span>
-<span class="pl-s1">                <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span>child(<span class="pl-s"><span class="pl-pds">'</span>TranscodeSession<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">progress</span></span>
-<span class="pl-s1">            );</span>
-<span class="pl-s1">            <span class="pl-c">// Cheezykins is now playing Chicken Little (12.04% complete)</span></span>
-<span class="pl-s1">        }</span>
-<span class="pl-s1"></span>
-<span class="pl-s1">    }</span>
+<span class="pl-s1">  <span class="pl-k">if</span> (<span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>episode<span class="pl-pds">'</span></span>) {</span>
+<span class="pl-s1">    <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span>child(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">title</span>; <span class="pl-c">// Display name of session user</span></span>
+<span class="pl-s1">    <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">grandparentTitle</span>; <span class="pl-c">// Show name</span></span>
+<span class="pl-s1">    <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">parentIndex</span>; <span class="pl-c">// Season number</span></span>
+<span class="pl-s1">    <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">index</span>; <span class="pl-c">// Episode number</span></span>
+<span class="pl-s1">  }</span>
+<span class="pl-s1">  <span class="pl-k">else</span> <span class="pl-k">if</span> (<span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">type</span> <span class="pl-k">==</span> <span class="pl-s"><span class="pl-pds">'</span>movie<span class="pl-pds">'</span></span>)</span>
+<span class="pl-s1">  {</span>
+<span class="pl-s1">    <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span>child(<span class="pl-s"><span class="pl-pds">'</span>User<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">title</span>; <span class="pl-c">// Display name of session user</span></span>
+<span class="pl-s1">  }</span>
+<span class="pl-s1">  <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span><span class="pl-smi">title</span>; <span class="pl-c">// Title of epsiode or movie.</span></span>
+<span class="pl-s1">  <span class="pl-smi">$session</span><span class="pl-k">-&gt;</span>child(<span class="pl-s"><span class="pl-pds">'</span>TranscodeSession<span class="pl-pds">'</span></span>)<span class="pl-k">-&gt;</span><span class="pl-smi">progress</span> <span class="pl-c">// Current percentage through the transcode session</span></span>
 <span class="pl-s1">}</span></pre></div>
 
-<p><strong>Installation</strong></p>
+<h1>
+<a id="installation" class="anchor" href="#installation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Installation</h1>
 
 <p>Install using <a href="https://getcomposer.org/">composer</a>, you can require cheezykins/phpmyplexclient in your composer.json and it will manage installation automatically. It uses the standard PSR-0 autoloader for classes.</p>
 
-<p><strong>Dependencies</strong></p>
+<h1>
+<a id="dependencies" class="anchor" href="#dependencies" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h1>
 
 <p>Depends upon <a href="https://github.com/nategood/httpful">Httpful</a> - this should be satisfied automatically if installed with composer.</p>
 
