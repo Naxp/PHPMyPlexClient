@@ -5,30 +5,40 @@ In it's very infant stages at the moment but I will be extending functionality a
 
 [![Code Climate](https://codeclimate.com/github/Cheezykins/PHPMyPlexClient/badges/gpa.svg)](https://codeclimate.com/github/Cheezykins/PHPMyPlexClient)
 
-**Basic usage**
+Basic Usage
+===========
+
+### Log in and retrieve servers.
 
 ```php
 use PHPMyPlex\MyPlex;
 use PHPMyPlex\DirectoryViews as DirectoryViews;
 
 $myPlex = new MyPlex('MyPlex username', 'MyPlex password');
-printf("Signed in as %s", $myPlex->username);
 
-list($myServer) = $myPlex->getServers();
-printf("Server %s at %s", $myServer->name, $myServer->getURL());
+$myServers = $myPlex->getServers();
 
+foreach ($myServers as $myServer)
+{
+  $myServer->getURL(); // Get the URL for the server.
+  $myServer->name; // Get the friendly name for the server.
+}
+```
+
+### Library sections
+```php
 // Get all sections (Libraries) within the Plex Server
 $sections = $myServer->getSections();
 // Get all items in the Movies library.
 $library = $myServer->getSection($sections['Movies'], DirectoryViews\MovieDirectoryView::ALL);
 $movies = $library->movies();
 foreach ($movies as $movie) {
-  echo $movie->title;
+  $movie->title; // Get the movie title.
 }
+```
 
-// Syntax is flexible and semantic.
-// Lazy loading is used where possible to reduce the web service calls required to plex
-
+### Semantic syntax and Lazy Loading
+```php
 $library = $myServer->getSection('TV Shows', DirectoryViews\TVDirectoryView::RECENTLY_VIEWED_SHOWS);
 
 $show = $library->show('The Big Bang Theory')->load();
@@ -38,52 +48,43 @@ $seasons = $show->seasons()->loadAll();
 foreach ($seasons as $season) {
   $episodes = $season->episodes();
   foreach ($episodes as $episode) {
-    printf("%s episode %s - %s", $season->title, $episode->index, $episode->title);
+    $season->title; // Season title
+    $episode->index; // episode number
+    $episode->title; // episode title
   }
 }
 
 $show = $library->show('Game of Thrones')->load();
 printf("%s contains %s episodes", $show->season('Season 5')->title, $show->season('Season 5')->leafCount);
+```
 
-// Sessions are supported too.
-
+### Current sessions
+```php
 $sessionContainer = $server->getSessions();
 
 foreach ($sessionContainer->sessions() as $session)
 {
-    if ($session->isSession())
-    {
-        if ($session->type == 'episode') {
-            printf("%s is now playing %s - %sx%'.02d - %s (%01.2f%% complete)",
-                $session->child('User')->title,
-                $session->grandparentTitle,
-                $session->parentIndex,
-                $session->index,
-                $session->title,
-                $session->child('TranscodeSession')->progress
-            );
-            // Cheezykins is now playing Angel - 1x01 - City of (61.10% complete)
-        }
-        else if ($session->type == 'movie')
-        {
-            printf("%s is now playing %s (%01.2f%% complete)" . PHP_EOL,
-                $session->child('User')->title,
-                $session->title,
-                $session->child('TranscodeSession')->progress
-            );
-            // Cheezykins is now playing Chicken Little (12.04% complete)
-        }
-
-    }
+  if ($session->type == 'episode') {
+    $session->child('User')->title; // Display name of session user
+    $session->grandparentTitle; // Show name
+    $session->parentIndex; // Season number
+    $session->index; // Episode number
+  }
+  else if ($session->type == 'movie')
+  {
+    $session->child('User')->title; // Display name of session user
+  }
+  $session->title; // Title of epsiode or movie.
+  $session->child('TranscodeSession')->progress // Current percentage through the transcode session
 }
 ```
 
-
-
-**Installation**
+Installation
+============
 
 Install using [composer](https://getcomposer.org/), you can require cheezykins/phpmyplexclient in your composer.json and it will manage installation automatically. It uses the standard PSR-0 autoloader for classes.
 
-**Dependencies**
+Dependencies
+============
 
 Depends upon [Httpful](https://github.com/nategood/httpful) - this should be satisfied automatically if installed with composer.
