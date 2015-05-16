@@ -5,6 +5,11 @@ In it's very infant stages at the moment but I will be extending functionality a
 
 [![Code Climate](https://codeclimate.com/github/Cheezykins/PHPMyPlexClient/badges/gpa.svg)](https://codeclimate.com/github/Cheezykins/PHPMyPlexClient)
 
+API Documentation
+=================
+
+Full [API documentation](https://cheezykins.github.io/PHPMyPlexClient/docs) from ApiGen is available.
+
 Basic Usage
 ===========
 
