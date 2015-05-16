@@ -164,5 +164,6 @@ class MyPlex
         foreach ($elements as $element) {
             $return[] = (string) $element->attributes()['id'];
         }
+        return $return;
     }
 }
