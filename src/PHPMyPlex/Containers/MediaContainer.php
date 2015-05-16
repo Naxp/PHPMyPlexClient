@@ -35,6 +35,13 @@ use PHPMyPlex;
 class MediaContainer
 {
 
+    /**
+     * An array of method aliases. You can call the method names (show(), season(), episodes() etc.) on the object and they are
+     * aliased onto the appropriate method (child(), children() etc) - This allows for semantic use of method names without
+     * leaving masses of public methods in the class.
+     * 
+     * @var Array
+     */
     protected static $methodAliases = [
         'loadAll' => 'load',
         'show' => 'child',

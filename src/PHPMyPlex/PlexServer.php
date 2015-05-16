@@ -31,7 +31,23 @@ use PHPMyPlex\DirectoryViews as DirectoryViews;
  * Models the plex server. Provides the basis of requesting sections and subsections within each server as well as
  * high level server details.
  * 
- * TODO: Add server control options and library management 
+ * Magic Getters and Setters, __get() and __set() are used to access properties from the object, so a list of the key available properties is described here.
+ * 
+ * **Available properties:**
+ * 
+ * + **name** - The friendly name of the server
+ * + **address** - The internet facing IP address of the server (eg. 212.42.87.3)
+ * + **port** - The port the server is running on (eg. 32400)
+ * + **version** - The version of Plex Media Server the server is running
+ * + **scheme** - The url scheme that the server is using (eg. http)
+ * + **host** - The hostname of the server, or IP address if unknown.
+ * + **localAddresses** - The local IP addresses of the server comma seperated, from its network interfaces (eg. 192.168.0.4)
+ * + **machineIdentifier** - The internal identifier used by MyPlex to identify the server.
+ * + **createdAt** - The date and time the server was created as a unix timestamp.
+ * + **updatedAt** - The date and time the server was last updated as a unix timestamp.
+ * + **owned** - Is the server owned by the user or shared with the user? (bit, 1 for yes and 0 for no)
+ * + **synced** - Is the server currently synced with any devices? (bit, 1 for yes and 0 for no)
+ * 
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
@@ -149,7 +165,7 @@ class PlexServer
         }
         return $this->loadContainer($url);
     }
-    
+
     /**
      * Alias of loadContainer(/status/sessions)
      * @param string $path
@@ -163,6 +179,7 @@ class PlexServer
     /**
      * Allows retrieval of properties from the server, blocks retrieval of the
      * server access token.
+     *
      * @param string $name
      * @return mixed
      */
