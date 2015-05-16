@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class PHPMyPlex\Containers\Video | PHP MyPlex Client</title>
+
+	<link rel="stylesheet" href="resources/style.css?e99947befd7bf673c6b43ff75e9e0f170c88a60e">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-PHPMyPlex.html">
+						PHPMyPlex<span></span>
+					</a>
+
+						<ul>
+				<li class="active">
+					<a href="namespace-PHPMyPlex.Containers.html">
+						Containers					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHPMyPlex.DirectoryViews.html">
+						DirectoryViews					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHPMyPlex.Exceptions.html">
+						Exceptions					</a>
+
+						</li>
+							</ul></li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-PHPMyPlex.Containers.ContainerDetails.html">ContainerDetails</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Director.html">Director</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Directory.html">Directory</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Media.html">Media</a></li>
+				<li><a href="class-PHPMyPlex.Containers.MediaContainer.html">MediaContainer</a></li>
+				<li><a href="class-PHPMyPlex.Containers.MediaContainerCollection.html">MediaContainerCollection</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Part.html">Part</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Player.html">Player</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Role.html">Role</a></li>
+				<li><a href="class-PHPMyPlex.Containers.TranscodeSession.html">TranscodeSession</a></li>
+				<li><a href="class-PHPMyPlex.Containers.User.html">User</a></li>
+				<li class="active"><a href="class-PHPMyPlex.Containers.Video.html">Video</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Writer.html">Writer</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-PHPMyPlex.Containers.html" title="Summary of PHPMyPlex\Containers"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class Video</h1>
+
+
+	<div class="description">
+	<p>Extends the MediaContainer to allow handling of Video objects from Plex</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html"><span>PHPMyPlex\Containers\MediaContainer</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>PHPMyPlex\Containers\Video</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-PHPMyPlex.html">PHPMyPlex</a>\<a href="namespace-PHPMyPlex.Containers.html">Containers</a><br>
+		
+
+				<b>Author:</b>
+				Chris Stretton <a href="&#109;&#97;&#x69;l&#116;&#x6f;&#x3a;&#99;&#115;&#x74;&#x72;&#101;&#116;&#x74;o&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;m">&#99;&#115;&#x74;&#x72;&#101;&#116;&#x74;o&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;m</a><br>
+			<b>Located at</b> <a href="source-class-PHPMyPlex.Containers.Video.html#29-65" title="Go to source code">PHPMyPlex/Containers/Video.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-PHPMyPlex.Containers.Video.html#37-52" title="Go to source code">__construct</a>( <span>SimpleXMLElement <var>$data</var></span>, <span><code><a href="class-PHPMyPlex.PlexServer.html">PHPMyPlex\PlexServer</a></code> <var>$server</var></span> )</code>
+
+		<div class="description short">
+			<p>Extends the base constructor to add parsing of added and updated times for Videos.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Extends the base constructor to add parsing of added and updated times for Videos.</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd></dd>
+					<dt><var>$server</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+				<h4>Overrides</h4>
+				<div class="list"><code><a href="class-PHPMyPlex.Containers.MediaContainer.html#___construct">PHPMyPlex\Containers\MediaContainer::__construct()</a></code></div>
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="isSession" id="_isSession">
+
+		<td class="attributes"><code>
+			 public 
+
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_isSession">#</a>
+		<code><a href="source-class-PHPMyPlex.Containers.Video.html#54-64" title="Go to source code">isSession</a>( )</code>
+
+		<div class="description short">
+			<p>Determines if the video is a container for a current session or just a generic video.</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Determines if the video is a container for a current session or just a generic video.</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					boolean
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-PHPMyPlex.Containers.MediaContainer.html#methods">PHPMyPlex\Containers\MediaContainer</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#___call">__call()</a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#___get">__get()</a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#___toString">__toString()</a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#_child">child()</a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#_children">children()</a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#_getDetails">getDetails()</a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#_hasChildren">hasChildren()</a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#_hasKey">hasKey()</a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#_load">load()</a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#_parseMediaContainer">parseMediaContainer()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-PHPMyPlex.Containers.MediaContainer.html#properties">PHPMyPlex\Containers\MediaContainer</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#$details"><var>$details</var></a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#$methodAliases"><var>$methodAliases</var></a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#$server"><var>$server</var></a>, 
+			<a href="class-PHPMyPlex.Containers.MediaContainer.html#$xml"><var>$xml</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		PHP MyPlex Client API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
