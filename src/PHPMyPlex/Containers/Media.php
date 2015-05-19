@@ -27,10 +27,17 @@ namespace PHPMyPlex\Containers;
 /**
  * Extends the MediaContainer to allow handling of Media objects from Plex
  * Sparse class to match the Plex Data Structure.
+ * 
+ * Typically available properties (actual properties available depend upon context)
+ *
+ * + **id** -  (eg. 581)
+ * + **tag** -  (eg. Horror)
+ * + **count** -  (eg. 38)
+ * + **containerType** -  (eg. Genre)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Media extends MediaContainer
+class Media extends Video
 {
 
 }

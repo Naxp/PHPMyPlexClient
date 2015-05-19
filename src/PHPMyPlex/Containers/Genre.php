@@ -25,39 +25,19 @@
 namespace PHPMyPlex\Containers;
 
 /**
- * Extends the MediaContainer to allow handling of Directory objects from Plex
+ * Extends the MediaContainer to allow handling of Genre objects from Plex
  * Sparse class to match the Plex Data Structure.
- *
+ * 
  * Typically available properties (actual properties available depend upon context)
  *
- * + **addedAt** -  (eg. 1427997392)
- * + **art** -  (eg. /library/metadata/7424/art/1428002760)
- * + **banner** -  (eg. /library/metadata/7424/banner/1428002760)
- * + **childCount** -  (eg. 2)
- * + **containerType** -  (eg. Directory)
- * + **contentRating** -  (eg. TV-PG)
- * + **duration** -  (eg. 1800000)
- * + **index** -  (eg. 1)
- * + **key** -  (eg. /library/metadata/7424/children)
- * + **leafCount** -  (eg. 20)
- * + **originallyAvailableAt** -  (eg. 2010-11-26)
- * + **parentKey** -  (eg. /library/metadata/7424)
- * + **parentRatingKey** -  (eg. 7424)
- * + **rating** -  (eg. 9.3)
- * + **ratingKey** -  (eg. 7424)
- * + **studio** -  (eg. Cartoon Network)
- * + **summary** - 
- * + **theme** -  (eg. /library/metadata/7424/theme/1428002760)
- * + **thumb** -  (eg. /library/metadata/7424/thumb/1428002760)
- * + **title** -  (eg. Season 2)
- * + **type** -  (eg. season)
- * + **updatedAt** -  (eg. 1428002760)
- * + **viewedLeafCount** -  (eg. 0)
- * + **year** -  (eg. 2010)
+ * + **id** -  (eg. 581)
+ * + **tag** -  (eg. Horror)
+ * + **count** -  (eg. 38)
+ * + **containerType** -  (eg. Genre)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Directory extends MediaContainer
+class Genre extends Video
 {
-    
+
 }

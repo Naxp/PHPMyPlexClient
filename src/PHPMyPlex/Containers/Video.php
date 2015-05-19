@@ -28,6 +28,43 @@ use PHPMyPlex;
 
 /**
  * Extends the MediaContainer to allow handling of Video objects from Plex
+ * 
+ * Typically available properties (actual properties available depend upon context)
+ *
+ * + **addedAt** -  (eg. 1427997393)
+ * + **addedAtDateTime** - 
+ * + **art** -  (eg. /library/metadata/7424/art/1428002760)
+ * + **chapterSource** -  (eg. )
+ * + **containerType** -  (eg. Video)
+ * + **contentRating** -  (eg. R)
+ * + **duration** -  (eg. 1257923)
+ * + **grandparentArt** -  (eg. /library/metadata/7424/art/1428002760)
+ * + **grandparentKey** -  (eg. /library/metadata/7424)
+ * + **grandparentRatingKey** -  (eg. 7424)
+ * + **grandparentTheme** -  (eg. /library/metadata/7424/theme/1428002760)
+ * + **grandparentThumb** -  (eg. /library/metadata/7424/thumb/1428002760)
+ * + **grandparentTitle** -  (eg. Young Justice)
+ * + **guid** -  (eg. com.plexapp.agents.imdb://tt1156398?lang=en)
+ * + **index** -  (eg. 20)
+ * + **key** -  (eg. /library/metadata/7459)
+ * + **lastViewedAt** -  (eg. 1428756749)
+ * + **originallyAvailableAt** -  (eg. 2009-10-08)
+ * + **parentIndex** -  (eg. 2)
+ * + **parentKey** -  (eg. /library/metadata/7443)
+ * + **parentRatingKey** -  (eg. 7443)
+ * + **parentThumb** -  (eg. /library/metadata/7443/thumb/1428002760)
+ * + **primaryExtraKey** -  (eg. /library/metadata/8145)
+ * + **rating** -  (eg. 7.0)
+ * + **ratingKey** -  (eg. 7459)
+ * + **studio** -  (eg. Columbia Pictures)
+ * + **summary** - 
+ * + **tagline** -  (eg. This place is so dead)
+ * + **thumb** -  (eg. /library/metadata/7459/thumb/1428002760)
+ * + **title** -  (eg. Endgame)
+ * + **type** -  (eg. episode)
+ * + **updatedAt** -  (eg. 1428002760) 
+ * + **viewOffset** -  (eg. 1554602)
+ * + **year** -  (eg. 2009)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */

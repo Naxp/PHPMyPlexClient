@@ -27,10 +27,21 @@ namespace PHPMyPlex\Containers;
 /**
  * Extends the MediaContainer to allow handling of Part objects from Plex
  * Sparse class to match the Plex Data Structure.
+ * 
+ * Typically available properties (actual properties available depend upon context)
+ *
+ * + **container** -  (eg. mkv)
+ * + **containerType** -  (eg. Part)
+ * + **duration** -  (eg. 1257923)
+ * + **file** -  (eg. D:\Media\Movies\2009 - Zombieland\Zombieland (HD).mkv)
+ * + **id** -  (eg. 18904)
+ * + **indexes** -  (eg. sd)
+ * + **key** -  (eg. /library/parts/18904/file.avi)
+ * + **size** -  (eg. 179158958)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Part extends MediaContainer
+class Part extends Media
 {
     
 }

@@ -27,10 +27,16 @@ namespace PHPMyPlex\Containers;
 /**
  * Extends the MediaContainer to allow handling of Director objects from Plex
  * Sparse class to match the Plex Data Structure.
+ * 
+ * Typically available properties (actual properties available depend upon context)
+ *
+ * + **tag** -  (eg. Ruben Fleischer)
+ * + **containerType** -  (eg. Director)
+ * + **id** -  (eg. 8825)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Director extends MediaContainer
+class Director extends Video
 {
 
 }
