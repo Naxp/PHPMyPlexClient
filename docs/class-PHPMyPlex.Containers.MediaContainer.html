@@ -50,14 +50,18 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-PHPMyPlex.Containers.ContainerDetails.html">ContainerDetails</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Country.html">Country</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Director.html">Director</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Directory.html">Directory</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Field.html">Field</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Genre.html">Genre</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Media.html">Media</a></li>
 				<li class="active"><a href="class-PHPMyPlex.Containers.MediaContainer.html">MediaContainer</a></li>
 				<li><a href="class-PHPMyPlex.Containers.MediaContainerCollection.html">MediaContainerCollection</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Part.html">Part</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Player.html">Player</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Role.html">Role</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Stream.html">Stream</a></li>
 				<li><a href="class-PHPMyPlex.Containers.TranscodeSession.html">TranscodeSession</a></li>
 				<li><a href="class-PHPMyPlex.Containers.User.html">User</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Video.html">Video</a></li>
@@ -105,24 +109,53 @@
 
 	<div class="description">
 	<p>Parses the response from plex and manages children and attributes of a Plex Media Container.</p>
+
+<p>Typically available properties (actual properties available depend upon context)</p>
+
+<ul>
+<li><strong>allowSync</strong> -  (eg. 1)</li>
+<li><strong>art</strong> -  (eg. /:/resources/movie-fanart.jpg)</li>
+<li><strong>containerType</strong> -  (eg. MediaContainer)</li>
+<li><strong>identifier</strong> -  (eg. com.plexapp.plugins.library)</li>
+<li><strong>librarySectionID</strong> -  (eg. 1)</li>
+<li><strong>librarySectionTitle</strong> -  (eg. Movies)</li>
+<li><strong>librarySectionUUID</strong> -  (eg. d6bb8b2c-fe58-11e4-a322-1697f925ec7b)</li>
+<li><strong>mediaTagPrefix</strong> -  (eg. /system/bundle/media/flags/)</li>
+<li><strong>mediaTagVersion</strong> -  (eg. 1431039020)</li>
+<li><strong>nocache</strong> -  (eg. 1)</li>
+<li><strong>size</strong> -  (eg. 288)</li>
+<li><strong>sortAsc</strong> -  (eg. 1)</li>
+<li><strong>thumb</strong> -  (eg. /:/resources/movie.png)</li>
+<li><strong>title1</strong> -  (eg. Movies)</li>
+<li><strong>title2</strong> -  (eg. All Movies)</li>
+<li><strong>viewGroup</strong> -  (eg. movie)</li>
+<li><strong>viewMode</strong> -  (eg. 65592)</li>
+</ul>
 	</div>
 
 
 
 	<div>
 		<h4>Direct known subclasses</h4>
-			<a href="class-PHPMyPlex.Containers.Director.html">PHPMyPlex\Containers\Director</a>, 
 			<a href="class-PHPMyPlex.Containers.Directory.html">PHPMyPlex\Containers\Directory</a>, 
-			<a href="class-PHPMyPlex.Containers.Media.html">PHPMyPlex\Containers\Media</a>, 
-			<a href="class-PHPMyPlex.Containers.Part.html">PHPMyPlex\Containers\Part</a>, 
 			<a href="class-PHPMyPlex.Containers.Player.html">PHPMyPlex\Containers\Player</a>, 
-			<a href="class-PHPMyPlex.Containers.Role.html">PHPMyPlex\Containers\Role</a>, 
 			<a href="class-PHPMyPlex.Containers.TranscodeSession.html">PHPMyPlex\Containers\TranscodeSession</a>, 
 			<a href="class-PHPMyPlex.Containers.User.html">PHPMyPlex\Containers\User</a>, 
-			<a href="class-PHPMyPlex.Containers.Video.html">PHPMyPlex\Containers\Video</a>, 
-			<a href="class-PHPMyPlex.Containers.Writer.html">PHPMyPlex\Containers\Writer</a>
+			<a href="class-PHPMyPlex.Containers.Video.html">PHPMyPlex\Containers\Video</a>
 	</div>
 
+	<div>
+		<h4>Indirect known subclasses</h4>
+			<a href="class-PHPMyPlex.Containers.Country.html">PHPMyPlex\Containers\Country</a>, 
+			<a href="class-PHPMyPlex.Containers.Director.html">PHPMyPlex\Containers\Director</a>, 
+			<a href="class-PHPMyPlex.Containers.Field.html">PHPMyPlex\Containers\Field</a>, 
+			<a href="class-PHPMyPlex.Containers.Genre.html">PHPMyPlex\Containers\Genre</a>, 
+			<a href="class-PHPMyPlex.Containers.Media.html">PHPMyPlex\Containers\Media</a>, 
+			<a href="class-PHPMyPlex.Containers.Part.html">PHPMyPlex\Containers\Part</a>, 
+			<a href="class-PHPMyPlex.Containers.Role.html">PHPMyPlex\Containers\Role</a>, 
+			<a href="class-PHPMyPlex.Containers.Stream.html">PHPMyPlex\Containers\Stream</a>, 
+			<a href="class-PHPMyPlex.Containers.Writer.html">PHPMyPlex\Containers\Writer</a>
+	</div>
 
 
 
@@ -136,7 +169,7 @@
 
 				<b>Author:</b>
 				Chris Stretton <a href="&#109;&#97;&#x69;l&#116;&#x6f;&#x3a;&#99;&#115;&#x74;&#x72;&#101;&#116;&#x74;o&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;m">&#99;&#115;&#x74;&#x72;&#101;&#116;&#x74;o&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;m</a><br>
-			<b>Located at</b> <a href="source-class-PHPMyPlex.Containers.MediaContainer.html#30-225" title="Go to source code">PHPMyPlex/Containers/MediaContainer.php</a>
+			<b>Located at</b> <a href="source-class-PHPMyPlex.Containers.MediaContainer.html#30-245" title="Go to source code">PHPMyPlex/Containers/MediaContainer.php</a>
 		<br>
 	</div>
 
@@ -156,7 +189,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#61-75" title="Go to source code">__construct</a>( <span>SimpleXMLElement <var>$data</var></span>, <span><code><a href="class-PHPMyPlex.PlexServer.html">PHPMyPlex\PlexServer</a></code> <var>$server</var></span> )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#81-95" title="Go to source code">__construct</a>( <span>SimpleXMLElement <var>$data</var></span>, <span><code><a href="class-PHPMyPlex.PlexServer.html">PHPMyPlex\PlexServer</a></code> <var>$server</var></span> )</code>
 
 		<div class="description short">
 			<p>Creates a new Media Container from a provided container object and parses the attributes
@@ -197,7 +230,7 @@ Takes a reference to the plex server that spawned the data for loading.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_hasChildren">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#77-85" title="Go to source code">hasChildren</a>( )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#97-105" title="Go to source code">hasChildren</a>( )</code>
 
 		<div class="description short">
 			<p>Determines if there are any children within the current container.</p>
@@ -231,7 +264,7 @@ Takes a reference to the plex server that spawned the data for loading.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_children">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#87-118" title="Go to source code">children</a>( <span>boolean|string <var>$title</var> = <span class="php-keyword1">false</span></span> )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#107-138" title="Go to source code">children</a>( <span>boolean|string <var>$title</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns a collection of MEdiaContainers for all of the children below
@@ -273,14 +306,14 @@ to only that container type.</p>
 		<td class="attributes"><code>
 			 public 
 
-			<code><a href="class-PHPMyPlex.Containers.MediaContainerCollection.html">PHPMyPlex\Containers\MediaContainerCollection</a></code>|boolean
+			<code><a href="class-PHPMyPlex.Containers.MediaContainer.html">PHPMyPlex\Containers\MediaContainer</a></code>|boolean
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_child">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#120-134" title="Go to source code">child</a>( <span>string <var>$title</var></span> )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#140-154" title="Go to source code">child</a>( <span>string <var>$title</var></span> )</code>
 
 		<div class="description short">
 			<p>Gets s single media container for a given child by title. Returns false
@@ -300,7 +333,7 @@ if the child is not found.</p>
 
 				<h4>Returns</h4>
 				<div class="list">
-					<code><a href="class-PHPMyPlex.Containers.MediaContainerCollection.html">PHPMyPlex\Containers\MediaContainerCollection</a></code>|boolean
+					<code><a href="class-PHPMyPlex.Containers.MediaContainer.html">PHPMyPlex\Containers\MediaContainer</a></code>|boolean
 				</div>
 
 
@@ -321,7 +354,7 @@ if the child is not found.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_hasKey">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#136-143" title="Go to source code">hasKey</a>( )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#156-163" title="Go to source code">hasKey</a>( )</code>
 
 		<div class="description short">
 			<p>checks if the current container has a key</p>
@@ -355,7 +388,7 @@ if the child is not found.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDetails">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#145-152" title="Go to source code">getDetails</a>( )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#165-172" title="Go to source code">getDetails</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the current containers details as an associative array.</p>
@@ -389,7 +422,7 @@ if the child is not found.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_load">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#154-167" title="Go to source code">load</a>( )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#174-187" title="Go to source code">load</a>( )</code>
 
 		<div class="description short">
 			<p>Goes back to the plex server and loads the current item's key to provide
@@ -425,7 +458,7 @@ more in-depth details about the level and its children. Returns itself for chain
 
 		<td class="name"><div>
 		<a class="anchor" href="#___call">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#169-182" title="Go to source code">__call</a>( <span>string <var>$name</var></span>, <span>array <var>$arguments</var></span> )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#189-202" title="Go to source code">__call</a>( <span>string <var>$name</var></span>, <span>array <var>$arguments</var></span> )</code>
 
 		<div class="description short">
 			<p>Allows aliasing of children(), child() and load() calls for semantic calling
@@ -468,7 +501,7 @@ by users of the objects.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___toString">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#184-195" title="Go to source code">__toString</a>( )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#204-215" title="Go to source code">__toString</a>( )</code>
 
 		<div class="description short">
 			<p>Helper method to return the current title or node name of the media container</p>
@@ -502,7 +535,7 @@ by users of the objects.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___get">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#197-207" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#217-227" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Helper method to allow direct access of detail struct properties as members.</p>
@@ -541,7 +574,7 @@ by users of the objects.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parseMediaContainer">#</a>
-		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#209-224" title="Go to source code">parseMediaContainer</a>( <span>SimpleXMLElement <var>$node</var></span> )</code>
+		<code><a href="source-class-PHPMyPlex.Containers.MediaContainer.html#229-244" title="Go to source code">parseMediaContainer</a>( <span>SimpleXMLElement <var>$node</var></span> )</code>
 
 		<div class="description short">
 			<p>Takes the details of the plex server and parses it into
@@ -592,7 +625,7 @@ the detail struct.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-PHPMyPlex.Containers.MediaContainer.html#38-56" title="Go to source code"><var>$methodAliases</var></a>
+				<a href="source-class-PHPMyPlex.Containers.MediaContainer.html#58-76" title="Go to source code"><var>$methodAliases</var></a>
 
 			<div class="description short">
 				<p>An array of method aliases. You can call the method names (show(), season(), episodes() etc.) on the object and they are
@@ -632,7 +665,7 @@ leaving masses of public methods in the class.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-PHPMyPlex.Containers.MediaContainer.html#57" title="Go to source code"><var>$details</var></a>
+				<a href="source-class-PHPMyPlex.Containers.MediaContainer.html#77" title="Go to source code"><var>$details</var></a>
 
 			<div class="description short">
 				
@@ -657,7 +690,7 @@ leaving masses of public methods in the class.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-PHPMyPlex.Containers.MediaContainer.html#58" title="Go to source code"><var>$xml</var></a>
+				<a href="source-class-PHPMyPlex.Containers.MediaContainer.html#78" title="Go to source code"><var>$xml</var></a>
 
 			<div class="description short">
 				
@@ -682,7 +715,7 @@ leaving masses of public methods in the class.</p>
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-PHPMyPlex.Containers.MediaContainer.html#59" title="Go to source code"><var>$server</var></a>
+				<a href="source-class-PHPMyPlex.Containers.MediaContainer.html#79" title="Go to source code"><var>$server</var></a>
 
 			<div class="description short">
 				

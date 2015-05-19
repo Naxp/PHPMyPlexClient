@@ -50,14 +50,18 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-PHPMyPlex.Containers.ContainerDetails.html">ContainerDetails</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Country.html">Country</a></li>
 				<li class="active"><a href="class-PHPMyPlex.Containers.Director.html">Director</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Directory.html">Directory</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Field.html">Field</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Genre.html">Genre</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Media.html">Media</a></li>
 				<li><a href="class-PHPMyPlex.Containers.MediaContainer.html">MediaContainer</a></li>
 				<li><a href="class-PHPMyPlex.Containers.MediaContainerCollection.html">MediaContainerCollection</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Part.html">Part</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Player.html">Player</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Role.html">Role</a></li>
+				<li><a href="class-PHPMyPlex.Containers.Stream.html">Stream</a></li>
 				<li><a href="class-PHPMyPlex.Containers.TranscodeSession.html">TranscodeSession</a></li>
 				<li><a href="class-PHPMyPlex.Containers.User.html">User</a></li>
 				<li><a href="class-PHPMyPlex.Containers.Video.html">Video</a></li>
@@ -106,6 +110,14 @@
 	<div class="description">
 	<p>Extends the MediaContainer to allow handling of Director objects from Plex
 Sparse class to match the Plex Data Structure.</p>
+
+<p>Typically available properties (actual properties available depend upon context)</p>
+
+<ul>
+<li><strong>tag</strong> -  (eg. Ruben Fleischer)</li>
+<li><strong>containerType</strong> -  (eg. Director)</li>
+<li><strong>id</strong> -  (eg. 8825)</li>
+</ul>
 	</div>
 
 	<dl class="tree">
@@ -116,6 +128,13 @@ Sparse class to match the Plex Data Structure.</p>
 			
 		</dd>
 		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+			<a href="class-PHPMyPlex.Containers.Video.html"><span>PHPMyPlex\Containers\Video</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:60px">
 			<img src="resources/inherit.png" alt="Extended by">
 <b><span>PHPMyPlex\Containers\Director</span></b>			
 			
@@ -138,7 +157,7 @@ Sparse class to match the Plex Data Structure.</p>
 
 				<b>Author:</b>
 				Chris Stretton <a href="&#109;&#97;&#x69;l&#116;&#x6f;&#x3a;&#99;&#115;&#x74;&#x72;&#101;&#116;&#x74;o&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;m">&#99;&#115;&#x74;&#x72;&#101;&#116;&#x74;o&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;m</a><br>
-			<b>Located at</b> <a href="source-class-PHPMyPlex.Containers.Director.html#27-36" title="Go to source code">PHPMyPlex/Containers/Director.php</a>
+			<b>Located at</b> <a href="source-class-PHPMyPlex.Containers.Director.html#27-42" title="Go to source code">PHPMyPlex/Containers/Director.php</a>
 		<br>
 	</div>
 
@@ -146,11 +165,19 @@ Sparse class to match the Plex Data Structure.</p>
 
 
 	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-PHPMyPlex.Containers.Video.html#methods">PHPMyPlex\Containers\Video</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-PHPMyPlex.Containers.Video.html#___construct">__construct()</a>, 
+			<a href="class-PHPMyPlex.Containers.Video.html#_isSession">isSession()</a>
+		</code></td>
+	</tr>
+	</table>
+	<table class="summary inherited">
 	<caption>Methods inherited from <a href="class-PHPMyPlex.Containers.MediaContainer.html#methods">PHPMyPlex\Containers\MediaContainer</a></caption>
 	<tr>
 		<td><code>
 			<a href="class-PHPMyPlex.Containers.MediaContainer.html#___call">__call()</a>, 
-			<a href="class-PHPMyPlex.Containers.MediaContainer.html#___construct">__construct()</a>, 
 			<a href="class-PHPMyPlex.Containers.MediaContainer.html#___get">__get()</a>, 
 			<a href="class-PHPMyPlex.Containers.MediaContainer.html#___toString">__toString()</a>, 
 			<a href="class-PHPMyPlex.Containers.MediaContainer.html#_child">child()</a>, 
