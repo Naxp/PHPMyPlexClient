@@ -142,7 +142,7 @@ class MediaContainer
      * if the child is not found.
      * 
      * @param string $title
-     * @return MediaContainerCollection|boolean
+     * @return MediaContainer|boolean
      */
     public function child($title)
     {
