@@ -29,6 +29,26 @@ use PHPMyPlex;
 
 /**
  * Parses the response from plex and manages children and attributes of a Plex Media Container.
+ * 
+ * Typically available properties (actual properties available depend upon context)
+ *
+ * + **allowSync** -  (eg. 1)
+ * + **art** -  (eg. /:/resources/movie-fanart.jpg)
+ * + **containerType** -  (eg. MediaContainer)
+ * + **identifier** -  (eg. com.plexapp.plugins.library)
+ * + **librarySectionID** -  (eg. 1)
+ * + **librarySectionTitle** -  (eg. Movies)
+ * + **librarySectionUUID** -  (eg. d6bb8b2c-fe58-11e4-a322-1697f925ec7b)
+ * + **mediaTagPrefix** -  (eg. /system/bundle/media/flags/)
+ * + **mediaTagVersion** -  (eg. 1431039020)
+ * + **nocache** -  (eg. 1)
+ * + **size** -  (eg. 288)
+ * + **sortAsc** -  (eg. 1)
+ * + **thumb** -  (eg. /:/resources/movie.png)
+ * + **title1** -  (eg. Movies)
+ * + **title2** -  (eg. All Movies)
+ * + **viewGroup** -  (eg. movie)
+ * + **viewMode** -  (eg. 65592)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */

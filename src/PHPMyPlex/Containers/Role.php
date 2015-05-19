@@ -27,10 +27,18 @@ namespace PHPMyPlex\Containers;
 /**
  * Extends the MediaContainer to allow handling of Role objects from Plex
  * Sparse class to match the Plex Data Structure.
+ * 
+ * Typically available properties (actual properties available depend upon context)
+ *
+ * + **id** -  (eg. 8940)
+ * + **tag** -  (eg. Mike White)
+ * + **role** -  (eg. Gas Station Attendant (uncredited))
+ * + **thumb** -  (eg. http://image.tmdb.org/t/p/original/luxVflXHHRlRYt8oqSxno04JGy6.jpg)
+ * + **containerType** -  (eg. Role)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Role extends MediaContainer
+class Role extends Video
 {
 
 }

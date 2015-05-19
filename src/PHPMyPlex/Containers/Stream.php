@@ -25,39 +25,32 @@
 namespace PHPMyPlex\Containers;
 
 /**
- * Extends the MediaContainer to allow handling of Directory objects from Plex
+ * Extends the MediaContainer to allow handling of Stream objects from Plex
  * Sparse class to match the Plex Data Structure.
- *
+ * 
  * Typically available properties (actual properties available depend upon context)
  *
- * + **addedAt** -  (eg. 1427997392)
- * + **art** -  (eg. /library/metadata/7424/art/1428002760)
- * + **banner** -  (eg. /library/metadata/7424/banner/1428002760)
- * + **childCount** -  (eg. 2)
- * + **containerType** -  (eg. Directory)
- * + **contentRating** -  (eg. TV-PG)
- * + **duration** -  (eg. 1800000)
+ * + **audioChannelLayout** -  (eg. stereo)
+ * + **bitrate** -  (eg. 128)
+ * + **bitrateMode** -  (eg. cbr)
+ * + **channels** -  (eg. 2)
+ * + **codec** -  (eg. mp3)
+ * + **codecID** -  (eg. S_TEXT/UTF8)
+ * + **containerType** -  (eg. Stream)
+ * + **duration** -  (eg. 1257881)
+ * + **format** -  (eg. srt)
+ * + **id** -  (eg. 51345)
  * + **index** -  (eg. 1)
- * + **key** -  (eg. /library/metadata/7424/children)
- * + **leafCount** -  (eg. 20)
- * + **originallyAvailableAt** -  (eg. 2010-11-26)
- * + **parentKey** -  (eg. /library/metadata/7424)
- * + **parentRatingKey** -  (eg. 7424)
- * + **rating** -  (eg. 9.3)
- * + **ratingKey** -  (eg. 7424)
- * + **studio** -  (eg. Cartoon Network)
- * + **summary** - 
- * + **theme** -  (eg. /library/metadata/7424/theme/1428002760)
- * + **thumb** -  (eg. /library/metadata/7424/thumb/1428002760)
- * + **title** -  (eg. Season 2)
- * + **type** -  (eg. season)
- * + **updatedAt** -  (eg. 1428002760)
- * + **viewedLeafCount** -  (eg. 0)
- * + **year** -  (eg. 2010)
+ * + **language** -  (eg. English)
+ * + **languageCode** -  (eg. eng)
+ * + **samplingRate** -  (eg. 48000)
+ * + **selected** -  (eg. 1)
+ * + **streamIdentifier** -  (eg. 1)
+ * + **streamType** -  (eg. 2)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Directory extends MediaContainer
+class Stream extends Part
 {
-    
+
 }
