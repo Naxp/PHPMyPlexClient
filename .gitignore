@@ -9,3 +9,4 @@ vendor/
 /nbproject/project.xml
 /test.php
 composer.lock
+generateDocs.bat
