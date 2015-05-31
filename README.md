@@ -92,7 +92,11 @@ Install using [composer](https://getcomposer.org/), you can require cheezykins/p
 Dependencies
 ============
 
-Depends upon [Httpful](https://github.com/nategood/httpful) - this should be satisfied automatically if installed with composer.
+Depends upon the following:
+ + [Httpful](https://github.com/nategood/httpful)
+ + [Key-Value-Store](https://github.com/webmozart/key-value-store)
+
+These should be satisfied automatically if installed using composer.
 
 License
 =======

@@ -50,16 +50,21 @@ class Request
     /**
      * Creates an HTTP Request manager with additional header support for Plex.
      * Endpoint is the URL to request from, with optional proxy parameter.
+     * expectEmptyResponse when set to true does not try and parse the result as XML.
+     * 
      * @param string $endPoint
      * @param bool|PHPMyPlex\Proxy $proxy
      */
-    public function __construct($endPoint, $proxy = false)
+    public function __construct($endPoint, $proxy = false, $expectEmptyResponse = false)
     {
         $this->endPoint = $endPoint;
         $this->template = HRequest::init();
-        $this->template->expectsXml();
-        if ($proxy)
-        {
+        if ($expectEmptyResponse) {
+            $this->template->withoutAutoParse();
+        } else {
+            $this->template->expectsXml();
+        }
+        if ($proxy) {
             $this->template->useProxy($proxy->host, $proxy->port, $proxy->authType);
         }
         foreach ($this->headers as $header => $value) {

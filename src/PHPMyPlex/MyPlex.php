@@ -25,12 +25,17 @@
 namespace PHPMyPlex;
 
 use PHPMyPlex\Exceptions as Exceptions;
+use Webmozart\KeyValueStore as kvs;
+use Webmozart\KeyValueStore\API as kvsAPI;
 
 /**
  * The MyPlex class is used to provide connectivity to the MyPlex API. It handles the login and authentication tokens
  * needed for subsequent calls. It can also provide a list of servers available within the account.
  * 
  * Magic Getters and Setters, __get() and __set() are used to access properties from the object, so a list of the key available properties is described here.
+ * 
+ * For persistence, WebMozart's [Key-Value-Store](https://github.com/webmozart/key-value-store) is used. By default this will use a JSON file in the same directory as the class file, you may provide
+ * another storage object using the KeyValueStore interface if you wish to use something like Redis instead.
  * 
  * **Available properties:**
  * 
@@ -77,39 +82,31 @@ class MyPlex
     private $allEntitlements;
     private $entitlements;
     private $proxy = false;
+    private $storage;
+    private $url;
 
     /**
      * Defines a connection to the MyPlex services, requires your myplex username and password
      * 
-     * Optionally takes a Proxy object defining proxy connection details and an alternative endpoint
-     * URL for the myPlex login endpoint.
+     * Optionally takes a Proxy object defining proxy connection details, a storage object implementing the
+     * [WebMozart\KeyValueStore](https://github.com/webmozart/key-value-store) interface (defaults to using the included
+     * JsonFileStore) and an alternative endpoint URL for the myPlex login endpoint.
      * 
      * @param string $userName
      * @param string $password
      * @param Proxy|boolean $proxy = false
+     * @param Webmozart\KeyValueStore\API\KeyValueStore $storage = null
      * @param string $myPlexURL = 'https://plex.tv/users/sign_in.xml'
      */
-    public function __construct($userName, $password, $proxy = false, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
+    public function __construct($userName, $password, $proxy = false, kvsAPI\KeyValueStore $storage = null, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
     {
-        $this->proxy = $proxy;
-        $request = new Request($myPlexURL, $proxy);
-        $request->clientIdentifier = uniqid('PHPMyPlex_');
-        $request->setAuthentication($userName, $password);
-
-        $response = $request->send('post');
-
-        $data = $response->body;
-
-        foreach ($data->attributes() as $key => $value) {
-            $this->{$key} = (string) $value;
+        if (is_null($storage)) {
+            $storage = new kvs\JsonFileStore(__DIR__ . DIRECTORY_SEPARATOR . 'storage.json');
         }
-
-        $this->subscription = $this->parseAttributes($data->subscription->attributes());
-
-        $this->subscription['features'] = $this->parseIDs($data->subscription->feature);
-        $this->roles = $this->parseIDs($data->roles->role);
-        $this->entitlements = $this->parseIDs($data->entitlements->entitlement);
-        $this->allEntitlements = (bool) $data->entitlements->attributes()['all'];
+        $this->storage = $storage;
+        $this->url = $myPlexURL;
+        $this->proxy = $proxy;
+        $this->login($userName, $password);
     }
 
     /**
@@ -158,6 +155,65 @@ class MyPlex
         if (isset($this->{$name})) {
             return $this->{$name};
         }
+    }
+
+    /**
+     * Perform the login request to MyPlex and populate the object with account values.
+     * 
+     * @param string $userName
+     * @param string $password
+     */
+    private function login($userName, $password)
+    {
+        $request = new Request($this->url, $this->proxy);
+        $request->clientIdentifier = $this->getClientIdentifier();
+        $token = $this->storage->get('token_' . $userName, false);
+        if (!$token) {
+            $request->setAuthentication($userName, $password);
+        } else {
+            $request->token = $token;
+        }
+
+        try {
+            $response = $request->send('post');
+        } catch (Exceptions\MyPlexAuthenticationException $e) {
+            if ($token)
+            {
+                $this->storage->remove('token_' . $userName);
+                $this->login($userName, $password);
+                return;
+            } else {
+                throw new Exceptions\MyPlexAuthenticationException($e->getMessage(),$e->getCode(),$e);
+            }
+        }
+
+        $data = $response->body;
+        foreach ($data->attributes() as $key => $value) {
+            $this->{$key} = (string) $value;
+        }
+
+        $this->storage->set('token_' . $userName, $this->authenticationToken);
+        $this->subscription = $this->parseAttributes($data->subscription->attributes());
+        $this->subscription['features'] = $this->parseIDs($data->subscription->feature);
+        $this->roles = $this->parseIDs($data->roles->role);
+        $this->entitlements = $this->parseIDs($data->entitlements->entitlement);
+        $this->allEntitlements = (bool) $data->entitlements->attributes()['all'];
+    }
+
+    /**
+     * Retrieves a client identifier from storage, or generates a new one and stores it
+     * 
+     * @return string
+     */
+    private function getClientIdentifier()
+    {
+        $clientIdentifier = $this->storage->get('clientIdentifier', false);
+
+        if (!$clientIdentifier) {
+            $clientIdentifier = uniqid('PHPMyPlex_');
+            $this->storage->set('clientIdentifier', $clientIdentifier);
+        }
+        return $clientIdentifier;
     }
 
     /**

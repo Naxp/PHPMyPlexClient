@@ -1,10 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "903ad35d4af1e286922d491649fce17f",
+    "hash": "24d8c780cbd1c4a6b89228bda6e9736a",
     "packages": [
         {
             "name": "nategood/httpful",
@@ -55,12 +55,114 @@
                 "restful"
             ],
             "time": "2015-03-08 15:22:23"
+        },
+        {
+            "name": "webmozart/assert",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webmozart/assert.git",
+                "reference": "b8ef76d0f0c3b9a0a1bc987085fe0a0ddba984ab"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webmozart/assert/zipball/b8ef76d0f0c3b9a0a1bc987085fe0a0ddba984ab",
+                "reference": "b8ef76d0f0c3b9a0a1bc987085fe0a0ddba984ab",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webmozart\\Assert\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                }
+            ],
+            "description": "Assertions to validate method input/output with nice error messages.",
+            "keywords": [
+                "assert",
+                "check",
+                "validate"
+            ],
+            "time": "2015-05-12 15:19:25"
+        },
+        {
+            "name": "webmozart/key-value-store",
+            "version": "1.0.0-beta4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/webmozart/key-value-store.git",
+                "reference": "b94f8ee6146b007db740290585d9a7eb1ad18328"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/webmozart/key-value-store/zipball/b94f8ee6146b007db740290585d9a7eb1ad18328",
+                "reference": "b94f8ee6146b007db740290585d9a7eb1ad18328",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3",
+                "webmozart/assert": "~1.0"
+            },
+            "require-dev": {
+                "basho/riak": "~1.4",
+                "doctrine/cache": "~1.4",
+                "phpunit/phpunit": "^4.6",
+                "predis/predis": "~1.0",
+                "symfony/filesystem": "~2.5"
+            },
+            "suggest": {
+                "basho/riak": "To enable the RiakStore",
+                "doctrine/cache": "To enable the CachedStore",
+                "predis/predis": "To enable the PredisStore"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Webmozart\\KeyValueStore\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bernhard Schussek",
+                    "email": "bschussek@gmail.com"
+                }
+            ],
+            "description": "A key-value store API with implementations for different backends.",
+            "time": "2015-05-28 13:03:13"
         }
     ],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "webmozart/key-value-store": 10
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],

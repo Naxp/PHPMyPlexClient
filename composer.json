@@ -2,7 +2,8 @@
     "name": "cheezykins/phpmyplexclient",
     "description": "A PHP client library for accessing myPlex and Plex Media Centre metadata.",
     "require": {
-        "nategood/httpful": "0.2.*"
+        "nategood/httpful": "0.2.*",
+        "webmozart/key-value-store": "1.0.0-beta4"
     },
 	"autoload": {
 		"psr-0": {
