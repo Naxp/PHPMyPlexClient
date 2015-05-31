@@ -101,6 +101,9 @@ needed for subsequent calls. It can also provide a list of servers available wit
 
 <p>Magic Getters and Setters, __get() and __set() are used to access properties from the object, so a list of the key available properties is described here.</p>
 
+<p>For persistence, WebMozart's <a href="https://github.com/webmozart/key-value-store">Key-Value-Store</a> is used. By default this will use a JSON file in the same directory as the class file, you may provide
+another storage object using the KeyValueStore interface if you wish to use something like Redis instead.</p>
+
 <p><strong>Available properties:</strong></p>
 
 <ul>
@@ -141,7 +144,7 @@ needed for subsequent calls. It can also provide a list of servers available wit
 
 				<b>Author:</b>
 				Chris Stretton <a href="&#109;&#97;&#x69;l&#116;&#x6f;&#x3a;&#99;&#115;&#x74;&#x72;&#101;&#116;&#x74;o&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;m">&#99;&#115;&#x74;&#x72;&#101;&#116;&#x74;o&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#x6f;m</a><br>
-			<b>Located at</b> <a href="source-class-PHPMyPlex.MyPlex.html#29-190" title="Go to source code">PHPMyPlex/MyPlex.php</a>
+			<b>Located at</b> <a href="source-class-PHPMyPlex.MyPlex.html#31-246" title="Go to source code">PHPMyPlex/MyPlex.php</a>
 		<br>
 	</div>
 
@@ -161,7 +164,7 @@ needed for subsequent calls. It can also provide a list of servers available wit
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-PHPMyPlex.MyPlex.html#81-113" title="Go to source code">__construct</a>( <span>string <var>$userName</var></span>, <span>string <var>$password</var></span>, <span><code><a href="class-PHPMyPlex.Proxy.html">PHPMyPlex\Proxy</a></code>|boolean <var>$proxy</var> = <span class="php-keyword1">false</span></span>, <span>string <var>$myPlexURL</var> = <span class="php-quote">'https://plex.tv/users/sign_in.xml'</span></span> )</code>
+		<code><a href="source-class-PHPMyPlex.MyPlex.html#88-110" title="Go to source code">__construct</a>( <span>string <var>$userName</var></span>, <span>string <var>$password</var></span>, <span><code><a href="class-PHPMyPlex.Proxy.html">PHPMyPlex\Proxy</a></code>|boolean <var>$proxy</var> = <span class="php-keyword1">false</span></span>, <span>Webmozart\KeyValueStore\API\KeyValueStore <var>$storage</var> = <span class="php-keyword1">null</span></span>, <span>string <var>$myPlexURL</var> = <span class="php-quote">'https://plex.tv/users/sign_in.xml'</span></span> )</code>
 
 		<div class="description short">
 			<p>Defines a connection to the MyPlex services, requires your myplex username and password</p>
@@ -170,8 +173,9 @@ needed for subsequent calls. It can also provide a list of servers available wit
 		<div class="description detailed hidden">
 			<p>Defines a connection to the MyPlex services, requires your myplex username and password</p>
 
-<p>Optionally takes a Proxy object defining proxy connection details and an alternative endpoint
-URL for the myPlex login endpoint.</p>
+<p>Optionally takes a Proxy object defining proxy connection details, a storage object implementing the
+<a href="https://github.com/webmozart/key-value-store">WebMozart\KeyValueStore</a> interface (defaults to using the included
+JsonFileStore) and an alternative endpoint URL for the myPlex login endpoint.</p>
 
 
 				<h4>Parameters</h4>
@@ -182,6 +186,8 @@ URL for the myPlex login endpoint.</p>
 					<dd></dd>
 					<dt><var>$proxy</var></dt>
 					<dd>= false</dd>
+					<dt><var>$storage</var></dt>
+					<dd>= null</dd>
 					<dt><var>$myPlexURL</var></dt>
 					<dd>= 'https://plex.tv/users/sign_in.xml'</dd>
 				</dl></div>
@@ -205,7 +211,7 @@ URL for the myPlex login endpoint.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getServers">#</a>
-		<code><a href="source-class-PHPMyPlex.MyPlex.html#115-149" title="Go to source code">getServers</a>( <span>type <var>$endPoint</var> = <span class="php-quote">'https://plex.tv/pms/servers.xml'</span></span> )</code>
+		<code><a href="source-class-PHPMyPlex.MyPlex.html#112-146" title="Go to source code">getServers</a>( <span>type <var>$endPoint</var> = <span class="php-quote">'https://plex.tv/pms/servers.xml'</span></span> )</code>
 
 		<div class="description short">
 			<p>Returns a collection of the myplex servers you have access to
@@ -250,7 +256,7 @@ This includes both your own and shared plex servers.</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#___get">#</a>
-		<code><a href="source-class-PHPMyPlex.MyPlex.html#151-161" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-PHPMyPlex.MyPlex.html#148-158" title="Go to source code">__get</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Helper method to retrieve attributes of the plex server.</p>
