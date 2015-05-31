@@ -10,3 +10,4 @@ vendor/
 /test.php
 composer.lock
 generateDocs.bat
+/src/PHPMyPlex/storage.json
