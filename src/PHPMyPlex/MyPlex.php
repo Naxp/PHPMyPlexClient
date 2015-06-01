@@ -177,14 +177,12 @@ class MyPlex
         try {
             $response = $request->send('post');
         } catch (Exceptions\MyPlexAuthenticationException $e) {
-            if ($token)
-            {
-                $this->storage->remove('token_' . $userName);
-                $this->login($userName, $password);
-                return;
-            } else {
-                throw new Exceptions\MyPlexAuthenticationException($e->getMessage(),$e->getCode(),$e);
-            }
+        	if (!$token) {
+        		throw $e;
+        	}
+        	$this->storage->remove('token_' . $userName);
+        	$this->login($userName, $password);
+        	return;
         }
 
         $data = $response->body;
