@@ -22,14 +22,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\Containers;
 
-use PHPMyPlex\Exceptions as Exceptions;
 use PHPMyPlex;
+use PHPMyPlex\Exceptions as Exceptions;
 
 /**
  * Parses the response from plex and manages children and attributes of a Plex Media Container.
- * 
+ *
  * Typically available properties (actual properties available depend upon context)
  *
  * + **allowSync** -  (eg. 1)
@@ -54,25 +55,24 @@ use PHPMyPlex;
  */
 class MediaContainer
 {
-
     /**
      * An array of method aliases. You can call the method names (show(), season(), episodes() etc.) on the object and they are
      * aliased onto the appropriate method (child(), children() etc) - This allows for semantic use of method names without
      * leaving masses of public methods in the class.
-     * 
-     * @var Array
+     *
+     * @var array
      */
     protected static $methodAliases = [
-        'loadAll' => 'load',
-        'show' => 'child',
-        'season' => 'child',
-        'episode' => 'child',
-        'movie' => 'child',
-        'shows' => 'children',
-        'seasons' => 'children',
+        'loadAll'  => 'load',
+        'show'     => 'child',
+        'season'   => 'child',
+        'episode'  => 'child',
+        'movie'    => 'child',
+        'shows'    => 'children',
+        'seasons'  => 'children',
         'episodes' => 'children',
-        'movies' => 'children',
-        'sessions' => 'children'
+        'movies'   => 'children',
+        'sessions' => 'children',
     ];
     protected $details;
     protected $xml;
@@ -82,8 +82,8 @@ class MediaContainer
      * Creates a new Media Container from a provided container object and parses the attributes
      * into accessible members.
      * Takes a reference to the plex server that spawned the data for loading.
-     * 
-     * @param \SimpleXMLElement $data
+     *
+     * @param \SimpleXMLElement    $data
      * @param PHPMyPlex\PlexServer $server
      */
     public function __construct(\SimpleXMLElement $data, PHPMyPlex\PlexServer $server)
@@ -96,8 +96,8 @@ class MediaContainer
 
     /**
      * Determines if there are any children within the current container.
-     * 
-     * @return boolean
+     *
+     * @return bool
      */
     public function hasChildren()
     {
@@ -109,24 +109,25 @@ class MediaContainer
      * the current container. If a title is given then the children are refined
      * to only that title. If a container type is given then children are refined
      * to only that container type.
-     * 
-     * @param boolean|string $title = false
-     * @return \PHPMyPlex\Containers\MediaContainerCollection
+     *
+     * @param bool|string $title = false
+     *
      * @throws Exceptions\MyPlexDataException
+     *
+     * @return \PHPMyPlex\Containers\MediaContainerCollection
      */
     public function children($title = false)
     {
         $children = [];
         if ($this->hasChildren()) {
-
             if ($title) {
-                $nodes = $this->xml->xpath('//' . $title . '|//*[translate(@title, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="' . strtolower($title) . '"]');
+                $nodes = $this->xml->xpath('//'.$title.'|//*[translate(@title, "ABCDEFGHIJKLMNOPQRSTUVWXYZ", "abcdefghijklmnopqrstuvwxyz")="'.strtolower($title).'"]');
             } else {
                 $nodes = $this->xml->children();
             }
 
             foreach ($nodes as $child) {
-                $name = __NAMESPACE__ . '\\' . $child->getName();
+                $name = __NAMESPACE__.'\\'.$child->getName();
                 if (\class_exists($name)) {
                     $children[] = new $name($child, $this->server);
                 } else {
@@ -134,15 +135,17 @@ class MediaContainer
                 }
             }
         }
+
         return new MediaContainerCollection($children);
     }
 
     /**
      * Gets s single media container for a given child by title. Returns false
      * if the child is not found.
-     * 
+     *
      * @param string $title
-     * @return MediaContainer|boolean
+     *
+     * @return MediaContainer|bool
      */
     public function child($title)
     {
@@ -150,12 +153,14 @@ class MediaContainer
         if (count($children) > 0) {
             return $children[0];
         }
+
         return false;
     }
 
     /**
-     * checks if the current container has a key
-     * @return boolean
+     * checks if the current container has a key.
+     *
+     * @return bool
      */
     public function hasKey()
     {
@@ -164,6 +169,7 @@ class MediaContainer
 
     /**
      * Returns the current containers details as an associative array.
+     *
      * @return array
      */
     public function getDetails()
@@ -174,7 +180,7 @@ class MediaContainer
     /**
      * Goes back to the plex server and loads the current item's key to provide
      * more in-depth details about the level and its children. Returns itself for chaining.
-     * 
+     *
      * @return \PHPMyPlex\Containers\MediaContainer
      */
     public function load()
@@ -183,15 +189,17 @@ class MediaContainer
             $this->xml = $this->server->loadContainerRaw($this->key);
             $this->parseMediaContainer($this->xml);
         }
+
         return $this;
     }
 
     /**
      * Allows aliasing of children(), child() and load() calls for semantic calling
      * by users of the objects.
-     * 
+     *
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return mixed
      */
     public function __call($name, $arguments)
@@ -202,7 +210,8 @@ class MediaContainer
     }
 
     /**
-     * Helper method to return the current title or node name of the media container
+     * Helper method to return the current title or node name of the media container.
+     *
      * @return string
      */
     public function __toString()
@@ -216,7 +225,9 @@ class MediaContainer
 
     /**
      * Helper method to allow direct access of detail struct properties as members.
+     *
      * @param string $name
+     *
      * @return mixed
      */
     public function __get($name)
@@ -229,7 +240,9 @@ class MediaContainer
     /**
      * Takes the details of the plex server and parses it into
      * the detail struct.
+     *
      * @param \SimpleXMLElement $node
+     *
      * @return \PHPMyPlex\Containers\ContainerDetails
      */
     protected function parseMediaContainer(\SimpleXMLElement $node)

@@ -22,12 +22,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\Containers;
 
 /**
  * Extends the MediaContainer to allow handling of Field objects from Plex
  * Sparse class to match the Plex Data Structure.
- * 
+ *
  * Typically available properties (actual properties available depend upon context)
  *
  * + **name** -  (eg. thumb)
@@ -38,5 +39,4 @@ namespace PHPMyPlex\Containers;
  */
 class Field extends Video
 {
-
 }

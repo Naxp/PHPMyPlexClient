@@ -22,17 +22,18 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\Containers;
 
 use PHPMyPlex;
 
 /**
- * Extends the MediaContainer to allow handling of Video objects from Plex
- * 
+ * Extends the MediaContainer to allow handling of Video objects from Plex.
+ *
  * Typically available properties (actual properties available depend upon context)
  *
  * + **addedAt** -  (eg. 1427997393)
- * + **addedAtDateTime** - 
+ * + **addedAtDateTime** -
  * + **art** -  (eg. /library/metadata/7424/art/1428002760)
  * + **chapterSource** -  (eg. )
  * + **containerType** -  (eg. Video)
@@ -57,12 +58,12 @@ use PHPMyPlex;
  * + **rating** -  (eg. 7.0)
  * + **ratingKey** -  (eg. 7459)
  * + **studio** -  (eg. Columbia Pictures)
- * + **summary** - 
+ * + **summary** -
  * + **tagline** -  (eg. This place is so dead)
  * + **thumb** -  (eg. /library/metadata/7459/thumb/1428002760)
  * + **title** -  (eg. Endgame)
  * + **type** -  (eg. episode)
- * + **updatedAt** -  (eg. 1428002760) 
+ * + **updatedAt** -  (eg. 1428002760)
  * + **viewOffset** -  (eg. 1554602)
  * + **year** -  (eg. 2009)
  *
@@ -70,10 +71,10 @@ use PHPMyPlex;
  */
 class Video extends MediaContainer
 {
-
     /**
      * Extends the base constructor to add parsing of added and updated times for Videos.
-     * @param \SimpleXMLElement $data
+     *
+     * @param \SimpleXMLElement    $data
      * @param PHPMyPlex\PlexServer $server
      */
     public function __construct(\SimpleXMLElement $data, PHPMyPlex\PlexServer $server)
@@ -90,13 +91,15 @@ class Video extends MediaContainer
 
     /**
      * Determines if the video is a container for a current session or just a generic video.
-     * @return boolean
+     *
+     * @return bool
      */
     public function isSession()
     {
         if ($this->child('User') || $this->child('TranscodeSession')) {
             return true;
         }
+
         return false;
     }
 }

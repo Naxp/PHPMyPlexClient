@@ -22,12 +22,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\Containers;
 
 /**
  * Extends the MediaContainer to allow handling of Stream objects from Plex
  * Sparse class to match the Plex Data Structure.
- * 
+ *
  * Typically available properties (actual properties available depend upon context)
  *
  * + **audioChannelLayout** -  (eg. stereo)
@@ -52,5 +53,4 @@ namespace PHPMyPlex\Containers;
  */
 class Stream extends Part
 {
-
 }

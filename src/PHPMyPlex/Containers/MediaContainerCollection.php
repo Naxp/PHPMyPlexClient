@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\Containers;
 
 /**
@@ -32,10 +33,10 @@ namespace PHPMyPlex\Containers;
  */
 class MediaContainerCollection extends \ArrayObject
 {
-
     /**
      * Iterates through the collection and loads all sub-items.
      * Returns itself for chaining.
+     *
      * @return \PHPMyPlex\Containers\MediaContainerCollection
      */
     public function loadAll()
@@ -43,11 +44,13 @@ class MediaContainerCollection extends \ArrayObject
         foreach ($this as $obj) {
             $obj->load();
         }
+
         return $this;
     }
-    
+
     /**
      * Gets all details for containers within the collection.
+     *
      * @return array
      */
     public function getDetails()
@@ -56,13 +59,14 @@ class MediaContainerCollection extends \ArrayObject
         foreach ($this as $obj) {
             $details[] = $obj->getDetails();
         }
+
         return $details;
     }
 
     /**
      * Generates a MediaContainerCollection containing all child items of items
      * in the collection.
-     * 
+     *
      * @return \PHPMyPlex\Containers\MediaContainerCollection
      */
     public function children()
@@ -73,6 +77,7 @@ class MediaContainerCollection extends \ArrayObject
                 $details[] = $child;
             }
         }
+
         return new self($details);
     }
 }

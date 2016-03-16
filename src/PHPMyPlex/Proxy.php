@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex;
 
 use Httpful;
@@ -33,23 +34,22 @@ use Httpful;
  */
 class Proxy extends Httpful\Proxy
 {
-    
     protected $host;
     protected $port;
     protected $authType;
     protected $authUsername;
     protected $authPassword;
     protected $proxyType;
-    
+
     /**
      * Defines proxy settings for use with Plex.
-     * 
-     * @param string $host
-     * @param int $port
+     *
+     * @param string      $host
+     * @param int         $port
      * @param null|string $authType
      * @param null|string $authUsername
      * @param null|string $authPassword
-     * @param string $proxyType
+     * @param string      $proxyType
      */
     public function __construct($host, $port = 80, $authType = null, $authUsername = null, $authPassword = null, $proxyType = self::HTTP)
     {
@@ -60,16 +60,17 @@ class Proxy extends Httpful\Proxy
         $this->authPassword = $authPassword;
         $this->proxyType = $proxyType;
     }
-    
+
     /**
      * Helper method to retrieve proxy settings.
+     *
      * @param string $name
+     *
      * @return mixed
      */
     public function __get($name)
     {
-        if (isset($this->{$name}))
-        {
+        if (isset($this->{$name})) {
             return $this->{$name};
         }
     }

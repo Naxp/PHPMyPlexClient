@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\Containers;
 
 /**
@@ -46,7 +47,7 @@ namespace PHPMyPlex\Containers;
  * + **rating** -  (eg. 9.3)
  * + **ratingKey** -  (eg. 7424)
  * + **studio** -  (eg. Cartoon Network)
- * + **summary** - 
+ * + **summary** -
  * + **theme** -  (eg. /library/metadata/7424/theme/1428002760)
  * + **thumb** -  (eg. /library/metadata/7424/thumb/1428002760)
  * + **title** -  (eg. Season 2)
@@ -59,5 +60,4 @@ namespace PHPMyPlex\Containers;
  */
 class Directory extends MediaContainer
 {
-    
 }

@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\DirectoryViews;
 
 /**
@@ -31,9 +32,9 @@ namespace PHPMyPlex\DirectoryViews;
  */
 class MovieDirectoryView extends DirectoryView
 {
-    const DECADE    = 'decade';
-    const DIRECTOR  = 'director';
-    const ACTOR     = 'actor';
-    const COUNTRY   = 'country';
-    const RATING    = 'rating';
+    const DECADE = 'decade';
+    const DIRECTOR = 'director';
+    const ACTOR = 'actor';
+    const COUNTRY = 'country';
+    const RATING = 'rating';
 }

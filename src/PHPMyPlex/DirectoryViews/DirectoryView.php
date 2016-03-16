@@ -22,26 +22,27 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\DirectoryViews;
 
 /**
- * Defines views available to all library types within Plex
+ * Defines views available to all library types within Plex.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
 class DirectoryView
 {
-    const NONE              = '';
-    const ALL               = 'all';
-    const UNWATCHED         = 'unwatched';
-    const NEWEST            = 'newest';
-    const RECENTLY_ADDED    = 'recentlyAdded';
-    const RECENTLY_VIEWED   = 'recentlyViewed';
-    const ON_DECK           = 'onDeck';
-    const COLLECTION        = 'collection';
-    const GENRE             = 'genre';
-    const YEAR              = 'year';
-    const CONTENT_RATING    = 'contentRating';
-    const FIRST_CHARACTER   = 'firstCharacter';
-    const FOLDER            = 'folder';
+    const NONE = '';
+    const ALL = 'all';
+    const UNWATCHED = 'unwatched';
+    const NEWEST = 'newest';
+    const RECENTLY_ADDED = 'recentlyAdded';
+    const RECENTLY_VIEWED = 'recentlyViewed';
+    const ON_DECK = 'onDeck';
+    const COLLECTION = 'collection';
+    const GENRE = 'genre';
+    const YEAR = 'year';
+    const CONTENT_RATING = 'contentRating';
+    const FIRST_CHARACTER = 'firstCharacter';
+    const FOLDER = 'folder';
 }
