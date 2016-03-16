@@ -22,14 +22,15 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\Containers;
 
 /**
  * Extends the MediaContainer to allow handling of Media objects from Plex
  * Sparse class to match the Plex Data Structure.
- * 
+ *
  * Typically available properties (actual properties available depend upon context)
- * 
+ *
  * + **aspectRatio** -  (eg. 1.78)
  * + **audioChannels** -  (eg. 2)
  * + **audioCodec** -  (eg. dca)
@@ -48,5 +49,4 @@ namespace PHPMyPlex\Containers;
  */
 class Media extends Video
 {
-
 }

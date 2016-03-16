@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\DirectoryViews;
 
 /**
@@ -32,5 +33,4 @@ namespace PHPMyPlex\DirectoryViews;
 class TVDirectoryView extends DirectoryView
 {
     const RECENTLY_VIEWED_SHOWS = 'recentlyViewedShows';
-   
 }

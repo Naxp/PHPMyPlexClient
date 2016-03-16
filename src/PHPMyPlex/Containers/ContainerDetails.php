@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\Containers;
 
 /**
@@ -33,11 +34,12 @@ namespace PHPMyPlex\Containers;
  */
 class ContainerDetails extends \ArrayObject
 {
-
     /**
      * Tries to parse a string into a DateTime object, returns false on failure.
+     *
      * @param type $attribute
-     * @return \DateTime|boolean
+     *
+     * @return \DateTime|bool
      */
     public function parseDateTime($attribute)
     {
@@ -45,18 +47,22 @@ class ContainerDetails extends \ArrayObject
             try {
                 $d = new \DateTime();
                 $d->setTimestamp((int) $this->offsetGet($attribute));
+
                 return $d;
             } catch (\Exception $e) {
                 return false;
             }
         }
+
         return false;
     }
 
     /**
      * Tries to parse a string into an int, returns false on failure.
+     *
      * @param type $attribute
-     * @return int|boolean
+     *
+     * @return int|bool
      */
     public function parseInt($attribute)
     {
@@ -66,6 +72,7 @@ class ContainerDetails extends \ArrayObject
                 return (int) $attr;
             }
         }
+
         return false;
     }
 }

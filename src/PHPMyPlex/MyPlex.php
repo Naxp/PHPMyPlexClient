@@ -22,23 +22,23 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex;
 
-use PHPMyPlex\Exceptions as Exceptions;
-use Webmozart\KeyValueStore as kvs;
 use Webmozart\KeyValueStore\API as kvsAPI;
+use Webmozart\KeyValueStore as kvs;
 
 /**
  * The MyPlex class is used to provide connectivity to the MyPlex API. It handles the login and authentication tokens
  * needed for subsequent calls. It can also provide a list of servers available within the account.
- * 
+ *
  * Magic Getters and Setters, __get() and __set() are used to access properties from the object, so a list of the key available properties is described here.
- * 
+ *
  * For persistence, WebMozart's [Key-Value-Store](https://github.com/webmozart/key-value-store) is used. By default this will use a JSON file in the same directory as the class file, you may provide
  * another storage object using the KeyValueStore interface if you wish to use something like Redis instead.
- * 
+ *
  * **Available properties:**
- * 
+ *
  * + **email** - The user's email address.
  * + **id** - The user's ID.
  * + **thumb** - A gravatar link to the user's avatar.
@@ -57,12 +57,11 @@ use Webmozart\KeyValueStore\API as kvsAPI;
  * + **roles** - An array of roles the user posesses.
  * + **allEntitlements** - Is the user entitled to all entitlements? (boolean)
  * + **entitlements** - An array of entitlements the user is entitled to.
- * 
+ *
  * @author Chris Stretton <cstretton@gmail.com>
  */
 class MyPlex
 {
-
     private $email;
     private $id;
     private $thumb;
@@ -86,22 +85,22 @@ class MyPlex
     private $url;
 
     /**
-     * Defines a connection to the MyPlex services, requires your myplex username and password
-     * 
+     * Defines a connection to the MyPlex services, requires your myplex username and password.
+     *
      * Optionally takes a Proxy object defining proxy connection details, a storage object implementing the
      * [WebMozart\KeyValueStore](https://github.com/webmozart/key-value-store) interface (defaults to using the included
      * JsonFileStore) and an alternative endpoint URL for the myPlex login endpoint.
-     * 
-     * @param string $userName
-     * @param string $password
-     * @param Proxy|boolean $proxy = false
-     * @param Webmozart\KeyValueStore\API\KeyValueStore $storage = null
-     * @param string $myPlexURL = 'https://plex.tv/users/sign_in.xml'
+     *
+     * @param string                                    $userName
+     * @param string                                    $password
+     * @param Proxy|bool                                $proxy     = false
+     * @param Webmozart\KeyValueStore\API\KeyValueStore $storage   = null
+     * @param string                                    $myPlexURL = 'https://plex.tv/users/sign_in.xml'
      */
     public function __construct($userName, $password, $proxy = false, kvsAPI\KeyValueStore $storage = null, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
     {
         if (is_null($storage)) {
-            $storage = new kvs\JsonFileStore(__DIR__ . DIRECTORY_SEPARATOR . 'storage.json');
+            $storage = new kvs\JsonFileStore(__DIR__.DIRECTORY_SEPARATOR.'storage.json');
         }
         $this->storage = $storage;
         $this->url = $myPlexURL;
@@ -112,14 +111,17 @@ class MyPlex
     /**
      * Returns a collection of the myplex servers you have access to
      * This includes both your own and shared plex servers.
+     *
      * @param type $endPoint
-     * @return \PHPMyPlex\PlexServerCollection
+     *
      * @throws Exceptions\MyPlexAuthenticationException
+     *
+     * @return \PHPMyPlex\PlexServerCollection
      */
     public function getServers($endPoint = 'https://plex.tv/pms/servers.xml')
     {
         if (!$this->authenticationToken) {
-            throw new Exceptions\MyPlexAuthenticationException("No authentication token exists, have you signed in to MyPlex?");
+            throw new Exceptions\MyPlexAuthenticationException('No authentication token exists, have you signed in to MyPlex?');
         }
 
         $request = new Request($endPoint);
@@ -147,7 +149,9 @@ class MyPlex
 
     /**
      * Helper method to retrieve attributes of the plex server.
+     *
      * @param string $name
+     *
      * @return mixed
      */
     public function __get($name)
@@ -159,7 +163,7 @@ class MyPlex
 
     /**
      * Perform the login request to MyPlex and populate the object with account values.
-     * 
+     *
      * @param string $userName
      * @param string $password
      */
@@ -167,7 +171,7 @@ class MyPlex
     {
         $request = new Request($this->url, $this->proxy);
         $request->clientIdentifier = $this->getClientIdentifier();
-        $token = $this->storage->get('token_' . $userName, false);
+        $token = $this->storage->get('token_'.$userName, false);
         if (!$token) {
             $request->setAuthentication($userName, $password);
         } else {
@@ -177,12 +181,13 @@ class MyPlex
         try {
             $response = $request->send('post');
         } catch (Exceptions\MyPlexAuthenticationException $e) {
-        	if (!$token) {
-        		throw $e;
-        	}
-        	$this->storage->remove('token_' . $userName);
-        	$this->login($userName, $password);
-        	return;
+            if (!$token) {
+                throw $e;
+            }
+            $this->storage->remove('token_'.$userName);
+            $this->login($userName, $password);
+
+            return;
         }
 
         $data = $response->body;
@@ -190,7 +195,7 @@ class MyPlex
             $this->{$key} = (string) $value;
         }
 
-        $this->storage->set('token_' . $userName, $this->authenticationToken);
+        $this->storage->set('token_'.$userName, $this->authenticationToken);
         $this->subscription = $this->parseAttributes($data->subscription->attributes());
         $this->subscription['features'] = $this->parseIDs($data->subscription->feature);
         $this->roles = $this->parseIDs($data->roles->role);
@@ -199,8 +204,8 @@ class MyPlex
     }
 
     /**
-     * Retrieves a client identifier from storage, or generates a new one and stores it
-     * 
+     * Retrieves a client identifier from storage, or generates a new one and stores it.
+     *
      * @return string
      */
     private function getClientIdentifier()
@@ -211,13 +216,16 @@ class MyPlex
             $clientIdentifier = uniqid('PHPMyPlex_');
             $this->storage->set('clientIdentifier', $clientIdentifier);
         }
+
         return $clientIdentifier;
     }
 
     /**
      * Parses all of the attributes returned from myplex and puts them into
      * the appropriate member variables.
+     *
      * @param array $attributes
+     *
      * @return array
      */
     private function parseAttributes($attributes)
@@ -226,11 +234,13 @@ class MyPlex
         foreach ($attributes as $key => $value) {
             $return[$key] = (string) $value;
         }
+
         return $return;
     }
 
     /**
      * Gets the IDs of the servers under MyPlex.
+     *
      * @param \SimpleXMLElement $elements
      */
     private function parseIDs($elements)
@@ -239,6 +249,7 @@ class MyPlex
         foreach ($elements as $element) {
             $return[] = (string) $element->attributes()['id'];
         }
+
         return $return;
     }
 }

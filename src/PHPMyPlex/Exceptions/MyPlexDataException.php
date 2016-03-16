@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\Exceptions;
 
 /**
@@ -31,5 +32,4 @@ namespace PHPMyPlex\Exceptions;
  */
 class MyPlexDataException extends MyPlexException
 {
-    
 }

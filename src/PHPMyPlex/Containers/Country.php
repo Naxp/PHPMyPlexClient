@@ -22,24 +22,24 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex\Containers;
 
 /**
  * Extends the MediaContainer to allow handling of Country objects from Plex
  * Sparse class to match the Plex Data Structure.
- * 
+ *
  * Typically available properties (actual properties available depend upon context)
- * 
+ *
  * + **id** -  (eg. 44)
  * + **tag** -  (eg. USA)
  * + **count** -  (eg. 241)
  * + **containerType** -  (eg. Country)
- * 
- * 
+ *
+ *
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
 class Country extends Video
 {
-
 }

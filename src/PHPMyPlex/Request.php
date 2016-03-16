@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex;
 
 use Httpful\Request as HRequest;
@@ -34,14 +35,13 @@ use Httpful\Request as HRequest;
  */
 class Request
 {
-
     private $headers = [
-        'X-Plex-Platform' => PHP_OS,
-        'X-Plex-Platform-Version' => false,
-        'X-Plex-Provides' => 'controller',
-        'X-Plex-Product' => 'PHPMyPlex',
-        'X-Plex-Version' => false,
-        'X-Plex-Device' => false,
+        'X-Plex-Platform'          => PHP_OS,
+        'X-Plex-Platform-Version'  => false,
+        'X-Plex-Provides'          => 'controller',
+        'X-Plex-Product'           => 'PHPMyPlex',
+        'X-Plex-Version'           => false,
+        'X-Plex-Device'            => false,
         'X-Plex-Client-Identifier' => false,
     ];
     private $template;
@@ -51,8 +51,8 @@ class Request
      * Creates an HTTP Request manager with additional header support for Plex.
      * Endpoint is the URL to request from, with optional proxy parameter.
      * expectEmptyResponse when set to true does not try and parse the result as XML.
-     * 
-     * @param string $endPoint
+     *
+     * @param string               $endPoint
      * @param bool|PHPMyPlex\Proxy $proxy
      */
     public function __construct($endPoint, $proxy = false, $expectEmptyResponse = false)
@@ -76,7 +76,7 @@ class Request
 
     /**
      * Helper method allows headers to be set as parameters.
-     * 
+     *
      * @param string $name
      * @param string $value
      */
@@ -87,15 +87,15 @@ class Request
 
     /**
      * Sets a header in the HTTP request.
-     * Headers in camelCase are transposed to X-Plex-Camel-Case
-     * 
+     * Headers in camelCase are transposed to X-Plex-Camel-Case.
+     *
      * @param string $header
      * @param string $value
      */
     public function setHeader($header, $value)
     {
         if (\substr($header, 0, 7) != 'X-Plex-') {
-            $header = 'X-Plex-' . \ucfirst(\preg_replace('/([A-Z])/', '-$0', $header));
+            $header = 'X-Plex-'.\ucfirst(\preg_replace('/([A-Z])/', '-$0', $header));
         }
         $this->headers[$header] = $value;
         $this->template->addHeader($header, $value);
@@ -104,7 +104,7 @@ class Request
     /**
      * Sets basic authentication headers iwth the provided username
      * and password.
-     * 
+     *
      * @param string $userName
      * @param string $password
      */
@@ -115,7 +115,9 @@ class Request
 
     /**
      * Helper method to allow retrieval of headers.
+     *
      * @param string $name
+     *
      * @return string
      */
     public function __get($name)
@@ -127,11 +129,13 @@ class Request
 
     /**
      * Initiates the HTTP request using the provided method (GET, POST, PUT, DELETE)
-     * and returns the response XML as an Httpful\Request
-     * 
+     * and returns the response XML as an Httpful\Request.
+     *
      * @param string $method
-     * @return Httpful\Request
+     *
      * @throws Exceptions\MyPlexDataException
+     *
+     * @return Httpful\Request
      */
     public function send($method)
     {
@@ -139,19 +143,21 @@ class Request
         try {
             $response = HRequest::{$method}($this->endPoint)->send();
         } catch (Httpful\Exception\ConnectionErrorException $e) {
-            throw new Exceptions\MyPlexDataException('Unable to connect to endPoint: ' . $e->getMessage(), 0, $e);
+            throw new Exceptions\MyPlexDataException('Unable to connect to endPoint: '.$e->getMessage(), 0, $e);
         } catch (\Exception $e) {
-            throw new Exceptions\MyPlexDataException('Error in response from server: ' . $e->getMessage(), 0, $e);
+            throw new Exceptions\MyPlexDataException('Error in response from server: '.$e->getMessage(), 0, $e);
         }
         $this->errorCheck($response);
+
         return $response;
     }
 
     /**
      * Checks the response from the HTTP request for a variety of errors and issues
      * and raises appropriate exceptions if detected.
-     * 
+     *
      * @param Httpful\Request $response
+     *
      * @throws Exceptions\MyPlexAuthenticationException
      * @throws Exceptions\MyPlexDataException
      */
@@ -162,9 +168,9 @@ class Request
                 throw new Exceptions\MyPlexAuthenticationException((string) $response->body->error);
             }
 
-            $error = 'Error code ' . $response->code . ' recieved from server';
+            $error = 'Error code '.$response->code.' recieved from server';
             if ($response->hasBody() && isset($response->body->error)) {
-                $error .= ': ' . (string) $response->body->error;
+                $error .= ': '.(string) $response->body->error;
             }
             throw new Exceptions\MyPlexDataException($error);
         }

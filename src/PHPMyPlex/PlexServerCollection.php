@@ -22,6 +22,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE.
  */
+
 namespace PHPMyPlex;
 
 /**
@@ -33,16 +34,16 @@ class PlexServerCollection extends \ArrayObject
 {
     /**
      * Allows retrival of a Server by server name. Ignores case.
+     *
      * @param string $name
+     *
      * @return int
      */
     public function getByName($name)
     {
         $lname = \strtolower($name);
-        if ($this->offsetExists($lname))
-        {
+        if ($this->offsetExists($lname)) {
             return $this->offsetGet($lname);
         }
     }
 }
-
