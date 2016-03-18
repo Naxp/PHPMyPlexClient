@@ -160,6 +160,7 @@ class PlexServer
      */
     public function getSection($key, $directory = '', $path = '/library/sections')
     {
+        // This is a non-numeric string, probably a reference to a library by title.
         if (!\is_int($key) && !\ctype_digit($key)) {
             if (\count($this->sectionMappings) == 0) {
                 $this->getSections($path);
@@ -169,11 +170,15 @@ class PlexServer
             }
             $key = $this->sectionMappings[$key];
         }
+
+        // The key is a cloud synced directory, handle it directly.
         if (!\is_int($key) && \substr($key, 0, 6) == '/sync/') {
             $url = $key;
         } else {
             $url = $path.'/'.$key;
         }
+
+        // Append the directory view.
         if ($directory != DirectoryViews\DirectoryView::NONE) {
             $url .= '/'.$directory;
         }
