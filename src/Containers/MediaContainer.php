@@ -23,10 +23,10 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Containers;
+namespace Cheezykins\PHPMyPlex\Containers;
 
-use PHPMyPlex;
-use PHPMyPlex\Exceptions as Exceptions;
+use Cheezykins\PHPMyPlex;
+use Cheezykins\PHPMyPlex\Exceptions as Exceptions;
 
 /**
  * Parses the response from plex and manages children and attributes of a Plex Media Container.

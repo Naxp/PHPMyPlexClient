@@ -23,9 +23,12 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex;
+namespace Cheezykins\PHPMyPlex;
 
-use Httpful\Request as HRequest;
+use Cheezykins\PHPMyPlex\Exceptions\MyPlexAuthenticationException;
+use Cheezykins\PHPMyPlex\Exceptions\MyPlexDataException;
+use Httpful\Exception\ConnectionErrorException;
+use Httpful\Request as HttpfulRequest;
 
 /**
  * Provides an interface to the Httpful request library to communicate with plex.
@@ -53,12 +56,12 @@ class Request
      * expectEmptyResponse when set to true does not try and parse the result as XML.
      *
      * @param string               $endPoint
-     * @param bool|PHPMyPlex\Proxy $proxy
+     * @param bool|Proxy $proxy
      */
     public function __construct($endPoint, $proxy = false, $expectEmptyResponse = false)
     {
         $this->endPoint = $endPoint;
-        $this->template = HRequest::init();
+        $this->template = HttpfulRequest::init();
         if ($expectEmptyResponse) {
             $this->template->withoutAutoParse();
         } else {
@@ -102,7 +105,7 @@ class Request
     }
 
     /**
-     * Sets basic authentication headers iwth the provided username
+     * Sets basic authentication headers with the provided username
      * and password.
      *
      * @param string $userName
@@ -125,6 +128,7 @@ class Request
         if (array_key_exists($name, $this->headers)) {
             return $this->headers[$name];
         }
+        return null;
     }
 
     /**
@@ -133,19 +137,19 @@ class Request
      *
      * @param string $method
      *
-     * @throws Exceptions\MyPlexDataException
+     * @throws MyPlexDataException
      *
-     * @return Httpful\Request
+     * @return HttpfulRequest
      */
     public function send($method)
     {
-        HRequest::ini($this->template);
+        HttpfulRequest::ini($this->template);
         try {
-            $response = HRequest::{$method}($this->endPoint)->send();
-        } catch (Httpful\Exception\ConnectionErrorException $e) {
-            throw new Exceptions\MyPlexDataException('Unable to connect to endPoint: '.$e->getMessage(), 0, $e);
+            $response = HttpfulRequest::$method($this->endPoint)->send();
+        } catch (ConnectionErrorException $e) {
+            throw new MyPlexDataException('Unable to connect to endPoint: '.$e->getMessage(), 0, $e);
         } catch (\Exception $e) {
-            throw new Exceptions\MyPlexDataException('Error in response from server: '.$e->getMessage(), 0, $e);
+            throw new MyPlexDataException('Error in response from server: '.$e->getMessage(), 0, $e);
         }
         $this->errorCheck($response);
 
@@ -156,23 +160,23 @@ class Request
      * Checks the response from the HTTP request for a variety of errors and issues
      * and raises appropriate exceptions if detected.
      *
-     * @param Httpful\Request $response
+     * @param HttpfulRequest $response
      *
-     * @throws Exceptions\MyPlexAuthenticationException
-     * @throws Exceptions\MyPlexDataException
+     * @throws MyPlexAuthenticationException
+     * @throws MyPlexDataException
      */
     private function errorCheck($response)
     {
         if ($response->hasErrors()) {
             if ($response->code == 401) {
-                throw new Exceptions\MyPlexAuthenticationException((string) $response->body->error);
+                throw new MyPlexAuthenticationException((string) $response->body->error);
             }
 
             $error = 'Error code '.$response->code.' recieved from server';
             if ($response->hasBody() && isset($response->body->error)) {
                 $error .= ': '.(string) $response->body->error;
             }
-            throw new Exceptions\MyPlexDataException($error);
+            throw new MyPlexDataException($error);
         }
     }
 }

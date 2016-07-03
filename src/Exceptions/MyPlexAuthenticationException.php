@@ -23,26 +23,25 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\DirectoryViews;
+namespace Cheezykins\PHPMyPlex\Exceptions;
 
 /**
- * Defines views available to all library types within Plex.
+ * Used for handling errors logging in to MyPlex.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class DirectoryView
+class MyPlexAuthenticationException extends MyPlexException
 {
-    const NONE = '';
-    const ALL = 'all';
-    const UNWATCHED = 'unwatched';
-    const NEWEST = 'newest';
-    const RECENTLY_ADDED = 'recentlyAdded';
-    const RECENTLY_VIEWED = 'recentlyViewed';
-    const ON_DECK = 'onDeck';
-    const COLLECTION = 'collection';
-    const GENRE = 'genre';
-    const YEAR = 'year';
-    const CONTENT_RATING = 'contentRating';
-    const FIRST_CHARACTER = 'firstCharacter';
-    const FOLDER = 'folder';
+    /**
+     * Extneds the base constructor to provide authentication messages.
+     *
+     * @param string     $message
+     * @param int        $code
+     * @param \Exception $previous
+     */
+    public function __construct($message, $code = 0, $previous = null)
+    {
+        $message = 'Authentication failed: '.$message;
+        parent::__construct($message, $code, $previous);
+    }
 }

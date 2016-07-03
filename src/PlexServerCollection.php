@@ -23,34 +23,27 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Containers;
+namespace Cheezykins\PHPMyPlex;
 
 /**
- * Extends the MediaContainer to allow handling of Stream objects from Plex
- * Sparse class to match the Plex Data Structure.
- *
- * Typically available properties (actual properties available depend upon context)
- *
- * + **audioChannelLayout** -  (eg. stereo)
- * + **bitrate** -  (eg. 128)
- * + **bitrateMode** -  (eg. cbr)
- * + **channels** -  (eg. 2)
- * + **codec** -  (eg. mp3)
- * + **codecID** -  (eg. S_TEXT/UTF8)
- * + **containerType** -  (eg. Stream)
- * + **duration** -  (eg. 1257881)
- * + **format** -  (eg. srt)
- * + **id** -  (eg. 51345)
- * + **index** -  (eg. 1)
- * + **language** -  (eg. English)
- * + **languageCode** -  (eg. eng)
- * + **samplingRate** -  (eg. 48000)
- * + **selected** -  (eg. 1)
- * + **streamIdentifier** -  (eg. 1)
- * + **streamType** -  (eg. 2)
+ * Provides an itterable array of servers you can call by name.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Stream extends Part
+class PlexServerCollection extends \ArrayObject
 {
+    /**
+     * Allows retrival of a Server by server name. Ignores case.
+     *
+     * @param string $name
+     *
+     * @return int
+     */
+    public function getByName($name)
+    {
+        $lname = \strtolower($name);
+        if ($this->offsetExists($lname)) {
+            return $this->offsetGet($lname);
+        }
+    }
 }

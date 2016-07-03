@@ -23,13 +23,14 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Exceptions;
+namespace Cheezykins\PHPMyPlex\DirectoryViews;
 
 /**
- * Base project exception class.
+ * Extends the base views available with ones specifically for TV Shows.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class MyPlexException extends \Exception
+class TVDirectoryView extends DirectoryView
 {
+    const RECENTLY_VIEWED_SHOWS = 'recentlyViewedShows';
 }

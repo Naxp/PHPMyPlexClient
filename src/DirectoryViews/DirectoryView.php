@@ -23,55 +23,26 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex;
-
-use Httpful;
+namespace Cheezykins\PHPMyPlex\DirectoryViews;
 
 /**
- * Defines a proxy for sending requests to plex.
+ * Defines views available to all library types within Plex.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Proxy extends Httpful\Proxy
+class DirectoryView
 {
-    protected $host;
-    protected $port;
-    protected $authType;
-    protected $authUsername;
-    protected $authPassword;
-    protected $proxyType;
-
-    /**
-     * Defines proxy settings for use with Plex.
-     *
-     * @param string      $host
-     * @param int         $port
-     * @param null|string $authType
-     * @param null|string $authUsername
-     * @param null|string $authPassword
-     * @param string      $proxyType
-     */
-    public function __construct($host, $port = 80, $authType = null, $authUsername = null, $authPassword = null, $proxyType = self::HTTP)
-    {
-        $this->host = $host;
-        $this->port = $port;
-        $this->autType = $authType;
-        $this->authUsername = $authUsername;
-        $this->authPassword = $authPassword;
-        $this->proxyType = $proxyType;
-    }
-
-    /**
-     * Helper method to retrieve proxy settings.
-     *
-     * @param string $name
-     *
-     * @return mixed
-     */
-    public function __get($name)
-    {
-        if (isset($this->{$name})) {
-            return $this->{$name};
-        }
-    }
+    const NONE = '';
+    const ALL = 'all';
+    const UNWATCHED = 'unwatched';
+    const NEWEST = 'newest';
+    const RECENTLY_ADDED = 'recentlyAdded';
+    const RECENTLY_VIEWED = 'recentlyViewed';
+    const ON_DECK = 'onDeck';
+    const COLLECTION = 'collection';
+    const GENRE = 'genre';
+    const YEAR = 'year';
+    const CONTENT_RATING = 'contentRating';
+    const FIRST_CHARACTER = 'firstCharacter';
+    const FOLDER = 'folder';
 }

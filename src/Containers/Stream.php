@@ -23,20 +23,34 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Containers;
+namespace Cheezykins\PHPMyPlex\Containers;
 
 /**
- * Extends the MediaContainer to allow handling of Writer objects from Plex
+ * Extends the MediaContainer to allow handling of Stream objects from Plex
  * Sparse class to match the Plex Data Structure.
  *
  * Typically available properties (actual properties available depend upon context)
  *
- * + **tag** -  (eg. Paul Wernick)
- * + **containerType** -  (eg. Writer)
- * + **id** -  (eg. 8817)
+ * + **audioChannelLayout** -  (eg. stereo)
+ * + **bitrate** -  (eg. 128)
+ * + **bitrateMode** -  (eg. cbr)
+ * + **channels** -  (eg. 2)
+ * + **codec** -  (eg. mp3)
+ * + **codecID** -  (eg. S_TEXT/UTF8)
+ * + **containerType** -  (eg. Stream)
+ * + **duration** -  (eg. 1257881)
+ * + **format** -  (eg. srt)
+ * + **id** -  (eg. 51345)
+ * + **index** -  (eg. 1)
+ * + **language** -  (eg. English)
+ * + **languageCode** -  (eg. eng)
+ * + **samplingRate** -  (eg. 48000)
+ * + **selected** -  (eg. 1)
+ * + **streamIdentifier** -  (eg. 1)
+ * + **streamType** -  (eg. 2)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Writer extends Video
+class Stream extends Part
 {
 }

@@ -23,20 +23,22 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Containers;
+namespace Cheezykins\PHPMyPlex\Containers;
 
 /**
- * Extends the MediaContainer to allow handling of Field objects from Plex
+ * Extends the MediaContainer to allow handling of Role objects from Plex
  * Sparse class to match the Plex Data Structure.
  *
  * Typically available properties (actual properties available depend upon context)
  *
- * + **name** -  (eg. thumb)
- * + **locked** -  (eg. 1)
- * + **containerType** -  (eg. Field)
+ * + **id** -  (eg. 8940)
+ * + **tag** -  (eg. Mike White)
+ * + **role** -  (eg. Gas Station Attendant (uncredited))
+ * + **thumb** -  (eg. http://image.tmdb.org/t/p/original/luxVflXHHRlRYt8oqSxno04JGy6.jpg)
+ * + **containerType** -  (eg. Role)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Field extends Video
+class Role extends Video
 {
 }

@@ -23,18 +23,55 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\DirectoryViews;
+namespace Cheezykins\PHPMyPlex;
+
+use Httpful;
 
 /**
- * Extends the base views available with ones specifically for Movies.
+ * Defines a proxy for sending requests to plex.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class MovieDirectoryView extends DirectoryView
+class Proxy extends Httpful\Proxy
 {
-    const DECADE = 'decade';
-    const DIRECTOR = 'director';
-    const ACTOR = 'actor';
-    const COUNTRY = 'country';
-    const RATING = 'rating';
+    protected $host;
+    protected $port;
+    protected $authType;
+    protected $authUsername;
+    protected $authPassword;
+    protected $proxyType;
+
+    /**
+     * Defines proxy settings for use with Plex.
+     *
+     * @param string      $host
+     * @param int         $port
+     * @param null|string $authType
+     * @param null|string $authUsername
+     * @param null|string $authPassword
+     * @param string      $proxyType
+     */
+    public function __construct($host, $port = 80, $authType = null, $authUsername = null, $authPassword = null, $proxyType = self::HTTP)
+    {
+        $this->host = $host;
+        $this->port = $port;
+        $this->autType = $authType;
+        $this->authUsername = $authUsername;
+        $this->authPassword = $authPassword;
+        $this->proxyType = $proxyType;
+    }
+
+    /**
+     * Helper method to retrieve proxy settings.
+     *
+     * @param string $name
+     *
+     * @return mixed
+     */
+    public function __get($name)
+    {
+        if (isset($this->{$name})) {
+            return $this->{$name};
+        }
+    }
 }

@@ -23,21 +23,13 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Containers;
+namespace Cheezykins\PHPMyPlex\Exceptions;
 
 /**
- * Extends the MediaContainer to allow handling of Genre objects from Plex
- * Sparse class to match the Plex Data Structure.
- *
- * Typically available properties (actual properties available depend upon context)
- *
- * + **id** -  (eg. 581)
- * + **tag** -  (eg. Horror)
- * + **count** -  (eg. 38)
- * + **containerType** -  (eg. Genre)
+ * Used for handling issues raised when working with Plex data.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Genre extends Video
+class MyPlexDataException extends MyPlexException
 {
 }
