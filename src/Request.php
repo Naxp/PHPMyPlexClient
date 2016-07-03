@@ -55,7 +55,7 @@ class Request
      * Endpoint is the URL to request from, with optional proxy parameter.
      * expectEmptyResponse when set to true does not try and parse the result as XML.
      *
-     * @param string               $endPoint
+     * @param string     $endPoint
      * @param bool|Proxy $proxy
      */
     public function __construct($endPoint, $proxy = false, $expectEmptyResponse = false)
@@ -128,7 +128,6 @@ class Request
         if (array_key_exists($name, $this->headers)) {
             return $this->headers[$name];
         }
-        return null;
     }
 
     /**

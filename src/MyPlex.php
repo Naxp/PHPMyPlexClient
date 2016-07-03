@@ -30,7 +30,6 @@ use Cheezykins\PHPMyPlex\Exceptions\MyPlexDataException;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
 use Webmozart\KeyValueStore\JsonFileStore;
 
-
 /**
  * The MyPlex class is used to provide connectivity to the MyPlex API. It handles the login and authentication tokens
  * needed for subsequent calls. It can also provide a list of servers available within the account.
@@ -94,11 +93,11 @@ class MyPlex
      * [WebMozart\KeyValueStore](https://github.com/webmozart/key-value-store) interface (defaults to using the included
      * JsonFileStore) and an alternative endpoint URL for the myPlex login endpoint.
      *
-     * @param string $userName
-     * @param string $password
-     * @param Proxy|bool $proxy = false
-     * @param KeyValueStore $storage = null
-     * @param string $myPlexURL = 'https://plex.tv/users/sign_in.xml'
+     * @param string        $userName
+     * @param string        $password
+     * @param Proxy|bool    $proxy     = false
+     * @param KeyValueStore $storage   = null
+     * @param string        $myPlexURL = 'https://plex.tv/users/sign_in.xml'
      */
     public function __construct($userName, $password, $proxy = false, KeyValueStore $storage = null, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
     {
@@ -169,6 +168,7 @@ class MyPlex
      *
      * @param string $userName
      * @param string $password
+     *
      * @throws MyPlexDataException
      * @throws MyPlexAuthenticationException
      */
@@ -247,6 +247,7 @@ class MyPlex
      * Gets the IDs of the servers under MyPlex.
      *
      * @param \SimpleXMLElement $elements
+     *
      * @return array
      */
     private function parseIDs(\SimpleXMLElement $elements)
