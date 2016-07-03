@@ -49,12 +49,12 @@ class PlexApi
     const OPTION_OPTIONS = 'options';
     const SIGN_IN_URL = 'https://plex.tv/users/sign_in.xml';
     protected $headers = [
-        'X-Plex-Platform' => PHP_OS,
-        'X-Plex-Platform-Version' => false,
-        'X-Plex-Provides' => 'controller',
-        'X-Plex-Product' => 'PHPMyPlex',
-        'X-Plex-Version' => false,
-        'X-Plex-Device' => false,
+        'X-Plex-Platform'          => PHP_OS,
+        'X-Plex-Platform-Version'  => false,
+        'X-Plex-Provides'          => 'controller',
+        'X-Plex-Product'           => 'PHPMyPlex',
+        'X-Plex-Version'           => false,
+        'X-Plex-Device'            => false,
         'X-Plex-Client-Identifier' => false,
     ];
     protected $storage;
@@ -72,7 +72,7 @@ class PlexApi
 
     public function login($userName, $passWord)
     {
-        $token = $this->storage->get('token_' . $userName);
+        $token = $this->storage->get('token_'.$userName);
         if (!$this->token) {
             $response = $this->post(self::SIGN_IN_URL);
         }
@@ -90,7 +90,7 @@ class PlexApi
         if (array_key_exists($name, $this->headers)) {
             return $this->headers[$name];
         }
-        throw new \OutOfRangeException($name . ' does not exist');
+        throw new \OutOfRangeException($name.' does not exist');
     }
 
     /**
@@ -114,7 +114,7 @@ class PlexApi
     public function setHeader($header, $value)
     {
         if (\substr($header, 0, 7) != 'X-Plex-') {
-            $header = 'X-Plex-' . \ucfirst(\preg_replace('/([A-Z])/', '-$0', $header));
+            $header = 'X-Plex-'.\ucfirst(\preg_replace('/([A-Z])/', '-$0', $header));
         }
         $this->headers[$header] = $value;
     }
@@ -122,23 +122,28 @@ class PlexApi
     /**
      * @param $url string
      * @param null|array $data
-     * @return \stdClass
+     *
      * @throws \Exception
+     *
+     * @return \stdClass
      */
     public function get($url, $data = null)
     {
         $requestOptions = [
-            'query' => $data
+            'query' => $data,
         ];
         $options = $this->buildRequest(self::METHOD_GET, $url, $requestOptions);
+
         return $this->sendRequest($options);
     }
 
     /**
-     * Builds the options for the request
+     * Builds the options for the request.
+     *
      * @param $method string
      * @param $url string
      * @param array $options
+     *
      * @return array
      */
     protected function buildRequest($method, $url, $options = [])
@@ -157,14 +162,15 @@ class PlexApi
         $options = $this->addAuthHeader($options);
 
         return [
-            self::OPTION_METHOD => $method,
-            self::OPTION_URL => $url,
-            self::OPTION_OPTIONS => $options
+            self::OPTION_METHOD  => $method,
+            self::OPTION_URL     => $url,
+            self::OPTION_OPTIONS => $options,
         ];
     }
 
     /**
      * @param $options array
+     *
      * @return array
      */
     protected function addAuthHeader($options)
@@ -175,7 +181,7 @@ class PlexApi
             ) {
                 $options['headers'] = [];
             }
-            $options['headers'] = 'Bearer ' . $this->token;
+            $options['headers'] = 'Bearer '.$this->token;
         }
 
         if ($this->username !== null && $this->password !== null) {
@@ -184,7 +190,7 @@ class PlexApi
             ) {
                 $options['headers'] = [];
             }
-            $options['headers']['Authorization'] = 'Basic ' . base64_encode($this->username . ':' . $this->password);
+            $options['headers']['Authorization'] = 'Basic '.base64_encode($this->username.':'.$this->password);
         }
 
         return $options;
@@ -192,8 +198,10 @@ class PlexApi
 
     /**
      * @param $options array
-     * @return \stdClass
+     *
      * @throws \Exception
+     *
+     * @return \stdClass
      */
     protected function sendRequest($options)
     {
@@ -203,19 +211,22 @@ class PlexApi
         } catch (ClientException $e) {
             $response = $e->getResponse();
             $request = $e->getRequest();
-            $body = (string)$response->getBody();
+            $body = (string) $response->getBody();
             $message = "REST Client Error: {$request->getMethod()} {$response->getStatusCode()} {$body}";
             throw new \Exception($message, $e->getCode(), $e);
         }
+
         return new \SimpleXMLElement($response->getBody()->getContents());
     }
 
     /**
      * @param $url string
      * @param null|array $data
-     * @param boolean $isJson
-     * @return \stdClass
+     * @param bool       $isJson
+     *
      * @throws \Exception
+     *
+     * @return \stdClass
      */
     public function post($url, $data = null, $isJson = true)
     {
@@ -224,18 +235,21 @@ class PlexApi
             $dataType = 'json';
         }
         $requestOptions = [
-            $dataType => $data
+            $dataType => $data,
         ];
         $options = $this->buildRequest(self::METHOD_POST, $url, $requestOptions);
+
         return $this->sendRequest($options);
     }
 
     /**
      * @param $url string
      * @param array|null $data
-     * @param boolean $isJson
-     * @return \stdClass
+     * @param bool       $isJson
+     *
      * @throws \Exception
+     *
+     * @return \stdClass
      */
     public function put($url, $data = null, $isJson = true)
     {
@@ -244,18 +258,21 @@ class PlexApi
             $dataType = 'json';
         }
         $requestOptions = [
-            $dataType => $data
+            $dataType => $data,
         ];
         $options = $this->buildRequest(self::METHOD_PUT, $url, $requestOptions);
+
         return $this->sendRequest($options);
     }
 
     /**
      * @param $url string
      * @param array|null $data
-     * @param bool $isJson
-     * @return \stdClass
+     * @param bool       $isJson
+     *
      * @throws \Exception
+     *
+     * @return \stdClass
      */
     public function patch($url, $data = null, $isJson = true)
     {
@@ -264,42 +281,52 @@ class PlexApi
             $dataType = 'json';
         }
         $requestOptions = [
-            $dataType => $data
+            $dataType => $data,
         ];
         $options = $this->buildRequest(self::METHOD_PATCH, $url, $requestOptions);
+
         return $this->sendRequest($options);
     }
 
     /**
      * @param $url string
-     * @return \stdClass
+     *
      * @throws \Exception
+     *
+     * @return \stdClass
      */
     public function head($url)
     {
         $options = $this->buildRequest(self::METHOD_HEAD, $url);
+
         return $this->sendRequest($options);
     }
 
     /**
      * @param $url string
-     * @return \stdClass
+     *
      * @throws \Exception
+     *
+     * @return \stdClass
      */
     public function options($url)
     {
         $options = $this->buildRequest(self::METHOD_OPTIONS, $url);
+
         return $this->sendRequest($options);
     }
 
     /**
      * @param $url string
-     * @return \stdClass
+     *
      * @throws \Exception
+     *
+     * @return \stdClass
      */
     public function delete($url)
     {
         $options = $this->buildRequest(self::METHOD_DELETE, $url);
+
         return $this->sendRequest($options);
     }
 

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Cheezykins\PHPMyPlex;
-
 
 use Cheezykins\PHPMyPlex\Exceptions\NoProxyException;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
@@ -24,72 +22,78 @@ class Configuration
 
     /**
      * Configuration constructor.
+     *
      * @param KeyValueStore|null $storage
      */
     public function __construct(KeyValueStore $storage = null)
     {
         if ($storage === null) {
-            $storage = new JsonFileStore(__DIR__ . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . 'storage.json');
+            $storage = new JsonFileStore(__DIR__.DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.'storage.json');
         }
         $this->setStorage($storage);
     }
 
     /**
      * @param $name
+     *
      * @return mixed
      */
     public function __get($name)
     {
-        $methodName = 'get' . ucfirst($name);
+        $methodName = 'get'.ucfirst($name);
         if (method_exists($this, $methodName)) {
             return call_user_func([
                 $this,
-                $methodName
+                $methodName,
             ]);
         }
-        throw new \OutOfBoundsException($name . ' is not a valid property.');
+        throw new \OutOfBoundsException($name.' is not a valid property.');
     }
 
     /**
      * @param $name
      * @param $value
+     *
      * @return mixed
      */
     public function __set($name, $value)
     {
-        $methodName = 'set' . ucfirst($name);
+        $methodName = 'set'.ucfirst($name);
         if (method_exists($this, $methodName)) {
             call_user_func([
                 $this,
-                $methodName
+                $methodName,
             ], $value);
+
             return $value;
         }
-        throw new \OutOfBoundsException($name . ' is not a valid property.');
+        throw new \OutOfBoundsException($name.' is not a valid property.');
     }
 
     /**
-     * @return string
      * @throws NoProxyException
+     *
+     * @return string
      */
     public function getProxyAddress()
     {
         if (!$this->proxyHost) {
             throw new NoProxyException();
         }
-        $proxyUrl = $this->proxyScheme . '://';
+        $proxyUrl = $this->proxyScheme.'://';
         $prefix = '';
         if ($this->proxyUsername !== null) {
             $proxyUrl .= $this->proxyUsername;
             if ($this->proxyPassword !== null) {
-                $proxyUrl .= ':' . $this->proxyPassword;
+                $proxyUrl .= ':'.$this->proxyPassword;
             }
             $prefix = '@';
         }
-        $proxyUrl .= $prefix . $this->proxyHost;
+        $proxyUrl .= $prefix.$this->proxyHost;
         if ($this->proxyPort !== null) {
-            $proxyUrl .= ':' . $this->proxyPort;
+            $proxyUrl .= ':'.$this->proxyPort;
         }
+
         return $proxyUrl;
     }
 
@@ -142,7 +146,7 @@ class Configuration
     }
 
     /**
-     * @return integer
+     * @return int
      */
     protected function getProxyPort()
     {

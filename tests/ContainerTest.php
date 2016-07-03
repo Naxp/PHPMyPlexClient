@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Cheezykins\PHPMyPlex\Tests;
-
 
 use Cheezykins\PHPMyPlex\Api\PlexApi;
 use Cheezykins\PHPMyPlex\Configuration;
@@ -11,7 +9,6 @@ use Cheezykins\PHPMyPlex\Exceptions\InvalidConfigurationException;
 
 class ContainerTest extends \PHPUnit_Framework_TestCase
 {
-
     /** @var Container $container */
     protected $container;
     protected $configuration;
@@ -30,13 +27,13 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
         $this->expectException(InvalidConfigurationException::class);
         new Container($configuration);
     }
-    
+
     public function testContainerHasConfigurationSingleton()
     {
         $config = $this->container->get('configuration');
         $this->assertEquals($this->configuration, $config);
     }
-    
+
     public function testContainerImplementsProvider()
     {
         $testClass = $this->container->get('test');

@@ -96,7 +96,7 @@ class MyPlex
      * https://plex.tv/users/sign_in.xml
      *
      * @param PlexApi $api
-     * @param string $userName
+     * @param string  $userName
      * @param $passWord
      *
      * @throws MyPlexAuthenticationException
@@ -169,7 +169,6 @@ class MyPlex
      */
     private function login($userName, $password)
     {
-        
         $this->api;
 
         try {

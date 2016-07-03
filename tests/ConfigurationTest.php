@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Cheezykins\PHPMyPlex\Tests;
-
 
 use Cheezykins\PHPMyPlex\Configuration;
 use Cheezykins\PHPMyPlex\Exceptions\NoProxyException;
