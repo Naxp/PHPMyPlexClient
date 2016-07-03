@@ -25,8 +25,6 @@
 
 namespace Cheezykins\PHPMyPlex;
 
-use Httpful;
-
 /**
  * Defines a proxy for sending requests to plex.
  *

@@ -1,15 +1,13 @@
 <?php
 
-
 namespace Cheezykins\PHPMyPlex;
 
+use Cheezykins\PHPMyPlex\Exceptions\InvalidConfigurationException;
 use League\Container\Container as LeagueContainer;
 use League\Container\Definition\DefinitionFactoryInterface;
 use League\Container\Inflector\InflectorAggregateInterface;
 use League\Container\ReflectionContainer;
 use League\Container\ServiceProvider\ServiceProviderAggregateInterface;
-use Cheezykins\PHPMyPlex\Exceptions\InvalidConfigurationException;
-
 
 class Container extends LeagueContainer
 {
@@ -21,16 +19,12 @@ class Container extends LeagueContainer
         InflectorAggregateInterface $inflectors = null,
         DefinitionFactoryInterface $definitionFactory = null)
     {
-        if (!$config->isValid())
-        {
+        if (!$config->isValid()) {
             throw new InvalidConfigurationException();
         }
         parent::__construct($providers, $inflectors, $definitionFactory);
-        $this->delegate(new ReflectionContainer);
+        $this->delegate(new ReflectionContainer());
         $this->addServiceProvider(Provider::class);
         $this->share('configuration', $config);
     }
-    
-    
-
 }

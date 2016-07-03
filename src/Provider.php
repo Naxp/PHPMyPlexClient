@@ -1,18 +1,15 @@
 <?php
 
-
 namespace Cheezykins\PHPMyPlex;
 
-
 use Cheezykins\PHPMyPlex\Api\PlexApi;
-use GuzzleHttp\Client;
 use Cheezykins\PHPMyPlex\Tests\TestContainerClass;
+use GuzzleHttp\Client;
 use League\Container\Argument\RawArgument;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 
 class Provider extends AbstractServiceProvider
 {
-
     protected $provides = [
         'test',
         'myplex',
@@ -35,5 +32,4 @@ class Provider extends AbstractServiceProvider
             ->withArgument(new RawArgument($configuration->userName))
             ->withArgument(new RawArgument($configuration->passWord));
     }
-
 }
