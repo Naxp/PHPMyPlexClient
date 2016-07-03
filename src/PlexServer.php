@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex;
+namespace Cheezykins\PHPMyPlex;
 
 /**
  * Models the plex server. Provides the basis of requesting sections and subsections within each server as well as

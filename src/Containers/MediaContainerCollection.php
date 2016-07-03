@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Containers;
+namespace Cheezykins\PHPMyPlex\Containers;
 
 /**
  * Provides an itterable collection of MediaContainer objects with

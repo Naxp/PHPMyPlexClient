@@ -23,14 +23,18 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Containers;
+namespace Cheezykins\PHPMyPlex\DirectoryViews;
 
 /**
- * Extends the MediaContainer to allow handling of TranscodeSession objects from Plex
- * Sparse class to match the Plex Data Structure.
+ * Extends the base views available with ones specifically for Movies.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class TranscodeSession extends MediaContainer
+class MovieDirectoryView extends DirectoryView
 {
+    const DECADE = 'decade';
+    const DIRECTOR = 'director';
+    const ACTOR = 'actor';
+    const COUNTRY = 'country';
+    const RATING = 'rating';
 }

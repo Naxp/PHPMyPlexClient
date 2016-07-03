@@ -23,30 +23,20 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Containers;
+namespace Cheezykins\PHPMyPlex\Containers;
 
 /**
- * Extends the MediaContainer to allow handling of Media objects from Plex
+ * Extends the MediaContainer to allow handling of Field objects from Plex
  * Sparse class to match the Plex Data Structure.
  *
  * Typically available properties (actual properties available depend upon context)
  *
- * + **aspectRatio** -  (eg. 1.78)
- * + **audioChannels** -  (eg. 2)
- * + **audioCodec** -  (eg. dca)
- * + **bitrate** -  (eg. 10705)
- * + **container** -  (eg. avi)
- * + **containerType** -  (eg. Media)
- * + **duration** -  (eg. 1257923)
- * + **height** -  (eg. 416)
- * + **id** -  (eg. 14262)
- * + **videoCodec** -  (eg. h264)
- * + **videoFrameRate** -  (eg. 24p)
- * + **videoResolution** -  (eg. 1080)
- * + **width** -  (eg. 1920)
+ * + **name** -  (eg. thumb)
+ * + **locked** -  (eg. 1)
+ * + **containerType** -  (eg. Field)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Media extends Video
+class Field extends Video
 {
 }

@@ -23,27 +23,14 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex;
+namespace Cheezykins\PHPMyPlex\Containers;
 
 /**
- * Provides an itterable array of servers you can call by name.
+ * Extends the MediaContainer to allow handling of Player objects from Plex
+ * Sparse class to match the Plex Data Structure.
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class PlexServerCollection extends \ArrayObject
+class Player extends MediaContainer
 {
-    /**
-     * Allows retrival of a Server by server name. Ignores case.
-     *
-     * @param string $name
-     *
-     * @return int
-     */
-    public function getByName($name)
-    {
-        $lname = \strtolower($name);
-        if ($this->offsetExists($lname)) {
-            return $this->offsetGet($lname);
-        }
-    }
 }

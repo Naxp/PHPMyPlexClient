@@ -23,10 +23,12 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex;
+namespace Cheezykins\PHPMyPlex;
 
-use Webmozart\KeyValueStore\API as kvsAPI;
-use Webmozart\KeyValueStore as kvs;
+use Cheezykins\PHPMyPlex\Exceptions\MyPlexAuthenticationException;
+use Cheezykins\PHPMyPlex\Exceptions\MyPlexDataException;
+use Webmozart\KeyValueStore\Api\KeyValueStore;
+use Webmozart\KeyValueStore\JsonFileStore;
 
 /**
  * The MyPlex class is used to provide connectivity to the MyPlex API. It handles the login and authentication tokens
@@ -91,16 +93,16 @@ class MyPlex
      * [WebMozart\KeyValueStore](https://github.com/webmozart/key-value-store) interface (defaults to using the included
      * JsonFileStore) and an alternative endpoint URL for the myPlex login endpoint.
      *
-     * @param string                                    $userName
-     * @param string                                    $password
-     * @param Proxy|bool                                $proxy     = false
-     * @param Webmozart\KeyValueStore\API\KeyValueStore $storage   = null
-     * @param string                                    $myPlexURL = 'https://plex.tv/users/sign_in.xml'
+     * @param string        $userName
+     * @param string        $password
+     * @param Proxy|bool    $proxy     = false
+     * @param KeyValueStore $storage   = null
+     * @param string        $myPlexURL = 'https://plex.tv/users/sign_in.xml'
      */
-    public function __construct($userName, $password, $proxy = false, kvsAPI\KeyValueStore $storage = null, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
+    public function __construct($userName, $password, $proxy = false, KeyValueStore $storage = null, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
     {
         if (is_null($storage)) {
-            $storage = new kvs\JsonFileStore(__DIR__.DIRECTORY_SEPARATOR.'storage.json');
+            $storage = new JsonFileStore(__DIR__.DIRECTORY_SEPARATOR.'storage.json');
         }
         $this->storage = $storage;
         $this->url = $myPlexURL;
@@ -112,16 +114,16 @@ class MyPlex
      * Returns a collection of the myplex servers you have access to
      * This includes both your own and shared plex servers.
      *
-     * @param type $endPoint
+     * @param string $endPoint
      *
      * @throws Exceptions\MyPlexAuthenticationException
      *
-     * @return \PHPMyPlex\PlexServerCollection
+     * @return PlexServerCollection
      */
     public function getServers($endPoint = 'https://plex.tv/pms/servers.xml')
     {
         if (!$this->authenticationToken) {
-            throw new Exceptions\MyPlexAuthenticationException('No authentication token exists, have you signed in to MyPlex?');
+            throw new MyPlexAuthenticationException('No authentication token exists, have you signed in to MyPlex?');
         }
 
         $request = new Request($endPoint);
@@ -166,6 +168,9 @@ class MyPlex
      *
      * @param string $userName
      * @param string $password
+     *
+     * @throws MyPlexDataException
+     * @throws MyPlexAuthenticationException
      */
     private function login($userName, $password)
     {
@@ -180,7 +185,7 @@ class MyPlex
 
         try {
             $response = $request->send('post');
-        } catch (Exceptions\MyPlexAuthenticationException $e) {
+        } catch (MyPlexAuthenticationException $e) {
             if (!$token) {
                 throw $e;
             }
@@ -242,8 +247,10 @@ class MyPlex
      * Gets the IDs of the servers under MyPlex.
      *
      * @param \SimpleXMLElement $elements
+     *
+     * @return array
      */
-    private function parseIDs($elements)
+    private function parseIDs(\SimpleXMLElement $elements)
     {
         $return = [];
         foreach ($elements as $element) {

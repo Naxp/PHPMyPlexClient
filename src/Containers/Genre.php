@@ -23,56 +23,21 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Containers;
+namespace Cheezykins\PHPMyPlex\Containers;
 
 /**
- * Provides an itterable array of properties within a plex container as well
- * as helpers to help parse the strings returned by plex into their appropriate
- * data types.
+ * Extends the MediaContainer to allow handling of Genre objects from Plex
+ * Sparse class to match the Plex Data Structure.
+ *
+ * Typically available properties (actual properties available depend upon context)
+ *
+ * + **id** -  (eg. 581)
+ * + **tag** -  (eg. Horror)
+ * + **count** -  (eg. 38)
+ * + **containerType** -  (eg. Genre)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class ContainerDetails extends \ArrayObject
+class Genre extends Video
 {
-    /**
-     * Tries to parse a string into a DateTime object, returns false on failure.
-     *
-     * @param type $attribute
-     *
-     * @return \DateTime|bool
-     */
-    public function parseDateTime($attribute)
-    {
-        if ($this->offsetExists($attribute)) {
-            try {
-                $d = new \DateTime();
-                $d->setTimestamp((int) $this->offsetGet($attribute));
-
-                return $d;
-            } catch (\Exception $e) {
-                return false;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Tries to parse a string into an int, returns false on failure.
-     *
-     * @param type $attribute
-     *
-     * @return int|bool
-     */
-    public function parseInt($attribute)
-    {
-        if ($this->offsetExists($attribute)) {
-            $attr = $this->offsetGet($attribute);
-            if (\ctype_digit($attr)) {
-                return (int) $attr;
-            }
-        }
-
-        return false;
-    }
 }

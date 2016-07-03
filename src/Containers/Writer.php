@@ -23,25 +23,20 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Exceptions;
+namespace Cheezykins\PHPMyPlex\Containers;
 
 /**
- * Used for handling errors logging in to MyPlex.
+ * Extends the MediaContainer to allow handling of Writer objects from Plex
+ * Sparse class to match the Plex Data Structure.
+ *
+ * Typically available properties (actual properties available depend upon context)
+ *
+ * + **tag** -  (eg. Paul Wernick)
+ * + **containerType** -  (eg. Writer)
+ * + **id** -  (eg. 8817)
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class MyPlexAuthenticationException extends MyPlexException
+class Writer extends Video
 {
-    /**
-     * Extneds the base constructor to provide authentication messages.
-     *
-     * @param string     $message
-     * @param int        $code
-     * @param \Exception $previous
-     */
-    public function __construct($message, $code = 0, $previous = null)
-    {
-        $message = 'Authentication failed: '.$message;
-        parent::__construct($message, $code, $previous);
-    }
 }

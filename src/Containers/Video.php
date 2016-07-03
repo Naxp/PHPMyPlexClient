@@ -23,9 +23,9 @@
  * THE SOFTWARE.
  */
 
-namespace PHPMyPlex\Containers;
+namespace Cheezykins\PHPMyPlex\Containers;
 
-use PHPMyPlex;
+use Cheezykins\PHPMyPlex;
 
 /**
  * Extends the MediaContainer to allow handling of Video objects from Plex.

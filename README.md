@@ -16,8 +16,8 @@ Basic Usage
 ### Log in and retrieve servers.
 
 ```php
-use PHPMyPlex\MyPlex;
-use PHPMyPlex\DirectoryViews as DirectoryViews;
+use Cheezykins\PHPMyPlex\MyPlex;
+use Cheezykins\PHPMyPlex\DirectoryViews as DirectoryViews;
 
 $myPlex = new MyPlex('MyPlex username', 'MyPlex password');
 
