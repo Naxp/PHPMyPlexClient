@@ -74,7 +74,7 @@ class PlexApi
     {
         $token = $this->storage->get('token_' . $userName);
         if (!$this->token) {
-            $response = $this->post(self::SIGN_IN_URL, )
+            $response = $this->post(self::SIGN_IN_URL);
         }
     }
 
