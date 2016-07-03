@@ -30,6 +30,6 @@ namespace Cheezykins\PHPMyPlex\Exceptions;
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class MyPlexException extends \Exception
+abstract class MyPlexException extends \Exception
 {
 }

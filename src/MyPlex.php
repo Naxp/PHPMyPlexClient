@@ -25,6 +25,7 @@
 
 namespace Cheezykins\PHPMyPlex;
 
+use Cheezykins\PHPMyPlex\Api\PlexApi;
 use Cheezykins\PHPMyPlex\Exceptions\MyPlexAuthenticationException;
 use Cheezykins\PHPMyPlex\Exceptions\MyPlexDataException;
 use Webmozart\KeyValueStore\Api\KeyValueStore;
@@ -83,8 +84,7 @@ class MyPlex
     private $allEntitlements;
     private $entitlements;
     private $proxy = false;
-    private $storage;
-    private $url;
+    private $api;
 
     /**
      * Defines a connection to the MyPlex services, requires your myplex username and password.
@@ -93,21 +93,18 @@ class MyPlex
      * [WebMozart\KeyValueStore](https://github.com/webmozart/key-value-store) interface (defaults to using the included
      * JsonFileStore) and an alternative endpoint URL for the myPlex login endpoint.
      *
-     * @param string        $userName
-     * @param string        $password
-     * @param Proxy|bool    $proxy     = false
-     * @param KeyValueStore $storage   = null
-     * @param string        $myPlexURL = 'https://plex.tv/users/sign_in.xml'
+     * https://plex.tv/users/sign_in.xml
+     *
+     * @param PlexApi $api
+     * @param string $userName
+     * @param $passWord
+     *
+     * @throws MyPlexAuthenticationException
      */
-    public function __construct($userName, $password, $proxy = false, KeyValueStore $storage = null, $myPlexURL = 'https://plex.tv/users/sign_in.xml')
+    public function __construct(PlexApi $api, $userName, $passWord)
     {
-        if (is_null($storage)) {
-            $storage = new JsonFileStore(__DIR__.DIRECTORY_SEPARATOR.'storage.json');
-        }
-        $this->storage = $storage;
-        $this->url = $myPlexURL;
-        $this->proxy = $proxy;
-        $this->login($userName, $password);
+        $this->api = $api;
+        $this->login($userName, $passWord);
     }
 
     /**
@@ -126,8 +123,6 @@ class MyPlex
             throw new MyPlexAuthenticationException('No authentication token exists, have you signed in to MyPlex?');
         }
 
-        $request = new Request($endPoint);
-        $request->token = $this->authenticationToken;
 
         $response = $request->send('get');
 
@@ -141,7 +136,7 @@ class MyPlex
                 $attributes[$key] = (string) $value;
             }
 
-            $server = new PlexServer($this->proxy);
+            $server = new PlexServer();
             $server->attributes = $attributes;
             $servers[\strtolower($server->name)] = $server;
         }
@@ -174,14 +169,8 @@ class MyPlex
      */
     private function login($userName, $password)
     {
-        $request = new Request($this->url, $this->proxy);
-        $request->clientIdentifier = $this->getClientIdentifier();
-        $token = $this->storage->get('token_'.$userName, false);
-        if (!$token) {
-            $request->setAuthentication($userName, $password);
-        } else {
-            $request->token = $token;
-        }
+        
+        $this->api;
 
         try {
             $response = $request->send('post');

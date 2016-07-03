@@ -32,7 +32,7 @@ use Httpful;
  *
  * @author Chris Stretton <cstretton@gmail.com>
  */
-class Proxy extends Httpful\Proxy
+class Proxy
 {
     protected $host;
     protected $port;

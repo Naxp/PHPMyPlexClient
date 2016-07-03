@@ -69,16 +69,6 @@ class PlexServer
     private $proxy = false;
 
     /**
-     * Defines a myplex server. Takes an optional Proxy object for calls back to Plex.
-     *
-     * @param mixed $proxy
-     */
-    public function __construct($proxy = false)
-    {
-        $this->proxy = $proxy;
-    }
-
-    /**
      * Returns the fully qualified URL for the server based on server properties.
      *
      * @return string
@@ -118,7 +108,7 @@ class PlexServer
     {
         $url = $this->getUrl().$path;
 
-        $request = new Request($url, $this->proxy);
+        $request = new PlexApi($url, $this->proxy);
         $request->token = $this->accessToken;
 
         $response = $request->send('get');
