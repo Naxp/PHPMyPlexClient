@@ -31,7 +31,7 @@ class ContainerTest extends \PHPUnit_Framework_TestCase
     public function testContainerHasConfigurationSingleton()
     {
         $config = $this->container->get('configuration');
-        $this->assertEquals($this->configuration, $config);
+        $this->assertSame($this->configuration, $config);
     }
 
     public function testContainerImplementsProvider()
